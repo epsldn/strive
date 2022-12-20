@@ -7,8 +7,6 @@
 .landingPageContent {
     max-width: 1728px;
     width: 100%;
-    background-color: red;
-    height: 100px;
 }
 
 .landingPageMain {
@@ -17,10 +15,82 @@
 }
 
 .landingPageMainContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     width: 50%;
-    padding: 0 5%;
+    padding: 0 9.5%;
 }
 
-#landingPageButtons{
-    
+.landingPageMainContent h2 {
+    margin-bottom: 2rem;
+    margin-top: .5rem;
+}
+
+.landingPageMainImage {
+    width: 50%;
+    height: 873px;
+    position: relative;
+}
+
+.landingPageMainImage img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+#title1 {
+    font-size: 6rem;
+}
+
+#landingPageButtons {
+    margin-top: 4.2rem;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+#landingPageButtons button:first-child {
+    background-color: var(--strava-international-orange);
+    color: white;
+}
+
+#landingPageButtons button:first-child:hover {
+    background-color: #c94100;
+    border-color: #bf3e00;
+}
+
+#landingPageButtons button:last-child {
+    background-color: white;
+    border: 1px solid var(--strava-border-lightgray);
+    color: black;
+}
+
+#landingPageButtons button:last-child:hover {
+    background-color: #e6e6e6;
+    border: 1px solid #bbbbce;
+}
+
+
+#landingPageButton * {
+    width: 50%;
+}
+
+#runningPhone {
+    position: absolute;
+    height: 100px;
+}
+
+.iconListItem {
+    height: 72px;
+}
+
+.svgIconContainer {
+    max-height: 72px;
+    max-width: 72px;
+    background-color: var(--strava-international-orange);
+    width: 8.5%;
+    aspect-ratio: 1 / 1;
+    padding: 12px 13px;
+    margin-right: 15px;
 }

@@ -68,3 +68,8 @@ button,
 input[type="submit"] {
     cursor: pointer;
 }
+
+html {
+    font-size: 62.5%;
+    height: fit-content;
+}
