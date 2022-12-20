@@ -1,0 +1,26 @@
+.landingPageContainer {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.landingPageContent {
+    max-width: 1728px;
+    width: 100%;
+    background-color: red;
+    height: 100px;
+}
+
+.landingPageMain {
+    display: flex;
+    width: 100%;
+}
+
+.landingPageMainContent {
+    width: 50%;
+    padding: 0 5%;
+}
+
+#landingPageButtons{
+    
+}
