@@ -1,0 +1,61 @@
+.navBarContainer {
+    display: flex;
+    background-color: white;
+    justify-content: center;
+    height: 55px;
+}
+
+.navBarContent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1248px;
+    padding: 0 1.5%
+}
+
+.navBarContent p {
+    font-weight: 1000;
+    font-size: 2.4rem;
+    color: var(--strive-international-orange);
+}
+
+.navBarButtonContainer {
+    width: 10.5%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.navBarButton {
+    display: flex;
+    width: fit-content;
+    height: fit-content;
+    padding: 6px 16px;
+    font-size: 1.2rem;
+    line-height: normal;
+    font-weight: 900;
+    margin: 0;
+}
+
+#signUp {
+    background-color: var(--strive-international-orange);
+    color: white;
+    font-weight: 800;
+}
+
+#signUp:hover {
+    background-color: #c94100;
+    border-color: #bf3e00;
+    font-weight: 800;
+}
+
+#login {
+    background-color: white;
+    border: 1px solid var(--strive-border-lightgray);
+    color: black;
+}
+
+#login:hover {
+    background-color: #e6e6e6;
+    border: 1px solid #bbbbce;
+}
