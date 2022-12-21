@@ -49,11 +49,6 @@
     border-radius: .4rem;
 }
 
-.formContent input::selection {
-    color: white;
-    background-color: var(--strive-international-orange);
-}
-
 .formContent input:focus {
     color: black;
     box-shadow: 0 0 8px 0 rgba(255, 255, 255, 0.8);

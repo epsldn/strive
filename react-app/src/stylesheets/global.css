@@ -1,5 +1,6 @@
 #root {
     --strive-international-orange: #fc5200;
+    --strive-error-red: #fe0c0b;
     --strive-cream-background: #f9f8f5;
     --strive-border-lightgray: #dfdfe8;
     --strive-auth-border-gray: #666;
@@ -7,6 +8,11 @@
     background-color: var(--strive-cream-background);
     font-family: 'Lato', sans-serif;
     box-sizing: border-box;
+}
+
+#root *::selection {
+    color: white;
+    background-color: var(--strive-international-orange);
 }
 
 button {

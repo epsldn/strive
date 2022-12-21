@@ -52,6 +52,8 @@ const SignUpForm = () => {
       <div className={styles.mainContent}>
         <img id={styles.backgroundImage} src={backgroundImage} />
         <form className={styles.formContainer} onSubmit={onSignUp}>
+          {<div>
+          </div>}
           <h2>Join Strive today, it's Free.</h2>
           <div className={styles.formContent}>
             <div>
@@ -74,7 +76,7 @@ const SignUpForm = () => {
             </div>
             <button id={styles.submitButton} type='submit'>Sign Up</button>
             <p>By signing up for Strive, you <span>don't</span> agree to <span>anything</span>, Strive is <span>not</span> a real company.</p>
-            <p>Already a member? <Link to="/login"><span>Log in</span></Link></p>
+            <p>Already a member? <Link to="/login"><span style={{ marginLeft: ".5rem" }} >Log in</span></Link></p>
           </div>
         </form>
       </div>

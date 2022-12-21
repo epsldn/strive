@@ -22,6 +22,14 @@ const LoginForm = () => {
     }
   };
 
+  const demoLogin = async (e) => {
+    e.preventDefault();
+    const data = await dispatch(login("demo@aa.io", "password"));
+    if (data) {
+      setErrors(data);
+    }
+  };
+
   const updateEmail = (e) => {
     setEmail(e.target.value);
   };
@@ -40,6 +48,8 @@ const LoginForm = () => {
       <div className={styles.mainContent}>
         <img id={styles.backgroundImage} src={backgroundImage} />
         <form className={styles.formContainer} onSubmit={onLogin}>
+          {<div>
+          </div>}
           <h2>Log In</h2>
           <div className={styles.formContent}>
             <div>
@@ -60,7 +70,7 @@ const LoginForm = () => {
                 onChange={updatePassword}
               />
               <button id={styles.submitButton} type='submit'>Login</button>
-              <p>Want try try out a demo? <span style={{ cursor: "pointer", marginLeft: "1rem" }}>Log in as Demo User</span> </p>
+              <p>Want try try out a demo? <span onClick={demoLogin} style={{ cursor: "pointer", marginLeft: ".5rem" }}>Log in as Demo User</span> </p>
             </div>
           </div>
         </form>
