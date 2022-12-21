@@ -172,3 +172,61 @@
     aspect-ratio: 1 / 1;
     height: auto;
 }
+
+
+@media screen and (max-width: 768px) {
+    .landingPageMain {
+        flex-direction: column;
+    }
+
+    .landingPageMainContent {
+        width: 100%;
+    }
+
+    .landingPageMainImage {
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        width: 100%;
+        height: 70vw;
+        overflow-y: hidden;
+    }
+
+    .landingPageMainImage>img {
+        height: 80%;
+    }
+
+    .landingPageMainImage img {
+        object-fit: cover;
+        object-position: bottom;
+    }
+
+    #image2 {
+        padding: 0;
+    }
+
+    #bikingImage {
+        padding: 0;
+    }
+
+    #bikingImage img {
+        height: 200%;
+        width: 50%;
+        object-fit: cover;
+    }
+
+    #landingPageButtons {
+        width: 100%;
+        margin-bottom: 5rem;
+    }
+
+    #runningPhone {
+        width: 55%;
+        top: 40px;
+        left: 25%;
+        right: 25%;
+    }
+    .landingPageBanner{
+        height: 74px;
+    }
+}

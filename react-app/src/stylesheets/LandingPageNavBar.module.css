@@ -15,14 +15,48 @@
     width: 100%;
     align-items: center;
     background-color: var(--strive-cream-background);
+    padding: 0 2.5%;
 }
 
 .navBarContent p {
-    font-weight: 900;
+    font-weight: 1000;
     font-size: 2.4rem;
     color: var(--strive-international-orange);
 }
 
 #buttonContainer {
     display: flex;
+    align-items: center;
+    gap: 1.4rem;
+}
+
+#buttonContainer button {
+    margin: 0;
+    width: auto;
+    padding: .6rem 2.4rem;
+    font-size: 1.4rem;
+    height: 4rem;
+}
+
+#buttonContainer button:last-child {
+    background-color: var(--strive-international-orange);
+    color: white;
+    font-weight: 800;
+}
+
+#buttonContainer button:last-child:hover {
+    background-color: #c94100;
+    border-color: #bf3e00;
+    font-weight: 800;
+}
+
+#buttonContainer button:first-child {
+    background-color: white;
+    border: 1px solid var(--strive-border-lightgray);
+    color: black;
+}
+
+#buttonContainer button:first-child:hover {
+    background-color: #e6e6e6;
+    border: 1px solid #bbbbce;
 }
