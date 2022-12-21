@@ -25,7 +25,7 @@ function LandingPage() {
                                 Celebrate
                             </h2>
                             <p style={{ fontSize: "1.7rem" }}>
-                                People on Strava upload everything from weekend hikes to marathons. The only rule is to cheer each other on.
+                                People on Strive upload everything from weekend hikes to marathons. The only rule is to cheer each other on.
                             </p>
                             <div id={styles.landingPageButtons}>
                                 <button onClick={_ => history.push("/join")}>
@@ -87,7 +87,7 @@ function LandingPage() {
                                             All you need is a desktop
                                         </p>
                                         <p>
-                                            Strava turns your desktop into an activity tracker. Just sit down to type everything and go.
+                                            Strive turns your desktop into an activity tracker. Just sit down to type everything and go.
                                         </p>
                                     </div>
                                 </li>
@@ -102,7 +102,7 @@ function LandingPage() {
                                             Got a device? Connect it to Strive
                                         </p>
                                         <p>
-                                            You can also connect anything with a browser – Strava is compatible with most browsers!.
+                                            You can also connect anything with a browser – Strive is compatible with most browsers!.
                                         </p>
                                     </div>
                                 </li>
