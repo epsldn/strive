@@ -1,0 +1,115 @@
+.mainContent {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+}
+
+#backgroundImage {
+    position: absolute;
+    z-index: 1;
+    object-fit: cover;
+    height: 100%;
+    object-position: center;
+}
+
+.formContainer {
+    background-color: rgba(0, 0, 0, 0.75);
+    height: fit-content;
+    max-width: 400px;
+    width: 100%;
+    color: white;
+    position: relative;
+    z-index: 2;
+    top: 4%;
+    border-radius: .3rem;
+}
+
+.formContainer h2 {
+    display: flex;
+    justify-content: center;
+    padding: 2rem 5rem;
+    font-size: 3.4rem;
+    text-align: center;
+    font-weight: 800;
+    background-color: rgba(0, 0, 0, 0.5)
+}
+
+.formContent {
+    padding: 5rem;
+    color: var(--strive-auth-font-color-gray);
+}
+
+.formContent input {
+    font-size: 1.4rem;
+    width: 100%;
+    border: 1px solid var(--strive-auth-border-gray);
+    margin-bottom: 2rem;
+    padding: 1rem 1.6rem;
+    border-radius: .4rem;
+}
+
+.formContent input:focus {
+    color: black;
+    box-shadow: 0 0 8px 0 rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.formContent button {
+    border-radius: .3rem;
+    margin: 0;
+}
+
+#submitButton {
+    height: auto;
+    padding: 1rem 1.6rem;
+    background-color: var(--strive-international-orange);
+    color: white;
+}
+
+#submitButton:hover {
+    background-color: #c94100;
+    border-color: #bf3e00;
+}
+
+.formContent p {
+    text-align: center;
+    color: white;
+    line-height: 1.8rem;
+    font-weight: 400;
+    font-size: 1.2rem;
+}
+
+.formContent p:first-of-type {
+    margin: 1.3rem 0;
+}
+
+.formContent span {
+    color: var(--strive-auth-font-color-gray);
+}
+
+.errorField {
+    font-size: 1.4rem;
+    color: white;
+    text-align: center;
+    background-color: var(--strive-error-red);
+    animation: error-slide-in .095s ease-in 1 forwards;
+}
+
+@keyframes error-slide-in {
+    0% {
+        padding: 0;
+        height: 0;
+        color: transparent;
+    }
+
+    50% {
+        color: transparent
+    }
+    100% {
+        padding: 16px;
+        height: fit-content;
+        color: white;
+    }
+}

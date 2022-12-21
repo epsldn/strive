@@ -42,7 +42,10 @@ def login():
         user = User.query.filter(User.email == form.data['email']).first()
         login_user(user)
         return user.to_dict()
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+    if "email" in form.errors and form.errors["email"] == ["Invalid Credentials"] or "password" in form.errors and form.errors["password"] == ["Invalid Credentials"]:
+        return {"errors": {"serverError": "Invalid Credentials"}}, 401
+    return {'errors': {k: v[0] for k, v in form.errors.items()}}, 401
 
 
 @auth_routes.route('/logout')

@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { signUp } from '../../store/session';
 import AuthNavBar from './AuthNavBar';
 import imagePicker from "./util";
+import styles from "../../stylesheets/Auth.module.css";
 
 const SignUpForm = () => {
   const [errors, setErrors] = useState([]);
+  const [backgroundImage] = useState(imagePicker());
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -47,37 +49,37 @@ const SignUpForm = () => {
   return (
     <div>
       <AuthNavBar />
-      <form onSubmit={onSignUp}>
-        <div>
-          <label>Email</label>
-          <input
-            type='text'
-            name='email'
-            onChange={updateEmail}
-            value={email}
-          ></input>
-        </div>
-        <div>
-          <label>Password</label>
-          <input
-            type='password'
-            name='password'
-            onChange={updatePassword}
-            value={password}
-          ></input>
-        </div>
-        <div>
-          <label>Repeat Password</label>
-          <input
-            type='password'
-            name='repeat_password'
-            onChange={updateRepeatPassword}
-            value={repeatPassword}
-            required={true}
-          ></input>
-        </div>
-        <button type='submit'>Sign Up</button>
-      </form>
+      <div className={styles.mainContent}>
+        <img id={styles.backgroundImage} src={backgroundImage} />
+        <form className={styles.formContainer} onSubmit={onSignUp}>
+          {<div>
+          </div>}
+          <h2>Join Strive today, it's Free.</h2>
+          <div className={styles.formContent}>
+            <div>
+              <input
+                type='text'
+                name='email'
+                placeholder='Email'
+                onChange={updateEmail}
+                value={email}
+              ></input>
+            </div>
+            <div>
+              <input
+                type='password'
+                name='password'
+                placeholder='Password'
+                onChange={updatePassword}
+                value={password}
+              ></input>
+            </div>
+            <button id={styles.submitButton} type='submit'>Sign Up</button>
+            <p>By signing up for Strive, you <span>don't</span> agree to <span>anything</span>, Strive is <span>not</span> a real company.</p>
+            <p>Already a member? <Link to="/login"><span style={{ marginLeft: ".5rem" }} >Log in</span></Link></p>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

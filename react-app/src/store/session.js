@@ -9,7 +9,7 @@ const setUser = (user) => ({
 
 const removeUser = () => ({
   type: REMOVE_USER,
-})
+});
 
 const initialState = { user: null };
 
@@ -24,10 +24,10 @@ export const authenticate = () => async (dispatch) => {
     if (data.errors) {
       return;
     }
-  
+
     dispatch(setUser(data));
   }
-}
+};
 
 export const login = (email, password) => async (dispatch) => {
   const response = await fetch('/api/auth/login', {
@@ -40,11 +40,11 @@ export const login = (email, password) => async (dispatch) => {
       password
     })
   });
-  
-  
+
+
   if (response.ok) {
     const data = await response.json();
-    dispatch(setUser(data))
+    dispatch(setUser(data));
     return null;
   } else if (response.status < 500) {
     const data = await response.json();
@@ -52,10 +52,10 @@ export const login = (email, password) => async (dispatch) => {
       return data.errors;
     }
   } else {
-    return ['An error occurred. Please try again.']
+    return { serverError: "Something went wrong." };
   }
 
-}
+};
 
 export const logout = () => async (dispatch) => {
   const response = await fetch('/api/auth/logout', {
@@ -82,10 +82,10 @@ export const signUp = (username, email, password) => async (dispatch) => {
       password,
     }),
   });
-  
+
   if (response.ok) {
     const data = await response.json();
-    dispatch(setUser(data))
+    dispatch(setUser(data));
     return null;
   } else if (response.status < 500) {
     const data = await response.json();
@@ -93,16 +93,16 @@ export const signUp = (username, email, password) => async (dispatch) => {
       return data.errors;
     }
   } else {
-    return ['An error occurred. Please try again.']
+    return ['An error occurred. Please try again.'];
   }
-}
+};
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case SET_USER:
-      return { user: action.payload }
+      return { user: action.payload };
     case REMOVE_USER:
-      return { user: null }
+      return { user: null };
     default:
       return state;
   }

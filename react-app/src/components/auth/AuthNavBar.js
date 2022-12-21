@@ -7,7 +7,7 @@ function AuthNavBar() {
     return (
         <div className={styles.navBarContainer}>
             <div className={styles.navBarContent}>
-                <Link to="/" style={{ userSelect: "none" }}>
+                <Link to="/welcome" style={{ userSelect: "none" }}>
                     <p>
                         STRIVE
                     </p>

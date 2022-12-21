@@ -1,5 +1,5 @@
 import NavBar from "../NavBar";
-import { useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import banner from "../../assets/landing-banner.png";
 import heroBiking from "../../assets/hero-biking.webp";
 import heroRunning from "../../assets/hero-running.webp";
@@ -11,9 +11,16 @@ import recordIcon from "../../assets/record-icon.svg";
 import watchIcon from "../../assets/watch-icon.svg";
 import styles from "../../stylesheets/LandingPage.module.css";
 import LandingPageNavBar from "./LandingPageNavBar";
+import { useSelector } from "react-redux";
 
 function LandingPage() {
+    const user = useSelector(state => state.session.user);
     const history = useHistory();
+
+    if (user) {
+        return <Redirect to='/' />;
+    }
+
     return (
         <div className={styles.landingPageContainer}>
             <LandingPageNavBar />
