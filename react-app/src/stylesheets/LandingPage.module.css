@@ -2,13 +2,12 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    position: relative;
 }
 
 .landingPageContent {
     max-width: 1728px;
     width: 100%;
-    background-color: red;
-    height: 100px;
 }
 
 .landingPageMain {
@@ -17,10 +16,246 @@
 }
 
 .landingPageMainContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     width: 50%;
-    padding: 0 5%;
+    padding: 0 9.5%;
 }
 
-#landingPageButtons{
-    
+.landingPageMainContent h2 {
+    margin-bottom: 2rem;
+    margin-top: .5rem;
+}
+
+.landingPageMainImage {
+    width: 50%;
+    max-height: 873px;
+    position: relative;
+}
+
+.landingPageMainImage img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: left;
+}
+
+#title1 {
+    font-size: 6rem;
+}
+
+#landingPageButtons {
+    margin-top: 4.2rem;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+#landingPageButtons button:first-child {
+    background-color: var(--strive-international-orange);
+    color: white;
+    font-weight: 800;
+}
+
+#landingPageButtons button:first-child:hover {
+    background-color: #c94100;
+    border-color: #bf3e00;
+    font-weight: 800;
+}
+
+#landingPageButtons button:last-child {
+    background-color: white;
+    border: 1px solid var(--strive-border-lightgray);
+    color: black;
+}
+
+#landingPageButtons button:last-child:hover {
+    background-color: #e6e6e6;
+    border: 1px solid #bbbbce;
+}
+
+
+#landingPageButton * {
+    width: 50%;
+}
+
+#runningPhone {
+    position: absolute;
+    width: 32%;
+    top: 40%;
+    left: 10%;
+    box-shadow: 0 0 44px rgba(0, 0, 0, .3);
+    border-radius: 23px;
+}
+
+.landingPageBanner {
+    width: 100%;
+    height: 18.5rem;
+}
+
+.landingPageBanner img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+#activeLife {
+    padding: 0 12%;
+}
+
+#image2 {
+    padding-right: 5%;
+    padding-bottom: 7.5%;
+    max-height: 743px;
+}
+
+#bikingImage {
+    object-position: right;
+    padding-right: 5%;
+    padding-bottom: 7.5%;
+}
+
+#watch {
+    position: absolute;
+    width: 18.3%;
+    top: 45%;
+    right: 44%;
+}
+
+#phone2 {
+    position: absolute;
+    width: 37%;
+    right: 0;
+    top: 21.5%;
+}
+
+.iconList {
+    display: flex;
+    flex-direction: column;
+    gap: 5.5rem;
+    margin-top: 4.4rem
+}
+
+.iconListItem {
+    height: 76px;
+    display: flex;
+}
+
+.listText p:first-of-type {
+    font-size: 1.7rem;
+    margin-bottom: .6rem;
+    font-weight: 600;
+}
+
+.listText p:last-of-type {
+    font-size: 1.4rem;
+}
+
+.iconOuterContainer {
+    margin-right: 1.5rem;
+    height: 100%;
+    width: 20%;
+    min-width: 40px;
+}
+
+.svgIconContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--strive-international-orange);
+    padding: 15%;
+}
+
+.svgIconContainer img {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    height: auto;
+}
+
+
+@media screen and (max-width: 768px) {
+    .landingPageMain {
+        flex-direction: column;
+    }
+
+    .landingPageMainContent {
+        width: 100%;
+    }
+
+    .landingPageMainImage {
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        width: 100%;
+        height: 70vw;
+        overflow-y: hidden;
+    }
+
+    .landingPageMainImage>img {
+        height: 80%;
+    }
+
+    .landingPageMainImage img {
+        object-fit: cover;
+        object-position: bottom;
+    }
+
+    #image2 {
+        padding: 0;
+        height: 100vh;
+    }
+
+    #bikingImage {
+        padding: 0;
+        height: 60vh;
+        align-self: flex-start;
+    }
+
+    #bikingImage img {
+        object-fit: cover;
+    }
+
+    #landingPageButtons {
+        width: 100%;
+        margin-bottom: 5rem;
+    }
+
+    #runningPhone {
+        width: 55%;
+        top: 40px;
+        left: 25%;
+        right: 25%;
+    }
+
+    #watch {
+        right: 0;
+        width: 30%;
+        top: 45%;
+    }
+
+    #phone2 {
+        width: 60%;
+        left: 5px;
+    }
+
+    .landingPageBanner {
+        height: 74px;
+    }
+}
+
+@media screen and (max-width: 1280px) {
+    #runningPhone{
+        min-width: 175px;
+        top: 32%;
+    }
+
+    #phone2{
+        width: 30vh;
+    }
+
+    #watch{
+        width: 15vh
+    }
 }
