@@ -1,0 +1,28 @@
+.mainContainer {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    width: 100%;
+    height: 65px;
+    display: flex;
+    justify-content: center;
+}
+
+.navBarContent {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1728px;
+    width: 100%;
+    align-items: center;
+    background-color: var(--strive-cream-background);
+}
+
+.navBarContent p {
+    font-weight: 900;
+    font-size: 2.4rem;
+    color: var(--strive-international-orange);
+}
+
+#buttonContainer {
+    display: flex;
+}

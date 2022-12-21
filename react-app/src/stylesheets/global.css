@@ -1,8 +1,8 @@
 #root {
-    --strava-international-orange: #fc5200;
-    --strava-cream-background: #f9f8f5;
-    --strava-border-lightgray: #dfdfe8;
-    background-color: var(--strava-cream-background);
+    --strive-international-orange: #fc5200;
+    --strive-cream-background: #f9f8f5;
+    --strive-border-lightgray: #dfdfe8;
+    background-color: var(--strive-cream-background);
     font-family: 'Lato', sans-serif;
     box-sizing: border-box;
 }

@@ -53,18 +53,20 @@
 }
 
 #landingPageButtons button:first-child {
-    background-color: var(--strava-international-orange);
+    background-color: var(--strive-international-orange);
     color: white;
+    font-weight: 800;
 }
 
 #landingPageButtons button:first-child:hover {
     background-color: #c94100;
     border-color: #bf3e00;
+    font-weight: 800;
 }
 
 #landingPageButtons button:last-child {
     background-color: white;
-    border: 1px solid var(--strava-border-lightgray);
+    border: 1px solid var(--strive-border-lightgray);
     color: black;
 }
 
@@ -160,7 +162,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--strava-international-orange);
+    background-color: var(--strive-international-orange);
     padding: 15%;
 }
 
