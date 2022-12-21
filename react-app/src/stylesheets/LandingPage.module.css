@@ -156,6 +156,7 @@
     margin-right: 1.5rem;
     height: 100%;
     width: 20%;
+    min-width: 40px;
 }
 
 .svgIconContainer {
@@ -203,15 +204,16 @@
 
     #image2 {
         padding: 0;
+        height: 100vh;
     }
 
     #bikingImage {
         padding: 0;
+        height: 60vh;
+        align-self: flex-start;
     }
 
     #bikingImage img {
-        height: 200%;
-        width: 50%;
         object-fit: cover;
     }
 
@@ -226,7 +228,34 @@
         left: 25%;
         right: 25%;
     }
-    .landingPageBanner{
+
+    #watch {
+        right: 0;
+        width: 30%;
+        top: 45%;
+    }
+
+    #phone2 {
+        width: 60%;
+        left: 5px;
+    }
+
+    .landingPageBanner {
         height: 74px;
+    }
+}
+
+@media screen and (max-width: 1280px) {
+    #runningPhone{
+        min-width: 175px;
+        top: 32%;
+    }
+
+    #phone2{
+        width: 30vh;
+    }
+
+    #watch{
+        width: 15vh
     }
 }
