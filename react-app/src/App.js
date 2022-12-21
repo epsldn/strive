@@ -28,7 +28,7 @@ function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path='/' exact >
+        <Route path='/welcome' exact >
           <LandingPage />
         </Route>
         <Route path='/login' exact>
@@ -37,6 +37,9 @@ function App() {
         <Route path='/join' exact>
           <SignUpForm />
         </Route>
+        <ProtectedRoute path="/" exact>
+          "HELLO"
+        </ProtectedRoute>
         <ProtectedRoute path='/users' exact >
           <UsersList />
         </ProtectedRoute>

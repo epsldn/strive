@@ -2,6 +2,8 @@
     --strive-international-orange: #fc5200;
     --strive-cream-background: #f9f8f5;
     --strive-border-lightgray: #dfdfe8;
+    --strive-auth-border-gray: #666;
+    --strive-auth-font-color-gray: #CCC;
     background-color: var(--strive-cream-background);
     font-family: 'Lato', sans-serif;
     box-sizing: border-box;
