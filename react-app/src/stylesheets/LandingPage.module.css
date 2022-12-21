@@ -2,6 +2,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    position: relative;
 }
 
 .landingPageContent {
@@ -29,7 +30,7 @@
 
 .landingPageMainImage {
     width: 50%;
-    height: 873px;
+    max-height: 873px;
     position: relative;
 }
 
@@ -37,6 +38,7 @@
     height: 100%;
     width: 100%;
     object-fit: cover;
+    object-position: left;
 }
 
 #title1 {
@@ -78,19 +80,93 @@
 
 #runningPhone {
     position: absolute;
-    height: 100px;
+    width: 32%;
+    top: 40%;
+    left: 10%;
+    box-shadow: 0 0 44px rgba(0, 0, 0, .3);
+    border-radius: 23px;
+}
+
+.landingPageBanner {
+    width: 100%;
+    height: 18.5rem;
+}
+
+.landingPageBanner img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+#activeLife {
+    padding: 0 12%;
+}
+
+#image2 {
+    padding-right: 5%;
+    padding-bottom: 7.5%;
+    max-height: 743px;
+}
+
+#bikingImage {
+    object-position: right;
+    padding-right: 5%;
+    padding-bottom: 7.5%;
+}
+
+#watch {
+    position: absolute;
+    width: 18.3%;
+    top: 45%;
+    right: 44%;
+}
+
+#phone2 {
+    position: absolute;
+    width: 37%;
+    right: 0;
+    top: 21.5%;
+}
+
+.iconList {
+    display: flex;
+    flex-direction: column;
+    gap: 5.5rem;
+    margin-top: 4.4rem
 }
 
 .iconListItem {
-    height: 72px;
+    height: 76px;
+    display: flex;
+}
+
+.listText p:first-of-type {
+    font-size: 1.7rem;
+    margin-bottom: .6rem;
+    font-weight: 600;
+}
+
+.listText p:last-of-type {
+    font-size: 1.4rem;
+}
+
+.iconOuterContainer {
+    margin-right: 1.5rem;
+    height: 100%;
+    width: 20%;
 }
 
 .svgIconContainer {
-    max-height: 72px;
-    max-width: 72px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: var(--strava-international-orange);
-    width: 8.5%;
+    padding: 15%;
+}
+
+.svgIconContainer img {
+    width: 100%;
+    height: 100%;
     aspect-ratio: 1 / 1;
-    padding: 12px 13px;
-    margin-right: 15px;
+    height: auto;
 }

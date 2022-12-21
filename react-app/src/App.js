@@ -8,7 +8,7 @@ import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
 import "./stylesheets/reset.css";
-import LandingPage from './components/LandingPage';
+import LandingPage from './components/LandingPage/LandingPage';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
