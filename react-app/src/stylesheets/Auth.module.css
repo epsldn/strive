@@ -88,3 +88,28 @@
 .formContent span {
     color: var(--strive-auth-font-color-gray);
 }
+
+.errorField {
+    font-size: 1.4rem;
+    color: white;
+    text-align: center;
+    background-color: var(--strive-error-red);
+    animation: error-slide-in .095s ease-in 1 forwards;
+}
+
+@keyframes error-slide-in {
+    0% {
+        padding: 0;
+        height: 0;
+        color: transparent;
+    }
+
+    50% {
+        color: transparent
+    }
+    100% {
+        padding: 16px;
+        height: fit-content;
+        color: white;
+    }
+}
