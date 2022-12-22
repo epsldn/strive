@@ -126,6 +126,10 @@
     border-color: #bf3e00;
 }
 
-#selected{
+#selected {
     background-color: rgb(109, 109, 120);
+}
+
+#birthdayErrors {
+    color: var(--strive-form-error-red);
 }

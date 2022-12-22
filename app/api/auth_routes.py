@@ -39,7 +39,7 @@ def login():
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         # Add the user to the session, we are logged in!
-        user = User.query.filter(User.email == form.data['email']).first()
+        user = User.query.filter(User.email.ilike(form.data['email'])).first()
         login_user(user)
         return user.to_dict()
 
@@ -83,3 +83,12 @@ def unauthorized():
     Returns unauthorized JSON when flask-login authentication fails
     """
     return {'errors': ['Unauthorized']}, 401
+
+
+@auth_routes.route("/check-email/<email>")
+def check_email(email):
+    user = User.query.filter(User.email.ilike(email)).first()
+    if (user):
+        return jsonify({"email": "User with this email already exits"}), 401
+    else:
+        return jsonify({"email": "No email found"}), 200

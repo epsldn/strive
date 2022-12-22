@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { signUp } from "../../store/session";
 import styles from "../../stylesheets/Birthday.module.css";
 const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 const monthsWith31Days = new Set(["January", "March", "May", "July", "August", "October", "December"]);
@@ -68,13 +70,45 @@ function Birthday(props) {
     const [monthPlaceholder, setMonthPlaceholder] = useState("");
     const [dayPlaceholder, setDayPlaceholder] = useState("");
     const [yearPlaceholder, setYearPlaceholder] = useState("");
-    const { setShowModal } = props;
+    const [errors, setErrors] = useState({});
+    const { email, password, setShowModal } = props;
+    const dispatch = useDispatch();
     const container1 = useRef(null);
     const container2 = useRef(null);
     const container3 = useRef(null);
     const ref1 = useRef(null);
     const ref2 = useRef(null);
     const ref3 = useRef(null);
+
+    const onSignUp = async (e) => {
+        e.preventDefault();
+        const errors = {};
+        if (!month, !day, !year) errors.birthdate = "Please enter your full birthdate.";
+        setErrors(errors);
+        if (Object.keys(errors).length > 0) return;
+
+        const monthNumber = {
+            "January": 1,
+            "February": 2,
+            "March": 3,
+            "April": 4,
+            "May": 5,
+            "June": 6,
+            "July": 7,
+            "August": 8,
+            "September": 9,
+            "October": 10,
+            "November": 11,
+            "December": 12
+        };
+
+        const birthdate = `${year}-${monthNumber[month]}-${day}`;
+        console.log(birthdate);
+        const data = await dispatch(signUp(email, password, birthdate));
+        if (data) {
+            setErrors(data);
+        }
+    };
 
     useEffect(() => {
         const formattedMonth = month.slice(0, 1).toUpperCase() + month.slice(1).toLowerCase();
@@ -155,6 +189,7 @@ function Birthday(props) {
             <div className={styles.formContainer}>
                 <form>
                     <h3>Birthday</h3>
+                    <h3 id={styles.birthdayErrors}>{errors.birthdate}</h3>
                     <div className={styles.formContent}>
                         <div className={styles.inputContainer}
                             onClick={() => {
@@ -269,7 +304,7 @@ function Birthday(props) {
                 <p>By signing up for Strive, you don't have to agree to anything. Strive is not a real company</p>
             </div >
             <div className={styles.agreeButtonContainer}>
-                <button>Agree and Sign Up</button>
+                <button onClick={onSignUp}>Agree and Sign Up</button>
             </div>
         </div >
     );
