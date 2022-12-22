@@ -108,7 +108,7 @@ const SignUpForm = () => {
                   onChange={(event) => setConfirmPassword(event.target.value)}
                   value={confirmPassword}
                 />
-                {<label>{errors.confirmPassword}</label>}
+                <label>{errors.confirmPassword}</label>
               </div>
             }
             <button id={styles.submitButton} onClick={phase1Check}>Sign Up</button>
