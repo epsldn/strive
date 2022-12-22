@@ -87,7 +87,7 @@ def unauthorized():
 
 @auth_routes.route("/check-email/<email>")
 def check_email(email):
-    user = User.query.filter(User.email.ilike(email)).first()
+    user = User.query.filter(User.email.ilike(email)).first();
     if (user):
         return jsonify({"email": "User with this email already exits"}), 401
     else:

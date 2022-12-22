@@ -78,6 +78,7 @@ const SignUpForm = () => {
 
     setShowConfirmPassword(true);
   }, [password]);
+  
   if (user) {
     return <Redirect to='/' />;
   }

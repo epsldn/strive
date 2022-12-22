@@ -61,21 +61,27 @@ function Birthday(props) {
     const [month, setMonth] = useState("");
     const [months, setMonths] = useState([]);
     const [showMonths, setShowMonths] = useState(false);
+
     const [day, setDay] = useState("");
     const [days, setDays] = useState([]);
     const [showDays, setShowDays] = useState(false);
+
     const [year, setYear] = useState("");
     const [years, setYears] = useState([]);
     const [showYear, setShowYear] = useState(false);
+
     const [monthPlaceholder, setMonthPlaceholder] = useState("");
     const [dayPlaceholder, setDayPlaceholder] = useState("");
     const [yearPlaceholder, setYearPlaceholder] = useState("");
+
     const [errors, setErrors] = useState({});
     const { email, password, setShowModal } = props;
     const dispatch = useDispatch();
+
     const container1 = useRef(null);
     const container2 = useRef(null);
     const container3 = useRef(null);
+
     const ref1 = useRef(null);
     const ref2 = useRef(null);
     const ref3 = useRef(null);
@@ -83,7 +89,7 @@ function Birthday(props) {
     const onSignUp = async (e) => {
         e.preventDefault();
         const errors = {};
-        if (!month, !day, !year) errors.birthdate = "Please enter your full birthdate.";
+        if (!month || !day || !year) errors.birthdate = "Please enter your full birthdate.";
         setErrors(errors);
         if (Object.keys(errors).length > 0) return;
 
@@ -103,7 +109,7 @@ function Birthday(props) {
         };
 
         const birthdate = `${year}-${monthNumber[month]}-${day}`;
-        console.log(birthdate);
+
         const data = await dispatch(signUp(email, password, birthdate));
         if (data) {
             setErrors(data);
@@ -118,12 +124,14 @@ function Birthday(props) {
 
     useEffect(() => {
         if (!showMonths) return;
+
         function onClick(e) {
             if (container1.current && container1.current.contains(e.target) === false) {
                 setShowMonths(false);
                 setMonth(month || monthPlaceholder);
             }
         }
+
         document.addEventListener("click", onClick);
         return () => document.removeEventListener("click", onClick);
     }, [showMonths]);
@@ -136,8 +144,8 @@ function Birthday(props) {
     useEffect(() => {
         let days = daysCreator(monthPlaceholder);
         if (days.length > 0) {
-            days = days.map(v => v.toString()).filter(v => {
-                return v.startsWith(day);
+            days = days.map(number => number.toString()).filter(number => {
+                return number.startsWith(day);
             });
             if (days.length === 0) days = ["No results."];
         }
