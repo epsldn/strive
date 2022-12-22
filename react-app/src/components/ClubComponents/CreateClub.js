@@ -1,8 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import MainNavBar from "../MainNavBar";
 import styles from "../../stylesheets/CreateClub.module.css";
 
 function CreateClub() {
+    const [errors, setErrors] = useState({});
+    const [clubName, setClubName] = useState("");
+    const [location, setLocation] = useState("");
+    const [website, setWebsite] = useState("");
+    const [sport, setSport] = useState("");
+    const [clubType, setClubType] = useState("");
+    const [description, setDescription] = useState("");
+
+    const history = useHistory();
+
+    function handleSubmission(event) {
+        event.preventDefault();
+    }
+    function handleCancel(event) {
+        event.preventDefault();
+        history.push("/");
+    }
+
     return (
         <div className={styles.mainWrapper}>
             <MainNavBar />
@@ -12,28 +31,38 @@ function CreateClub() {
                         Create Club
                     </h1>
                     <p>Fields marked with * are required</p>
-                    <form>
+                    <form onSubmit={handleSubmission}>
                         <div>
                             <label>Club Name *</label>
                             <input
                                 type="text"
+                                onChange={(event) => setClubName(event.target.value)}
+                                value={clubName}
                             />
+                            <label>{ }</label>
                         </div>
                         <div>
                             <label>Location *</label>
                             <input
                                 type="text"
+                                onChange={(event) => setLocation(event.target.value)}
+                                value={location}
                             />
                         </div>
                         <div>
                             <label>Website</label>
                             <input
                                 type="text"
+                                onChange={(event) => setWebsite(event.target.value)}
+                                value={website}
                             />
                         </div>
                         <div>
                             <label>Sport</label>
-                            <select>
+                            <select
+                                onChange={(event) => setSport(event.target.value)}
+                                value={sport}
+                            >
                                 <option value="cycling">Cycling</option>
                                 <option value="running">Running</option>
                                 <option value="triathlon">Triathlon</option>
@@ -77,7 +106,10 @@ function CreateClub() {
                         </div>
                         <div>
                             <label>Club Type</label>
-                            <select>
+                            <select
+                                onChange={(event) => setClubType(event.target.value)}
+                                value={clubType}
+                            >
                                 <option value="club">Club</option>
                                 <option value="racing_team">Racing Team</option>
                                 <option value="shop">Shop</option>
@@ -87,11 +119,14 @@ function CreateClub() {
                         </div>
                         <div>
                             <label>Description</label>
-                            <textarea />
+                            <textarea
+                                onChange={(event) => setDescription(event.target.value)}
+                                value={description}
+                            />
                         </div>
                         <div className={styles.buttonContainer}>
                             <button type="submit">Create Club</button>
-                            <button>Cancel</button>
+                            <button onClick={handleCancel}>Cancel</button>
                         </div>
                     </form>
                 </div>
