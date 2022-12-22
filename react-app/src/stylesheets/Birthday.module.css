@@ -1,0 +1,131 @@
+.container {
+    min-width: 370px;
+    max-width: 450px;
+    width: 50vw;
+    background-color: white;
+    position: relative;
+    border-radius: .4rem;
+}
+
+.container h2 {
+    padding: 1.6rem 2.4rem;
+    padding-top: 2.4rem;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+#x {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    position: absolute;
+    color: var(--strive-auth-border-gray);
+    right: 1rem;
+    top: 1rem;
+    font-size: 1.6rem;
+    cursor: pointer;
+    padding: 4px 6px;
+    border-radius: .4rem;
+}
+
+#x:hover {
+    background-color: var(--strive-border-lightgray);
+}
+
+.formContainer {
+    padding: 0 2.4rem;
+    padding-bottom: .6rem;
+}
+
+.formContainer h3 {
+    font-size: 1.4rem;
+    line-height: 1.8rem;
+    padding-bottom: 1.2rem;
+}
+
+.formContainer p {
+    margin: 1.2rem 0;
+    font-size: 1.2rem;
+    color: rgb(36, 36, 40);
+    cursor: default;
+}
+
+.formContent {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    height: 5rem;
+    gap: .5rem;
+}
+
+.inputContainer {
+    display: flex;
+    align-items: center;
+    padding: .6rem;
+    height: 100%;
+    position: relative;
+    border: 1px solid rgb(204, 204, 204);
+    border-radius: .4rem;
+}
+
+.dropdown {
+    position: absolute;
+    top: calc(100% + .5rem);
+    background-color: white;
+    border: 1px solid rgb(204, 204, 204);
+    border-radius: .4rem;
+    width: calc(100% + 2px);
+    left: -1px;
+    max-height: 30rem;
+    overflow-y: auto;
+}
+
+.dropdownItem {
+    padding: .8rem 1.2rem;
+    user-select: none;
+    font-size: 1.4rem;
+    line-height: 1.8rem;
+    margin: .3rem 0;
+}
+
+.dropdownItem:hover {
+    background-color: rgb(223, 223, 232);
+    color: black;
+}
+
+.inputContainer input {
+    font-size: 1.7rem;
+    line-height: 2.2rem;
+    width: 80%;
+}
+
+.inputContainer i {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+    font-size: 1.4rem;
+    color: var(--strive-auth-border-gray);
+}
+
+.agreeButtonContainer {
+    padding: 1.2rem 2.4rem;
+    padding-top: 0;
+}
+
+.agreeButtonContainer button {
+    padding: .6rem 1rem;
+    height: fit-content;
+    background-color: var(--strive-international-orange);
+    color: white;
+}
+
+.agreeButtonContainer button:hover {
+    background-color: #c94100;
+    border-color: #bf3e00;
+}
+
+#selected{
+    background-color: rgb(109, 109, 120);
+}

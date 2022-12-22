@@ -6,6 +6,9 @@ import AuthNavBar from './AuthNavBar';
 import imagePicker from "./util";
 import styles from "../../stylesheets/Auth.module.css";
 
+const emailRegex = RegExp(
+  /([\w.\-_]+)?\w+@[\w-_]+(\.\w+){1,}/
+);
 
 function fieldValidator(email, password, setErrors) {
   const errors = {};
@@ -16,7 +19,7 @@ function fieldValidator(email, password, setErrors) {
   }
 
   if (email.length < 1 || email.length > 255) errors.email = "Plase enter your email";
-  else if (!email.includes("@")) errors.email = "Please enter a valid email";
+  else if (!emailRegex.test(email)) errors.email = "Please enter a valid email";
   if (password.length < 1 || password.length > 255) errors.password = "Please enter your password";
   return errors;
 }
@@ -88,7 +91,6 @@ const LoginForm = () => {
     }
 
     if (email.length < 1 || email.length > 255) errors.email = "Plase enter your email";
-    else if (!email.includes("@")) errors.email = "Please enter a valid email";
     if (password.length < 1 || password.length > 255) errors.password = "Please enter your password";
     setErrors(errors);
     return errors;
@@ -104,7 +106,7 @@ const LoginForm = () => {
     <div>
       <AuthNavBar />
       <div className={styles.mainContent}>
-        <img id={styles.backgroundImage} src={backgroundImage} />
+        <img id={styles.backgroundImage} src={backgroundImage} alt="Background athletes" />
         <form className={styles.formContainer} onSubmit={onLogin}>
           <h2>Log In</h2>
           {Object.keys(errors).length > 0 &&
