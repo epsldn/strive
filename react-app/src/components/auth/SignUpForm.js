@@ -52,6 +52,7 @@ const SignUpForm = () => {
           <div className={styles.formContent}>
             <div style={{ marginBottom: "2rem" }}>
               <input
+                class={styles.signupInput}
                 type='text'
                 name='email'
                 placeholder='Email'
@@ -62,6 +63,7 @@ const SignUpForm = () => {
             </div>
             <div style={{ marginBottom: "2rem" }}>
               <input
+                class={styles.signupInput}
                 type='password'
                 name='password'
                 placeholder='Password'
