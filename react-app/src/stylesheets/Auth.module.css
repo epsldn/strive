@@ -46,6 +46,11 @@
     border: 1px solid var(--strive-auth-border-gray);
     padding: 1rem 1.6rem;
     border-radius: .4rem;
+    margin-bottom: 2rem;
+}
+
+.formContent .signupInput {
+    margin: 0;
 }
 
 .formContent input:focus {
@@ -66,7 +71,6 @@
     color: var(--strive-form-error-red);
     font-size: 1.3rem;
     text-align: center;
-    justify-content: center;
     width: 100%;
 }
 
