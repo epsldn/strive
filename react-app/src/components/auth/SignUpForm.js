@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import { signUp } from '../../store/session';
@@ -17,6 +17,8 @@ const SignUpForm = () => {
   const [backgroundImage] = useState(imagePicker());
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
@@ -28,6 +30,8 @@ const SignUpForm = () => {
     else if (emailRegex.test(email) === false) errors.email = "Please enter a valid email.";
     if (!password) errors.password = "Please enter a password";
     else if (password.length < 8) errors.password = "Password must be at least 8 characters long";
+    if (!confirmPassword) errors.confirmPassword = "Please confirm your password";
+    else if (confirmPassword !== password) errors.confirmPassword = "Passwords must match!";
     setErrors(errors);
     if (Object.keys(errors).length > 0) return;
 
@@ -49,6 +53,15 @@ const SignUpForm = () => {
     setPassword(e.target.value);
   };
 
+
+  useEffect(() => {
+    if (password.length < 8) {
+      setShowConfirmPassword(false);
+      return;
+    }
+
+    setShowConfirmPassword(true);
+  }, [password]);
   if (user) {
     return <Redirect to='/' />;
   }
@@ -85,6 +98,19 @@ const SignUpForm = () => {
               />
               {<label>{errors.password}</label>}
             </div>
+            {showConfirmPassword &&
+              <div style={{ marginBottom: "2rem" }}>
+                <input
+                  className={styles.signupInput}
+                  type='password'
+                  name='confirm-password'
+                  placeholder='Confirm Password'
+                  onChange={(event) => setConfirmPassword(event.target.value)}
+                  value={confirmPassword}
+                />
+                {<label>{errors.confirmPassword}</label>}
+              </div>
+            }
             <button id={styles.submitButton} onClick={phase1Check}>Sign Up</button>
             <p>By signing up for Strive, you <span>don't</span> agree to <span>anything</span>, Strive is <span>not</span> a real company.</p>
             <p>Already a member? <Link to="/login"><span style={{ marginLeft: ".5rem" }} >Log in</span></Link></p>
