@@ -6,6 +6,8 @@
     --strive-border-lightgray: #dfdfe8;
     --strive-auth-border-gray: #666;
     --strive-auth-font-color-gray: #CCC;
+    --strive-hyperlink-blue: #007FB6;
+    --strive-hyperlink-darkblue: #005b83;
     font-family: 'Lato', sans-serif;
     box-sizing: border-box;
 }

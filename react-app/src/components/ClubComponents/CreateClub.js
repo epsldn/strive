@@ -87,11 +87,12 @@ function CreateClub() {
                         </div>
                         <div>
                             <label>Description</label>
-                            <input
-                                type="textfield"
-                            />
+                            <textarea />
                         </div>
-                        <button type="submit">Create Club</button><span>cancel</span>
+                        <div className={styles.buttonContainer}>
+                            <button type="submit">Create Club</button>
+                            <button>Cancel</button>
+                        </div>
                     </form>
                 </div>
             </div >
