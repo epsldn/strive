@@ -50,13 +50,29 @@ const SignUpForm = () => {
   };
 
   const updatePassword = (e) => {
-    setPassword(e.target.value);
+    setPassword(p => p = e.target.value);
   };
 
 
   useEffect(() => {
     if (password.length < 8) {
-      setShowConfirmPassword(false);
+
+      const confirmPasswordField = document.querySelector("#Auth_confirmPassword__3nVSk");
+
+      confirmPasswordField?.animate(
+        [
+          { maxHeight: "100px" },
+          { maxHeight: "0px" }
+        ],
+        {
+          fill: "forwards",
+          easing: "ease-out",
+          duration: 75
+        }
+      );
+
+      setTimeout(() => setShowConfirmPassword(false), 50);
+
       return;
     }
 
@@ -99,7 +115,7 @@ const SignUpForm = () => {
               {<label>{errors.password}</label>}
             </div>
             {showConfirmPassword &&
-              <div style={{ marginBottom: "2rem" }}>
+              <div style={{ marginBottom: "2rem" }} id={styles.confirmPassword}>
                 <input
                   className={styles.signupInput}
                   type='password'

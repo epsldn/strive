@@ -128,8 +128,8 @@
     }
 }
 
-.formContent div:nth-child(3) {
-    animation: confirm-password 300ms ease-in-out
+#confirmPassword {
+    animation: confirm-password 50ms ease-in-out
 }
 
 @keyframes confirm-password {
