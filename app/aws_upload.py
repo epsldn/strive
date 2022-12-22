@@ -13,11 +13,11 @@ ALLOWED_EXTENSION = {"png", "jpg", "jpeg", "heic"}
 
 
 def file_checker(file):
-    return "." in file and file.rsplit(",", 1)[1].lower() in ALLOWED_EXTENSION
+    return "." in file and file.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSION
 
 
 def get_unique_filename(file):
-    extension = file.rsplit().lower()[1].lower()
+    extension = file.rsplit(".", 1)[1].lower()
     unique_filename = uuid.uuid4().hex
     return f"{unique_filename}.{extension}"
 
@@ -33,11 +33,10 @@ def upload_file(file, acl="public-read"):
             BUCKET_NAME,
             file.filename,
             ExtraArgs={
-                "ACL": acl,
                 "ContentType": file.content_type
             }
         )
-        
+
     except Exception as error:
         return {"errors": str(error)}
 
