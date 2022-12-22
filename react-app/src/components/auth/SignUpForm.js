@@ -21,6 +21,25 @@ const SignUpForm = () => {
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
 
+  const phase1Check = async (event) => {
+    event.preventDefault();
+    let errors = {};
+    if (!email) errors.email = "Please enter your email.";
+    else if (emailRegex.test(email) === false) errors.email = "Please enter a valid email.";
+    if (!password) errors.password = "Please enter a password";
+    else if (password.length < 8) errors.password = "Password must be at least 8 characters long";
+    setErrors(errors);
+    if (Object.keys(errors).length > 0) return;
+
+    const response = await fetch(`/api/auth/check-email/${email}`);
+
+    if (response.ok) {
+      setShowModal(true);
+    } else {
+      errors = await response.json();
+      setErrors(errors);
+    }
+  };
   const onSignUp = async (e) => {
     e.preventDefault();
     const data = await dispatch(signUp(email, password));
@@ -45,7 +64,7 @@ const SignUpForm = () => {
       <AuthNavBar />
       <div className={styles.mainContent}>
         <img id={styles.backgroundImage} src={backgroundImage} alt="Background athletes" />
-        <form className={styles.formContainer} onSubmit={onSignUp}>
+        <form className={styles.formContainer}>
           {<div>
           </div>}
           <h2>Join Strive today, it's Free.</h2>
@@ -59,7 +78,7 @@ const SignUpForm = () => {
                 onChange={updateEmail}
                 value={email}
               />
-              {<label>Sorry, the email you entered is invalid</label>}
+              {<label>{errors.email}</label>}
             </div>
             <div style={{ marginBottom: "2rem" }}>
               <input
@@ -70,9 +89,9 @@ const SignUpForm = () => {
                 onChange={updatePassword}
                 value={password}
               />
-              {<label>Your password must be at least 8 characters long</label>}
+              {<label>{errors.password}</label>}
             </div>
-            <button id={styles.submitButton} onClick={() => setShowModal(true)}>Sign Up</button>
+            <button id={styles.submitButton} onClick={phase1Check}>Sign Up</button>
             <p>By signing up for Strive, you <span>don't</span> agree to <span>anything</span>, Strive is <span>not</span> a real company.</p>
             <p>Already a member? <Link to="/login"><span style={{ marginLeft: ".5rem" }} >Log in</span></Link></p>
           </div>
