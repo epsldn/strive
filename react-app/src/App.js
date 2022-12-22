@@ -9,6 +9,7 @@ import User from './components/User';
 import { authenticate } from './store/session';
 import "./stylesheets/reset.css";
 import LandingPage from './components/LandingPage/LandingPage';
+import CreateClub from './components/ClubComponents/CreateClub';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -38,13 +39,16 @@ function App() {
           <SignUpForm />
         </Route>
         <ProtectedRoute path="/" exact>
-          "HELLO"
+          THIS WILL SOME DAY BE THE HOME PAGE
         </ProtectedRoute>
         <ProtectedRoute path='/users' exact >
           <UsersList />
         </ProtectedRoute>
         <ProtectedRoute path='/users/:userId' exact >
           <User />
+        </ProtectedRoute>
+        <ProtectedRoute path="/clubs/create" exact>
+          <CreateClub />
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>
