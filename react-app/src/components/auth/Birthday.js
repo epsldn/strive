@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "../../stylesheets/Birthday.module.css";
 const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-const monthsWith31Days = new Set([1, 3, 5, 7, 8, 10, 12]);
-const monthsWith30Days = new Set([4, 6, 9, 11]);
+const monthsWith31Days = new Set(["January", "March", "May", "July", "August", "October", "December"]);
+const monthsWith30Days = new Set(["April", "June", "September", "November"]);
 
-const daysLengthCalculator = (month) => {
+const daysCreator = (month) => {
     const days = [];
     if (monthsWith31Days.has(month)) {
         for (let index = 1; index < 32; index++) {
@@ -20,10 +20,14 @@ const daysLengthCalculator = (month) => {
         return days;
     }
 
-    for (let index = 1; index < 29; index++) {
-        days.push(index);
+    if (month.toLowerCase() === "february") {
+        for (let index = 1; index < 29; index++) {
+            days.push(index);
+        }
+        return days;
     }
-    return days;
+
+    return ["No results."];
 };
 
 function monthFinder(letters) {
@@ -41,15 +45,32 @@ function monthFinder(letters) {
     return ["No results."];
 }
 
+// function dayFidner(date) {
+//     const months = [];
+//     for (const month of MONTHS) {
+//         if (month.startsWith(letters)) months.push(month);
+//     }
+
+//     if (months.length > 0) {
+//         return months;
+//     }
+
+//     return ["No results."];
+// }
+
 function Birthday(props) {
     const [month, setMonth] = useState("");
     const [months, setMonths] = useState([]);
     const [showMonths, setShowMonths] = useState(false);
     const [day, setDay] = useState("");
+    const [days, setDays] = useState([]);
     const [showDays, setShowDays] = useState(false);
     const [year, setYear] = useState("");
+    const [years, setYears] = useState([]);
     const [showYear, setShowYear] = useState(false);
     const [monthPlaceholder, setMonthPlaceholder] = useState("");
+    const [dayPlaceholder, setDayPlaceholder] = useState("");
+    const [yearPlaceholder, setYearPlaceholder] = useState("");
     const { setShowModal } = props;
     const container1 = useRef(null);
     const container2 = useRef(null);
@@ -59,7 +80,6 @@ function Birthday(props) {
     const ref3 = useRef(null);
 
     useEffect(() => {
-        const months = monthFinder(month);
         const formattedMonth = month.slice(0, 1).toUpperCase() + month.slice(1).toLowerCase();
         setMonths(monthFinder(month));
         if (MONTHS.includes(formattedMonth)) setMonthPlaceholder(formattedMonth);
@@ -77,9 +97,37 @@ function Birthday(props) {
         return () => document.removeEventListener("click", onClick);
     }, [showMonths]);
 
+    useEffect(() => {
+        setDay("");
+        setDayPlaceholder("");
+    }, [monthPlaceholder]);
+
+    useEffect(() => {
+        let days = daysCreator(monthPlaceholder);
+        if (days.length > 0) {
+            days = days.map(v => v.toString()).filter(v => {
+                return v.startsWith(day);
+            });
+            if (days.length === 0) days = ["No results."];
+        }
+        setDays(days);
+        if (days.includes(day)) setDayPlaceholder(day);
+    }, [day, monthPlaceholder]);
+
+    useEffect(() => {
+        if (!showDays) return;
+        function onClick(e) {
+            if (container2.current && container2.current.contains(e.target) === false) {
+                setShowDays(false);
+                setDay(day || dayPlaceholder);
+            }
+        }
+        document.addEventListener("click", onClick);
+        return () => document.removeEventListener("click", onClick);
+    }, [showDays]);
+
     return (
         <div className={styles.container}>
-            {console.log(monthPlaceholder, month)}
             <i id={styles.x} className="fa-solid fa-x" onClick={() => setShowModal(false)} />
             <h2>Before you sign up</h2>
             <div className={styles.formContainer}>
@@ -127,14 +175,12 @@ function Birthday(props) {
                             onClick={() => {
                                 setShowDays(true);
                                 ref2.current.focus();
-                            }
-                            }
-                            ref={container2}
-                        >
+                            }}
+                            ref={container2}>
                             <input
                                 type="text"
                                 ref={ref2}
-                                placeholder="DD"
+                                placeholder={dayPlaceholder || "DD"}
                                 value={day}
                                 onChange={(event) => setDay(event.target.value)}
                                 onFocus={() => setDay("")}
@@ -142,7 +188,19 @@ function Birthday(props) {
                             <i className="fa-solid fa-caret-down" />
                             {showDays &&
                                 <ul className={styles.dropdown}>
-
+                                    {days.map(day => {
+                                        if (day === "No results.") {
+                                            return <li className={styles.dropdownItem} style={{ backgroundColor: "white" }} key={day}>{day}</li>;
+                                        }
+                                        return (
+                                            <li className={styles.dropdownItem} key={day} style={{ cursor: "pointer" }} onClick={(event) => {
+                                                event.preventDefault();
+                                                event.stopPropagation();
+                                                setDay(day);
+                                                setShowDays(false);
+                                            }}>{day}</li>
+                                        );
+                                    })}
                                 </ul>}
                         </div>
                         <div
