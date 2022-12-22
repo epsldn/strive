@@ -1,4 +1,3 @@
-import NavBar from "../NavBar";
 import { Redirect, useHistory } from "react-router-dom";
 import banner from "../../assets/landing-banner.png";
 import heroBiking from "../../assets/hero-biking.webp";

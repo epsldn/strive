@@ -9,7 +9,7 @@ import Birthday from './Birthday';
 import { Modal } from '../Modals/Modal';
 
 const emailRegex = RegExp(
-  /([\w\.\-_]+)?\w+@[\w-_]+(\.\w+){1,}/
+  /([\w.\-_]+)?\w+@[\w-_]+(\.\w+){1,}/
 );
 
 const SignUpForm = () => {
@@ -17,18 +17,15 @@ const SignUpForm = () => {
   const [backgroundImage] = useState(imagePicker());
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [repeatPassword, setRepeatPassword] = useState('');
   const [showModal, setShowModal] = useState(false);
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
 
   const onSignUp = async (e) => {
     e.preventDefault();
-    if (password === repeatPassword) {
-      const data = await dispatch(signUp(email, password));
-      if (data) {
-        setErrors(data);
-      }
+    const data = await dispatch(signUp(email, password));
+    if (data) {
+      setErrors(data);
     }
   };
   const updateEmail = (e) => {
@@ -47,7 +44,7 @@ const SignUpForm = () => {
     <div>
       <AuthNavBar />
       <div className={styles.mainContent}>
-        <img id={styles.backgroundImage} src={backgroundImage} />
+        <img id={styles.backgroundImage} src={backgroundImage} alt="Background athletes" />
         <form className={styles.formContainer} onSubmit={onSignUp}>
           {<div>
           </div>}

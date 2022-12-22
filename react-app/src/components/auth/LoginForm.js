@@ -7,7 +7,7 @@ import imagePicker from "./util";
 import styles from "../../stylesheets/Auth.module.css";
 
 const emailRegex = RegExp(
-  /([\w\.\-_]+)?\w+@[\w-_]+(\.\w+){1,}/
+  /([\w.\-_]+)?\w+@[\w-_]+(\.\w+){1,}/
 );
 
 function fieldValidator(email, password, setErrors) {
@@ -106,7 +106,7 @@ const LoginForm = () => {
     <div>
       <AuthNavBar />
       <div className={styles.mainContent}>
-        <img id={styles.backgroundImage} src={backgroundImage} />
+        <img id={styles.backgroundImage} src={backgroundImage} alt="Background athletes" />
         <form className={styles.formContainer} onSubmit={onLogin}>
           <h2>Log In</h2>
           {Object.keys(errors).length > 0 &&
