@@ -45,18 +45,15 @@ function monthFinder(letters) {
     return ["No results."];
 }
 
-// function dayFidner(date) {
-//     const months = [];
-//     for (const month of MONTHS) {
-//         if (month.startsWith(letters)) months.push(month);
-//     }
-
-//     if (months.length > 0) {
-//         return months;
-//     }
-
-//     return ["No results."];
-// }
+function yearsCreator() {
+    let year = new Date().getFullYear();
+    const years = [];
+    for (let index = 0; index <= 150; index++) {
+        years.push(year);
+        year -= 1;
+    }
+    return years;
+}
 
 function Birthday(props) {
     const [month, setMonth] = useState("");
@@ -126,6 +123,31 @@ function Birthday(props) {
         return () => document.removeEventListener("click", onClick);
     }, [showDays]);
 
+    useEffect(() => {
+        let years = yearsCreator();
+        if (years.length > 0) {
+            years = years.map(v => v.toString()).filter(v => {
+                return v.startsWith(year);
+            });
+            if (years.length === 0) years = ["No results."];
+        }
+        setYears(years);
+
+        if (years.includes(year)) setYearPlaceholder(year);
+    }, [year]);
+
+    useEffect(() => {
+        if (!showYear) return;
+        function onClick(e) {
+            if (container3.current && container3.current.contains(e.target) === false) {
+                setShowYear(false);
+                setYear(year || yearPlaceholder);
+            }
+        }
+        document.addEventListener("click", onClick);
+        return () => document.removeEventListener("click", onClick);
+    }, [showYear]);
+
     return (
         <div className={styles.container}>
             <i id={styles.x} className="fa-solid fa-x" onClick={() => setShowModal(false)} />
@@ -189,6 +211,9 @@ function Birthday(props) {
                             {showDays &&
                                 <ul className={styles.dropdown}>
                                     {days.map(day => {
+                                        if (!month) {
+                                            return <li className={styles.dropdownItem} style={{ backgroundColor: "white" }} key={"Choose a month"}>Choose a Month</li>;;
+                                        }
                                         if (day === "No results.") {
                                             return <li className={styles.dropdownItem} style={{ backgroundColor: "white" }} key={day}>{day}</li>;
                                         }
@@ -216,7 +241,7 @@ function Birthday(props) {
                             <input
                                 type="text"
                                 ref={ref3}
-                                placeholder="YYYY"
+                                placeholder={yearPlaceholder || "YYYY"}
                                 value={year}
                                 onChange={(event) => setYear(event.target.value)}
                                 onFocus={() => setYear("")}
@@ -224,7 +249,19 @@ function Birthday(props) {
                             <i className="fa-solid fa-caret-down" />
                             {showYear &&
                                 <ul className={styles.dropdown}>
-
+                                    {years.map(year => {
+                                        if (year === "No results.") {
+                                            return <li className={styles.dropdownItem} style={{ backgroundColor: "white" }} key={year}>{year}</li>;
+                                        }
+                                        return (
+                                            <li className={styles.dropdownItem} key={year} style={{ cursor: "pointer" }} onClick={(event) => {
+                                                event.preventDefault();
+                                                event.stopPropagation();
+                                                setYear(year);
+                                                setShowYear(false);
+                                            }}>{year}</li>
+                                        );
+                                    })}
                                 </ul>}
                         </div>
                     </div>
