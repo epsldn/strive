@@ -2,7 +2,7 @@
     position: relative;
     display: flex;
     justify-content: center;
-    height: 100vh;
+    height: calc(100vh - 55px);
 }
 
 #backgroundImage {
@@ -44,7 +44,6 @@
     font-size: 1.4rem;
     width: 100%;
     border: 1px solid var(--strive-auth-border-gray);
-    margin-bottom: 2rem;
     padding: 1rem 1.6rem;
     border-radius: .4rem;
 }
@@ -59,6 +58,16 @@
 .formContent button {
     border-radius: .3rem;
     margin: 0;
+}
+
+.formContent label {
+    display: flex;
+    padding-top: .6rem;
+    color: var(--strive-form-error-red);
+    font-size: 1.3rem;
+    text-align: center;
+    justify-content: center;
+    width: 100%;
 }
 
 #submitButton {
@@ -107,6 +116,7 @@
     50% {
         color: transparent
     }
+
     100% {
         padding: 16px;
         height: fit-content;
