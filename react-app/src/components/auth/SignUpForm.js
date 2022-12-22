@@ -40,13 +40,7 @@ const SignUpForm = () => {
       setErrors(errors);
     }
   };
-  const onSignUp = async (e) => {
-    e.preventDefault();
-    const data = await dispatch(signUp(email, password));
-    if (data) {
-      setErrors(data);
-    }
-  };
+
   const updateEmail = (e) => {
     setEmail(e.target.value);
   };
@@ -71,7 +65,7 @@ const SignUpForm = () => {
           <div className={styles.formContent}>
             <div style={{ marginBottom: "2rem" }}>
               <input
-                class={styles.signupInput}
+                className={styles.signupInput}
                 type='text'
                 name='email'
                 placeholder='Email'
@@ -82,7 +76,7 @@ const SignUpForm = () => {
             </div>
             <div style={{ marginBottom: "2rem" }}>
               <input
-                class={styles.signupInput}
+                className={styles.signupInput}
                 type='password'
                 name='password'
                 placeholder='Password'
@@ -99,7 +93,7 @@ const SignUpForm = () => {
       </div>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-          <Birthday setShowModal={setShowModal} />
+          <Birthday setShowModal={setShowModal} email={email} password={password} />
         </Modal>
       )}
     </div>
