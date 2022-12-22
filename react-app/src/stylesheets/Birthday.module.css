@@ -125,3 +125,7 @@
     background-color: #c94100;
     border-color: #bf3e00;
 }
+
+#selected{
+    background-color: rgb(109, 109, 120);
+}

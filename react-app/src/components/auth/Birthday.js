@@ -31,7 +31,6 @@ function monthFinder(letters) {
     letters = letters.slice(0, 1).toUpperCase() + letters.slice(1).toLowerCase();
     const months = [];
     for (const month of MONTHS) {
-        console.log(month, letters);
         if (month.startsWith(letters)) months.push(month);
     }
 
@@ -50,6 +49,7 @@ function Birthday(props) {
     const [showDays, setShowDays] = useState(false);
     const [year, setYear] = useState("");
     const [showYear, setShowYear] = useState(false);
+    const [monthPlaceholder, setMonthPlaceholder] = useState("");
     const { setShowModal } = props;
     const container1 = useRef(null);
     const container2 = useRef(null);
@@ -60,15 +60,17 @@ function Birthday(props) {
 
     useEffect(() => {
         const months = monthFinder(month);
+        const formattedMonth = month.slice(0, 1).toUpperCase() + month.slice(1).toLowerCase();
         setMonths(monthFinder(month));
+        if (MONTHS.includes(formattedMonth)) setMonthPlaceholder(formattedMonth);
     }, [month]);
 
     useEffect(() => {
         if (!showMonths) return;
-        console.log("HELLO");
         function onClick(e) {
             if (container1.current && container1.current.contains(e.target) === false) {
                 setShowMonths(false);
+                setMonth(month || monthPlaceholder);
             }
         }
         document.addEventListener("click", onClick);
@@ -77,6 +79,7 @@ function Birthday(props) {
 
     return (
         <div className={styles.container}>
+            {console.log(monthPlaceholder, month)}
             <i id={styles.x} className="fa-solid fa-x" onClick={() => setShowModal(false)} />
             <h2>Before you sign up</h2>
             <div className={styles.formContainer}>
@@ -87,13 +90,16 @@ function Birthday(props) {
                             onClick={() => {
                                 setShowMonths(true);
                                 ref1.current.focus();
-                            }} ref={container1}>
+                            }}
+                            ref={container1}
+                        >
                             <input
                                 type="text"
                                 ref={ref1}
-                                placeholder={"MONTH"}
+                                placeholder={monthPlaceholder || "MONTH"}
                                 value={month}
                                 onChange={(event) => setMonth(event.target.value)}
+                                onFocus={() => setMonth("")}
                             />
                             <i className="fa-solid fa-caret-down" />
                             {showMonths &&
@@ -116,18 +122,22 @@ function Birthday(props) {
                                 </ul>
                             }
                         </div>
-                        <div className={styles.inputContainer} onClick={() => {
-                            setShowDays(true);
-                            ref2.current.focus();
-                        }
-                        }>
+                        <div
+                            className={styles.inputContainer}
+                            onClick={() => {
+                                setShowDays(true);
+                                ref2.current.focus();
+                            }
+                            }
+                            ref={container2}
+                        >
                             <input
                                 type="text"
                                 ref={ref2}
                                 placeholder="DD"
                                 value={day}
                                 onChange={(event) => setDay(event.target.value)}
-                                onBlur={() => setShowDays(false)}
+                                onFocus={() => setDay("")}
                             />
                             <i className="fa-solid fa-caret-down" />
                             {showDays &&
@@ -135,11 +145,15 @@ function Birthday(props) {
 
                                 </ul>}
                         </div>
-                        <div className={styles.inputContainer} onClick={() => {
-                            setShowYear(true);
-                            ref3.current.focus();
-                        }
-                        }>
+                        <div
+                            className={styles.inputContainer}
+                            onClick={() => {
+                                setShowYear(true);
+                                ref3.current.focus();
+                            }
+                            }
+                            ref={container3}
+                        >
 
                             <input
                                 type="text"
@@ -147,7 +161,7 @@ function Birthday(props) {
                                 placeholder="YYYY"
                                 value={year}
                                 onChange={(event) => setYear(event.target.value)}
-                                onBlur={() => setShowYear(false)}
+                                onFocus={() => setYear("")}
                             />
                             <i className="fa-solid fa-caret-down" />
                             {showYear &&
