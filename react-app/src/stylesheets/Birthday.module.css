@@ -48,6 +48,7 @@
     margin: 1.2rem 0;
     font-size: 1.2rem;
     color: rgb(36, 36, 40);
+    cursor: default;
 }
 
 .formContent {
@@ -55,6 +56,7 @@
     width: 100%;
     align-items: center;
     height: 5rem;
+    gap: .5rem;
 }
 
 .inputContainer {
@@ -63,16 +65,33 @@
     padding: .6rem;
     height: 100%;
     position: relative;
-    border: 1px solid rgb(204, 204, 204)
+    border: 1px solid rgb(204, 204, 204);
+    border-radius: .4rem;
 }
 
 .dropdown {
     position: absolute;
     top: calc(100% + .5rem);
     background-color: white;
-    border: black 2px solid;
+    border: 1px solid rgb(204, 204, 204);
+    border-radius: .4rem;
     width: calc(100% + 2px);
     left: -1px;
+    max-height: 30rem;
+    overflow-y: auto;
+}
+
+.dropdownItem {
+    padding: .8rem 1.2rem;
+    user-select: none;
+    font-size: 1.4rem;
+    line-height: 1.8rem;
+    margin: .3rem 0;
+}
+
+.dropdownItem:hover {
+    background-color: rgb(223, 223, 232);
+    color: black;
 }
 
 .inputContainer input {
