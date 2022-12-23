@@ -24,10 +24,13 @@ class Club(db.Model):
     club_name = db.Column(db.String, nullable=False)
     location = db.Column(db.String, nullable=False)
     website = db.Column(db.String(100))
-    spot = db.Column(db.String(100))
-    description = db.Column(db.String)
-    club_image = db.Column(db.String, default="https://striveonrender.s3.us-west-2.amazonaws.com/clubDefault.png", nullable=False)
-    club_banner = db.Column(db.String, default="https://striveonrender.s3.us-west-2.amazonaws.com/defaultBanner.png", nullable=False)
+    sport = db.Column(db.String(100), nullable=False)
+    type = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.String, nullable=False)
+    club_image = db.Column(
+        db.String, default="https://striveonrender.s3.us-west-2.amazonaws.com/clubDefault.png", nullable=False)
+    club_banner = db.Column(
+        db.String, default="https://striveonrender.s3.us-west-2.amazonaws.com/defaultBanner.png", nullable=False)
 
     owner = db.relationship(
         "User", back_populates="owned_clubs"
@@ -41,8 +44,11 @@ class Club(db.Model):
             "clubName": self.club_name,
             "location": self.location,
             "website": self.website,
-            "spot": self.spot,
+            "sport": self.sport,
             "description": self.description,
             "clubImage": self.club_image,
             "clubBanner": self.club_banner
         }
+
+    def get_id(self):
+        return self.id
