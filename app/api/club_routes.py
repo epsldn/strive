@@ -6,6 +6,12 @@ from app.forms import ClubForm
 club_routes = Blueprint("clubs", __name__)
 
 
+@club_routes.route("/")
+# @login_required
+def get_clubs():
+    clubs = Club.query.all()
+    return jsonify({club.id: club.to_dict() for club in clubs}), 200
+
 @club_routes.route("/", methods=["POST"])
 # @login_required
 def create_club():
@@ -22,3 +28,13 @@ def create_club():
         return jsonify(newClub.to_dict()), 200
     else:
         return {'errors': {k: v[0] for k, v in form.errors.items()}}, 400
+
+
+@club_routes.route("/<int:clubId>")
+# @login_required
+def get_club_info(clubId):
+    club = Club.query.get(clubId)
+    if (club):
+        return club.to_dict(), 200
+    else:
+        return {"error": "No club found"}, 400

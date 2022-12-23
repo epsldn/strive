@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import MainNavBar from "../MainNavBar";
 import styles from "../../stylesheets/ClubForm.module.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { createClub } from "../../store/clubs";
 
 function CreateClub() {
     const [errors, setErrors] = useState({});
@@ -13,6 +14,7 @@ function CreateClub() {
     const [clubType, setClubType] = useState("Club");
     const [description, setDescription] = useState("");
     const history = useHistory();
+    const dispatch = useDispatch();
     const user = useSelector(state => state.session.user);
     document.title = "Create Club | Strive Club";
 
@@ -24,7 +26,7 @@ function CreateClub() {
         if (!description) errors.description = "Please enter a description for your club.";
         setErrors(errors);
         if (Object.keys(errors).length > 0) return;
-        console.log(sport, clubType);
+
         const payload = {
             "club_name": clubName,
             "description": description,
@@ -35,25 +37,8 @@ function CreateClub() {
             "website": website,
         };
 
-        const response = await fetch(`/api/clubs/`, {
-            method: "POST",
-            headers: { "Content-type": "application/json" },
-            body: JSON.stringify(payload)
-        });
-
-        if (response.ok) {
-            const message = await response.json();
-            console.log(message);
-        } else {
-
-            const dbErrors = await response.json();
-            console.log(dbErrors);
-            errors = {
-                clubName: dbErrors.errors.club_name,
-                location: dbErrors.errors.location,
-                description: dbErrors.errors.description
-            };
-
+        errors = await dispatch(createClub(payload));
+        if (errors) {
             setErrors(errors);
         }
     }
