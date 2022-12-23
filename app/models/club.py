@@ -7,8 +7,7 @@ club_members = db.Table("club_members",
                         db.Column("user_id", db.Integer, db.ForeignKey(
                             add_prefix_for_prod("users.id"),
                             ondelete="CASCADE")),
-                        schema=SCHEMA if environment == "production" else ""
-                        )
+                        schema=SCHEMA if environment == "production" else "")
 
 
 class Club(db.Model):
@@ -23,7 +22,7 @@ class Club(db.Model):
                              "users.id"),
                              ondelete="CASCADE"),
                          nullable=False)
-    club_name = db.Column(db.String, nullable=False)
+    club_name = db.Column(db.String(255), nullable=False)
     location = db.Column(db.String, nullable=False)
     website = db.Column(db.String(100))
     sport = db.Column(db.String(100), nullable=False)
@@ -49,7 +48,9 @@ class Club(db.Model):
             "sport": self.sport,
             "description": self.description,
             "clubImage": self.club_image,
-            "clubBanner": self.club_banner
+            "clubBanner": self.club_banner,
+            "owner_id": self.owner_id,
+            "id": self.id
         }
 
     def get_id(self):
