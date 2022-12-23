@@ -3,6 +3,7 @@ import { useHistory, useParams } from "react-router-dom";
 import MainNavBar from "../MainNavBar";
 import styles from "../../stylesheets/ClubForm.module.css";
 import { useSelector } from "react-redux";
+import CLubPictures from "./ClubPictures";
 
 function EditClub() {
     const [errors, setErrors] = useState({});
@@ -28,7 +29,7 @@ function EditClub() {
         setClubType(club.club_type || "");
         setDescription(club.description || "");
     }, [club]);
-    
+
     async function handleSubmission(event) {
         event.preventDefault();
         let errors = {};
@@ -80,6 +81,7 @@ function EditClub() {
         <div className={styles.mainWrapper}>
             <MainNavBar />
             <div className={styles.mainContent}>
+                <CLubPictures club={club} />
                 <div className={styles.formWrapper}>
                     <p>Fields marked with * are required</p>
                     <form onSubmit={handleSubmission}>
