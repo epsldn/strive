@@ -46,6 +46,7 @@ class Club(db.Model):
             "location": self.location,
             "website": self.website,
             "sport": self.sport,
+            "type": self.type,
             "description": self.description,
             "clubImage": self.club_image,
             "clubBanner": self.club_banner,

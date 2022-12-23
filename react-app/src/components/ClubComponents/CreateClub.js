@@ -2,26 +2,60 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import MainNavBar from "../MainNavBar";
 import styles from "../../stylesheets/CreateClub.module.css";
+import { useSelector } from "react-redux";
 
 function CreateClub() {
     const [errors, setErrors] = useState({});
     const [clubName, setClubName] = useState("");
     const [location, setLocation] = useState("");
     const [website, setWebsite] = useState("");
-    const [sport, setSport] = useState("");
-    const [clubType, setClubType] = useState("");
+    const [sport, setSport] = useState("Cycling");
+    const [clubType, setClubType] = useState("Club");
     const [description, setDescription] = useState("");
     const history = useHistory();
+    const user = useSelector(state => state.session.user);
     document.title = "Create Club | Strive Club";
 
-    function handleSubmission(event) {
+    async function handleSubmission(event) {
         event.preventDefault();
-        const errors = {};
+        let errors = {};
         if (!clubName) errors.clubName = "Please enter a name for your club.";
         if (!location) errors.location = "Please enter your city and state.";
         if (!description) errors.description = "Please enter a description for your club.";
         setErrors(errors);
         if (Object.keys(errors).length > 0) return;
+        console.log(sport, clubType);
+        const payload = {
+            "club_name": clubName,
+            "description": description,
+            "location": location,
+            "owner_id": user.id,
+            "sport": sport,
+            "type": clubType,
+            "website": website,
+        };
+
+        const response = await fetch(`/api/clubs/`, {
+            method: "POST",
+            headers: { "Content-type": "application/json" },
+            body: JSON.stringify(payload)
+        });
+
+        if (response.ok) {
+            const message = await response.json();
+            console.log(message);
+        } else {
+
+            const dbErrors = await response.json();
+            console.log(dbErrors);
+            errors = {
+                clubName: dbErrors.errors.club_name,
+                location: dbErrors.errors.location,
+                description: dbErrors.errors.description
+            };
+
+            setErrors(errors);
+        }
     }
 
     function handleCancel(event) {
