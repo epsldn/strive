@@ -37,5 +37,7 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'email': self.email,
-            "birthdate": self.birthdate
+            "birthdate": self.birthdate,
+            "clubs": {club.get_id(): club.get_id() for club in self.clubs},
+            "owned_clubs": {club.get_id(): club.get_id() for club in self.owned_clubs}
         }

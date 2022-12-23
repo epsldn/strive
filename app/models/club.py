@@ -9,7 +9,6 @@ club_members = db.Table("club_members",
                             ondelete="CASCADE")),
                         schema=SCHEMA if environment == "production" else "")
 
-
 class Club(db.Model):
     __tablename__ = 'clubs'
 
