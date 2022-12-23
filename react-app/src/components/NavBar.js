@@ -1,9 +1,19 @@
 
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { NavLink, useLocation } from 'react-router-dom';
+import { fetchClubs } from '../store/clubs';
 import LogoutButton from './auth/LogoutButton';
 
 const NavBar = () => {
+  const path = useLocation().pathname;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log("DISPATCHINGGGGGG")
+    dispatch(fetchClubs());
+  }, [path]);
+
   return (
     <nav>
       <ul>

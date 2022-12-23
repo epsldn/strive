@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useHistory, useParams } from "react-router-dom";
 import MainNavBar from "../MainNavBar";
 import styles from "../../stylesheets/ClubForm.module.css";
 import { useSelector } from "react-redux";
@@ -12,6 +12,7 @@ function EditClub() {
     const [sport, setSport] = useState("Cycling");
     const [clubType, setClubType] = useState("Club");
     const [description, setDescription] = useState("");
+    const { clubId } = useParams();
     const history = useHistory();
     const user = useSelector(state => state.session.user);
     document.title = "Edit Club | Strive Club";
@@ -63,14 +64,24 @@ function EditClub() {
         history.goBack();
     }
 
+
+    useEffect(() => {
+        fetch(`/api/clubs/${clubId}`).then(response => response.json()).then(data => {
+            const {clubBanner, clubImage, clubname, description, location, sport, type, website} = data
+            // const [clubName, setClubName] = useState("");
+            // const [location, setLocation] = useState("");
+            // const [website, setWebsite] = useState("");
+            // const [sport, setSport] = useState("Cycling");
+            // const [clubType, setClubType] = useState("Club");
+            // const [description, setDescription] = useState("");
+        });
+    }, [clubId]);
+
     return (
         <div className={styles.mainWrapper}>
             <MainNavBar />
             <div className={styles.mainContent}>
                 <div className={styles.formWrapper}>
-                    <h1>
-                        Create Club
-                    </h1>
                     <p>Fields marked with * are required</p>
                     <form onSubmit={handleSubmission}>
                         <div>
@@ -171,7 +182,7 @@ function EditClub() {
                             <label className={styles.errors}>{errors.description}</label>
                         </div>
                         <div className={styles.buttonContainer}>
-                            <button type="submit">Create Club</button>
+                            <button type="submit">Save Changes</button>
                             <button onClick={handleCancel}>Cancel</button>
                         </div>
                     </form>
