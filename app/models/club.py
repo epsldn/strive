@@ -23,7 +23,7 @@ class Club(db.Model):
                              "users.id"),
                              ondelete="CASCADE"),
                          nullable=False)
-    club_name = db.Column(db.String, nullable=False)
+    club_name = db.Column(db.String(255), nullable=False)
     location = db.Column(db.String, nullable=False)
     website = db.Column(db.String(100))
     sport = db.Column(db.String(100), nullable=False)
