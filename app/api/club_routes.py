@@ -18,8 +18,7 @@ def create_club():
         db.session.add(newClub)
         db.session.commit()
         newClub.members.append(newClub.owner)
-        print("\n", newClub.members[0].to_dict(), "\n")
+        db.sesison.commit()
         return jsonify(newClub.to_dict()), 200
-
     else:
         return form.errors, 400

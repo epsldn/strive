@@ -1,16 +1,16 @@
 from app.models import db, User, environment, SCHEMA
-from datetime import datetime
+from datetime import date
 
 # Adds a demo user, you can add other users here if you want
 
 
 def seed_users():
     demo = User(
-        birthdate=datetime(1991, 3, 27), email='demo@aa.io', password='password')
+        birthdate=date(1991, 3, 27), email='demo@aa.io', password='password')
     marnie = User(
-        birthdate=datetime(1998, 10, 12), email='marnie@aa.io', password='password')
+        birthdate=date(1998, 10, 12), email='marnie@aa.io', password='password')
     bobbie = User(
-        birthdate=datetime(2002, 11, 30), email='bobbie@aa.io', password='password')
+        birthdate=date(2002, 11, 30), email='bobbie@aa.io', password='password')
 
     db.session.add(demo)
     db.session.add(marnie)
