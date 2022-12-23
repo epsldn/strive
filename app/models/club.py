@@ -6,7 +6,9 @@ club_members = db.Table("club_members",
                             ondelete="CASCADE")),
                         db.Column("user_id", db.Integer, db.ForeignKey(
                             add_prefix_for_prod("users.id"),
-                            ondelete="CASCADE")))
+                            ondelete="CASCADE")),
+                        schema=SCHEMA if environment == "production" else ""
+                        )
 
 
 class Club(db.Model):
