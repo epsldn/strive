@@ -13,10 +13,22 @@ function EditClub() {
     const [clubType, setClubType] = useState("Club");
     const [description, setDescription] = useState("");
     const { clubId } = useParams();
+    const club = useSelector(state => state.clubs[clubId]);
     const history = useHistory();
     const user = useSelector(state => state.session.user);
     document.title = "Edit Club | Strive Club";
 
+    useEffect(() => {
+        if (!club) return;
+
+        setClubName(club.clubName || "");
+        setLocation(club.location || "");
+        setWebsite(club.website || "");
+        setSport(club.sport || "");
+        setClubType(club.club_type || "");
+        setDescription(club.description || "");
+    }, [club]);
+    
     async function handleSubmission(event) {
         event.preventDefault();
         let errors = {};
@@ -63,19 +75,6 @@ function EditClub() {
         event.preventDefault();
         history.goBack();
     }
-
-
-    useEffect(() => {
-        fetch(`/api/clubs/${clubId}`).then(response => response.json()).then(data => {
-            const {clubBanner, clubImage, clubname, description, location, sport, type, website} = data
-            // const [clubName, setClubName] = useState("");
-            // const [location, setLocation] = useState("");
-            // const [website, setWebsite] = useState("");
-            // const [sport, setSport] = useState("Cycling");
-            // const [clubType, setClubType] = useState("Club");
-            // const [description, setDescription] = useState("");
-        });
-    }, [clubId]);
 
     return (
         <div className={styles.mainWrapper}>

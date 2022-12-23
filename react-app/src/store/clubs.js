@@ -67,12 +67,12 @@ export default function reducer(state = initialState, action) {
             return newState;
         }
         case EDIT_CLUB: {
-
+            break;
         }
         case DELETE_CLUB: {
-
+            break;
         }
-
+        
         default:
             return state;
     }

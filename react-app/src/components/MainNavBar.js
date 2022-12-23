@@ -9,7 +9,7 @@ function MainNavBar() {
 
     useEffect(() => {
         dispatch(fetchClubs());
-    }, [path]);
+    }, [path, dispatch]);
 
     document.body.style = "background: #ffffff";
     return (
