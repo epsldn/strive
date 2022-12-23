@@ -37,7 +37,7 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'email': self.email,
-            "birthdate": self.birthdate,
-            "joined_clubs": {club.get_id(): club.get_id() for club in self.clubs},
+            "birthdate": f"{self.birthdate}",
+            "joined_clubs": {club.get_id(): {"id": club.to_dict()["id"], "clubImage": club.to_dict()["clubImage"]} for club in self.clubs},
             "owned_clubs": {club.get_id(): club.get_id() for club in self.owned_clubs}
         }
