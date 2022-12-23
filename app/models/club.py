@@ -44,8 +44,11 @@ class Club(db.Model):
             "clubName": self.club_name,
             "location": self.location,
             "website": self.website,
-            "spot": self.spot,
+            "sport": self.sport,
             "description": self.description,
             "clubImage": self.club_image,
             "clubBanner": self.club_banner
         }
+
+    def get_id(self):
+        return self.id
