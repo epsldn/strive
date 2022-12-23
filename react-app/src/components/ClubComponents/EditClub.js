@@ -4,7 +4,7 @@ import MainNavBar from "../MainNavBar";
 import styles from "../../stylesheets/ClubForm.module.css";
 import { useSelector } from "react-redux";
 
-function CreateClub() {
+function EditClub() {
     const [errors, setErrors] = useState({});
     const [clubName, setClubName] = useState("");
     const [location, setLocation] = useState("");
@@ -14,7 +14,7 @@ function CreateClub() {
     const [description, setDescription] = useState("");
     const history = useHistory();
     const user = useSelector(state => state.session.user);
-    document.title = "Create Club | Strive Club";
+    document.title = "Edit Club | Strive Club";
 
     async function handleSubmission(event) {
         event.preventDefault();
@@ -36,7 +36,7 @@ function CreateClub() {
         };
 
         const response = await fetch(`/api/clubs/`, {
-            method: "POST",
+            method: "PUT",
             headers: { "Content-type": "application/json" },
             body: JSON.stringify(payload)
         });
@@ -181,4 +181,4 @@ function CreateClub() {
     );
 }
 
-export default CreateClub;
+export default EditClub;

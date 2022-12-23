@@ -11,6 +11,7 @@ import "./stylesheets/reset.css";
 import LandingPage from './components/LandingPage/LandingPage';
 import CreateClub from './components/ClubComponents/CreateClub';
 import MainNavBar from './components/MainNavBar';
+import EditClub from './components/ClubComponents/EditClub';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -51,6 +52,9 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute path="/clubs/create" exact>
           <CreateClub />
+        </ProtectedRoute>
+        <ProtectedRoute path="/clubs/:clubId/edit">
+          <EditClub />
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>
