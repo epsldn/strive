@@ -14,7 +14,7 @@
     width: 50%;
 }
 
-h1 {
+.mainContent h1 {
     font-size: 2.2rem;
     font-weight: 800;
     line-height: 2.8rem;
@@ -28,23 +28,23 @@ h1 {
     font-style: italic;
 }
 
-form label {
+.mainContent form label {
     font-weight: 700;
     font-size: 1.4rem;
     line-height: 2rem;
     margin-bottom: 1rem;
 }
 
-form>div {
+.mainContent form>div {
     display: flex;
     flex-direction: column;
     margin-bottom: 2rem;
 }
 
-form input,
-form option,
-form select,
-form textarea {
+.mainContent form input,
+.mainContent form option,
+.mainContent form select,
+.mainContent form textarea {
     height: 4rem;
     font-size: 1.4rem;
     line-height: 2rem;
@@ -55,20 +55,20 @@ form textarea {
     border-radius: .4rem;
 }
 
-form input:focus,
-form option:focus,
-form select:focus,
-form textarea:focus {
+.mainContent form input:focus,
+.mainContent form option:focus,
+.mainContent form select:focus,
+.mainContent form textarea:focus {
     border-color: #66afe9;
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
 }
 
-form textarea {
+.mainContent form textarea {
     height: 22rem;
     resize: none;
 }
 
-.buttonContainer {
+.mainContent .buttonContainer {
     display: flex;
     flex-direction: row;
     align-items: center;
