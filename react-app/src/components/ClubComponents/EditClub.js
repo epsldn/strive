@@ -188,6 +188,10 @@ function EditClub() {
                         </div>
                     </form>
                 </div>
+                <div className={styles.deleteSection}>
+                    <p>This action will remove your club and your club's history from Strive.</p>
+                    <button>Delete Club</button>
+                </div>
             </div >
         </div >
     );
