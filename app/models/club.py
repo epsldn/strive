@@ -26,8 +26,8 @@ class Club(db.Model):
     website = db.Column(db.String(100))
     spot = db.Column(db.String(100))
     description = db.Column(db.String)
-    club_image = db.Column(db.String)
-    club_banner = db.Column(db.String)
+    club_image = db.Column(db.String, default="https://striveonrender.s3.us-west-2.amazonaws.com/clubDefault.png", nullable=False)
+    club_banner = db.Column(db.String, default="https://striveonrender.s3.us-west-2.amazonaws.com/defaultBanner.png", nullable=False)
 
     owner = db.relationship(
         "User", back_populates="owned_clubs"
