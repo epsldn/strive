@@ -12,6 +12,9 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     birthdate = db.Column(db.Date, nullable=False)
+    profile_picture = db.Column(
+        db.String, default="https://striveonrender.s3.us-west-2.amazonaws.com/29215abf55974d0084dcb1b46a1f3c8c.png", nullable=False)
+    onboarding = db.Column(db.Boolean, default=True, nullable=False)
     hashed_password = db.Column(db.String(255), nullable=False)
 
     @property
@@ -28,5 +31,6 @@ class User(db.Model, UserMixin):
     def to_dict(self):
         return {
             'id': self.id,
-            'email': self.email
+            'email': self.email,
+            "birthdate": self.birthdate
         }

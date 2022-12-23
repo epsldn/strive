@@ -11,8 +11,8 @@ function CreateClub() {
     const [sport, setSport] = useState("");
     const [clubType, setClubType] = useState("");
     const [description, setDescription] = useState("");
-
     const history = useHistory();
+    document.title = "Create Club | Strive Club";
 
     function handleSubmission(event) {
         event.preventDefault();
