@@ -26,6 +26,7 @@ sqlalchemy = "==1.4.19"
 werkzeug = "==2.0.1"
 wtforms = "==2.3.3"
 boto3 = "*"
+psycopg2 = "*"
 
 [dev-packages]
 
