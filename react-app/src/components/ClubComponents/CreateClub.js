@@ -16,7 +16,14 @@ function CreateClub() {
 
     function handleSubmission(event) {
         event.preventDefault();
+        const errors = {};
+        if (!clubName) errors.clubName = "Please enter a name for your club.";
+        if (!location) errors.location = "Please enter your city and state.";
+        if (!description) errors.description = "Please enter a description for your club.";
+        setErrors(errors);
+        if (Object.keys(errors).length > 0) return;
     }
+
     function handleCancel(event) {
         event.preventDefault();
         history.push("/");
@@ -39,7 +46,7 @@ function CreateClub() {
                                 onChange={(event) => setClubName(event.target.value)}
                                 value={clubName}
                             />
-                            <label>{ }</label>
+                            <label className={styles.errors}>{errors.clubName}</label>
                         </div>
                         <div>
                             <label>Location *</label>
@@ -48,6 +55,7 @@ function CreateClub() {
                                 onChange={(event) => setLocation(event.target.value)}
                                 value={location}
                             />
+                            <label className={styles.errors}>{errors.location}</label>
                         </div>
                         <div>
                             <label>Website</label>
@@ -56,6 +64,7 @@ function CreateClub() {
                                 onChange={(event) => setWebsite(event.target.value)}
                                 value={website}
                             />
+                            <label className={styles.errors}>{errors.website}</label>
                         </div>
                         <div>
                             <label>Sport</label>
@@ -103,6 +112,7 @@ function CreateClub() {
                                 <option value="yoga">Yoga</option>
                                 <option value="other">Multisport</option>
                             </select>
+                            <label className={styles.errors}>{errors.sport}</label>
                         </div>
                         <div>
                             <label>Club Type</label>
@@ -116,13 +126,15 @@ function CreateClub() {
                                 <option value="company">Company / Workplace</option>
                                 <option value="other">Other</option>
                             </select>
+                            <label className={styles.errors}>{errors.clubType}</label>
                         </div>
                         <div>
-                            <label>Description</label>
+                            <label>Description *</label>
                             <textarea
                                 onChange={(event) => setDescription(event.target.value)}
                                 value={description}
                             />
+                            <label className={styles.errors}>{errors.description}</label>
                         </div>
                         <div className={styles.buttonContainer}>
                             <button type="submit">Create Club</button>

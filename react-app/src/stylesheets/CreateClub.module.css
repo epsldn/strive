@@ -108,3 +108,7 @@ form textarea {
     color: var(--strive-hyperlink-darkblue);
     text-decoration: underline;
 }
+
+.errors {
+    color: var(--strive-form-error-dark-red)
+}
