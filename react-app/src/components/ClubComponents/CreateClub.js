@@ -10,8 +10,8 @@ function CreateClub() {
     const [clubName, setClubName] = useState("");
     const [location, setLocation] = useState("");
     const [website, setWebsite] = useState("");
-    const [sport, setSport] = useState("Cycling");
-    const [clubType, setClubType] = useState("Club");
+    const [sport, setSport] = useState("cycling");
+    const [clubType, setClubType] = useState("club");
     const [description, setDescription] = useState("");
     const history = useHistory();
     const dispatch = useDispatch();

@@ -8,6 +8,7 @@
     max-width: 1248px;
     width: 100%;
     margin: 3.2rem;
+    margin-top: 0;
 }
 
 .formWrapper {
@@ -15,6 +16,7 @@
 }
 
 .mainContent h1 {
+    margin-top: 3.2rem;
     font-size: 2.2rem;
     font-weight: 800;
     line-height: 2.8rem;
@@ -111,4 +113,42 @@
 
 .errors {
     color: var(--strive-form-error-dark-red)
+}
+
+.deleteSection {
+    display: flex;
+    align-items: center;
+    width: 70%;
+    height: 6.4rem;
+    background-color: #fcf8e3;
+    border: 1px solid #faebcc;
+    border-radius: .4rem;
+    padding: 1.5rem;
+    min-width: 37rem;
+}
+
+.deleteSection p {
+    color: #8a6d3b;
+    height: fit-content;
+    align-self: center;
+    font-size: 1.6rem;
+}
+
+.deleteSection button {
+    border: none;
+    background-color: black;
+    color: white;
+    font-weight: 800;
+    font-size: 1.4rem;
+    min-height: fit-content;
+    padding: .6rem 1.2rem;
+    height: fit-content;
+    min-width: 10rem;
+    width: 10%;
+    margin-left: .4rem;
+    margin-bottom: 0;
+}
+
+.deleteSection button:hover {
+    color: rgb(221, 221, 221)
 }

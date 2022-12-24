@@ -2,20 +2,35 @@ import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import MainNavBar from "../MainNavBar";
 import styles from "../../stylesheets/ClubForm.module.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import CLubPictures from "./ClubPictures";
+import { deleteClub, updateClub } from "../../store/clubs";
 
 function EditClub() {
     const [errors, setErrors] = useState({});
     const [clubName, setClubName] = useState("");
     const [location, setLocation] = useState("");
     const [website, setWebsite] = useState("");
-    const [sport, setSport] = useState("Cycling");
-    const [clubType, setClubType] = useState("Club");
+    const [sport, setSport] = useState("cycling");
+    const [clubType, setClubType] = useState("club");
     const [description, setDescription] = useState("");
     const { clubId } = useParams();
+    const club = useSelector(state => state.clubs[clubId]);
     const history = useHistory();
+    const dispatch = useDispatch();
     const user = useSelector(state => state.session.user);
-    document.title = "Edit Club | Strive Club";
+    document.title = `${club?.clubName || "Edit Club"} | Strive Club`;
+
+    useEffect(() => {
+        if (!club) return;
+
+        setClubName(club.clubName || "");
+        setLocation(club.location || "");
+        setWebsite(club.website || "");
+        setSport(club.sport || "");
+        setClubType(club.type || "");
+        setDescription(club.description || "");
+    }, [club]);
 
     async function handleSubmission(event) {
         event.preventDefault();
@@ -25,7 +40,6 @@ function EditClub() {
         if (!description) errors.description = "Please enter a description for your club.";
         setErrors(errors);
         if (Object.keys(errors).length > 0) return;
-        console.log(sport, clubType);
         const payload = {
             "club_name": clubName,
             "description": description,
@@ -36,25 +50,8 @@ function EditClub() {
             "website": website,
         };
 
-        const response = await fetch(`/api/clubs/`, {
-            method: "PUT",
-            headers: { "Content-type": "application/json" },
-            body: JSON.stringify(payload)
-        });
-
-        if (response.ok) {
-            const message = await response.json();
-            console.log(message);
-        } else {
-
-            const dbErrors = await response.json();
-            console.log(dbErrors);
-            errors = {
-                clubName: dbErrors.errors.club_name,
-                location: dbErrors.errors.location,
-                description: dbErrors.errors.description
-            };
-
+        errors = await dispatch(updateClub(payload, clubId));
+        if (errors) {
             setErrors(errors);
         }
     }
@@ -64,23 +61,19 @@ function EditClub() {
         history.goBack();
     }
 
+    function handleDelete(event) {
+        event.preventDefault();
+        dispatch(deleteClub(clubId));
+    }
 
-    useEffect(() => {
-        fetch(`/api/clubs/${clubId}`).then(response => response.json()).then(data => {
-            const {clubBanner, clubImage, clubname, description, location, sport, type, website} = data
-            // const [clubName, setClubName] = useState("");
-            // const [location, setLocation] = useState("");
-            // const [website, setWebsite] = useState("");
-            // const [sport, setSport] = useState("Cycling");
-            // const [clubType, setClubType] = useState("Club");
-            // const [description, setDescription] = useState("");
-        });
-    }, [clubId]);
-
+    if (!club) {
+        history.push("/");
+    }
     return (
         <div className={styles.mainWrapper}>
             <MainNavBar />
             <div className={styles.mainContent}>
+                <CLubPictures club={club} />
                 <div className={styles.formWrapper}>
                     <p>Fields marked with * are required</p>
                     <form onSubmit={handleSubmission}>
@@ -186,6 +179,10 @@ function EditClub() {
                             <button onClick={handleCancel}>Cancel</button>
                         </div>
                     </form>
+                </div>
+                <div className={styles.deleteSection}>
+                    <p>This action will remove your club and your club's history from Strive.</p>
+                    <button onClick={handleDelete}>Delete Club</button>
                 </div>
             </div >
         </div >
