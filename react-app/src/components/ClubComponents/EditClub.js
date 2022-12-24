@@ -66,9 +66,10 @@ function EditClub() {
         dispatch(deleteClub(clubId));
     }
 
-    if (!club) {
+    if (!club || !club.id in user.owned_clubs) {
         history.push("/");
     }
+
     return (
         <div className={styles.mainWrapper}>
             <MainNavBar />
