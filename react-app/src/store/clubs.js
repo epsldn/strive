@@ -19,9 +19,9 @@ const editClub = (club) => ({
     club
 });
 
-const removeClub = (club) => ({
+const removeClub = (clubId) => ({
     type: DELETE_CLUB,
-    club
+    clubId
 });
 
 export const fetchClubs = () => async dispatch => {
@@ -54,6 +54,37 @@ export const createClub = (club) => async dispatch => {
     };
 };
 
+export const updateClub = (club, clubId) => async dispatch => {
+    const response = await fetch(`/api/clubs/${clubId}`, {
+        method: "PUT",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify(club)
+    });
+
+    if (response.ok) {
+        club = await response.json();
+        dispatch(editClub(club));
+    } else {
+        const dbErrors = await response.json();
+        return {
+            clubName: dbErrors.errors.club_name,
+            location: dbErrors.errors.location,
+            description: dbErrors.errors.description
+        };
+    };
+};
+
+export const deleteClub = (clubId) => async dispatch => {
+    const response = await fetch(`/api/clubs/${clubId}`, { method: "DELETE" });
+
+    if (response.ok) {
+        dispatch(removeClub(clubId));
+    } else {
+        const errors = response.json();
+        return errors;
+    }
+};
+
 const initialState = {};
 
 export default function reducer(state = initialState, action) {
@@ -67,12 +98,15 @@ export default function reducer(state = initialState, action) {
             return newState;
         }
         case EDIT_CLUB: {
-            break;
+            const newState = { ...state };
+            newState[action.club.updatedClub.id] = action.club;
+            return newState;
         }
         case DELETE_CLUB: {
-            break;
+            const newState = { ...state };
+            delete newState[action.clubId];
         }
-        
+
         default:
             return state;
     }

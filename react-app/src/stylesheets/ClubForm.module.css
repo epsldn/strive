@@ -148,3 +148,7 @@
     margin-left: .4rem;
     margin-bottom: 0;
 }
+
+.deleteSection button:hover {
+    color: rgb(221, 221, 221)
+}

@@ -12,6 +12,7 @@ def get_clubs():
     clubs = Club.query.all()
     return jsonify({club.id: club.to_dict() for club in clubs}), 200
 
+
 @club_routes.route("/", methods=["POST"])
 # @login_required
 def create_club():
@@ -28,6 +29,45 @@ def create_club():
         return jsonify(newClub.to_dict()), 200
     else:
         return {'errors': {k: v[0] for k, v in form.errors.items()}}, 400
+
+
+@club_routes.route("/<int:clubId>", methods=["PUT"])
+# @login_required
+def update_club(clubId):
+    form = ClubForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        del form["csrf_token"]
+        club = Club.query.get(clubId)
+
+        if club:
+            club.club_name = form.data["club_name"]
+            club.description = form.data["description"]
+            club.location = form.data["location"]
+            club.sport = form.data["sport"]
+            club.type = form.data["type"]
+            club.website = form.data["website"]
+            db.session.commit()
+
+            return jsonify({"message": "success!", "updatedClub": club.to_dict()}), 200
+        else:
+            return {"errors": "No club with that ID found."}, 400
+    else:
+        return {'errors': {k: v[0] for k, v in form.errors.items()}}, 400
+
+
+@club_routes.route("<int:clubId>", methods=["DELETE"])
+# @login_required
+def delete_club(clubId):
+    club = Club.query.get(clubId)
+
+    if not club:
+        return {"errors": "No club with that ID found."}, 400
+    else:
+        db.session.delete(club)
+        db.session.commit();
+        return {"message": f"Success! Club with id {clubId} deleted"}
 
 
 @club_routes.route("/<int:clubId>")

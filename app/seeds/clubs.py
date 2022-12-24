@@ -3,11 +3,11 @@ from app.models import db, Club, User, environment, SCHEMA
 
 def seed_clubs():
     club1 = Club(
-        owner_id=1, club_name="austin raiderrrs", location="Austin, Texas", sport="footsports", type="Club", description="It's a club alright")
+        owner_id=1, club_name="austin raiderrrs", location="Austin, Texas", sport="footsports", type="club", description="It's a club alright")
     club2 = Club(
-        owner_id=1, club_name="austin munchers", location="Austin, Texas", sport="surfing", type="Club", description="It's a surfing club alright")
+        owner_id=1, club_name="austin munchers", location="Austin, Texas", sport="surfing", type="club", description="It's a surfing club alright")
     club3 = Club(
-        owner_id=3, club_name="dallas kayakers", location="Dallas, Texas", sport="kayaking", type="Company", description="Where are we even kayaking?")
+        owner_id=3, club_name="dallas kayakers", location="Dallas, Texas", sport="kayaking", type="company", description="Where are we even kayaking?")
 
     user1 = User.query.get(1)
     user2 = User.query.get(2)
