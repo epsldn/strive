@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { Redirect, useHistory, useParams } from "react-router-dom";
 import MainNavBar from "../MainNavBar";
 import styles from "../../stylesheets/ClubForm.module.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,23 +14,30 @@ function EditClub() {
     const [sport, setSport] = useState("cycling");
     const [clubType, setClubType] = useState("club");
     const [description, setDescription] = useState("");
+    const [loaded, setLoaded] = useState(false);
     const { clubId } = useParams();
-    const club = useSelector(state => state.clubs[clubId]);
+    const clubs = useSelector(state => state.clubs);
+    const [club, setClub] = useState(null);
     const history = useHistory();
     const dispatch = useDispatch();
     const user = useSelector(state => state.session.user);
     document.title = `${club?.clubName || "Edit Club"} | Strive Club`;
 
     useEffect(() => {
-        if (!club) return;
+        if (Object.keys(clubs).length > 0) {
+            setLoaded(true);
+            setClub(clubs[clubId]);
+        }
 
-        setClubName(club.clubName || "");
-        setLocation(club.location || "");
-        setWebsite(club.website || "");
-        setSport(club.sport || "");
-        setClubType(club.type || "");
-        setDescription(club.description || "");
-    }, [club]);
+        if (club) {
+            setClubName(club.clubName || "");
+            setLocation(club.location || "");
+            setWebsite(club.website || "");
+            setSport(club.sport || "");
+            setClubType(club.type || "");
+            setDescription(club.description || "");
+        }
+    }, [clubs]);
 
     async function handleSubmission(event) {
         event.preventDefault();
@@ -66,8 +73,8 @@ function EditClub() {
         dispatch(deleteClub(clubId));
     }
 
-    if (!club || !club.id in user.owned_clubs) {
-        history.push("/");
+    if (loaded && clubId in user.owned_clubs === false) {
+        return <Redirect to="/" />;
     }
 
     return (
