@@ -1,9 +1,11 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 import MainNavBar from "../MainNavBar";
 import styles from "../../stylesheets/ClubForm.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { createClub } from "../../store/clubs";
+
+const test = [1, 2, 3, 4, 5];
 
 function CreateClub() {
     const [errors, setErrors] = useState({});
@@ -13,6 +15,9 @@ function CreateClub() {
     const [sport, setSport] = useState("cycling");
     const [clubType, setClubType] = useState("club");
     const [description, setDescription] = useState("");
+    const [coordinates, setCoordinates] = useState("");
+    const [cities, setCities] = useState([]);
+    const path = useLocation().pathname;
     const history = useHistory();
     const dispatch = useDispatch();
     const user = useSelector(state => state.session.user);
@@ -48,6 +53,20 @@ function CreateClub() {
         history.goBack();
     }
 
+    useEffect(() => {
+        fetch("/api/maps/city-search", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ coordinates, search: location })
+        })
+            .then(response => response.json())
+            .then(data => setCities(data));
+    }, [location]);
+
+    useEffect(() => {
+        navigator.geolocation.getCurrentPosition((position) => setCoordinates(position.coords.latitude + "," + position.coords.longitude), () => setCoordinates(null), { enableHighAccurary: true, timeout: 3000 });
+    }, [path]);
+
     return (
         <div className={styles.mainWrapper}>
             <MainNavBar />
@@ -71,9 +90,14 @@ function CreateClub() {
                             <label>Location *</label>
                             <input
                                 type="text"
+                                list="cities"
                                 onChange={(event) => setLocation(event.target.value)}
                                 value={location}
+                                autoComplete="off"
                             />
+                            <datalist id="cities">
+                                {cities.map(k => <option>{k}</option>)}
+                            </datalist>
                             <label className={styles.errors}>{errors.location}</label>
                         </div>
                         <div>

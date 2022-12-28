@@ -12,7 +12,7 @@ import os
 map_routes = Blueprint("maps", __name__)
 
 
-@map_routes.route("/city-search")
+@map_routes.route("/city-search", methods=["POST"])
 # @login_required
 def city_search():
     search = request.get_json()["search"]

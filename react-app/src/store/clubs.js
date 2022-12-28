@@ -25,8 +25,9 @@ const removeClub = (clubId) => ({
 });
 
 export const fetchClubs = () => async dispatch => {
-    const response = await fetch("/api/clubs");
+    const response = await fetch("/api/clubs/");
     const data = await response.json();
+    console.log(data)
     if (response.ok) {
         dispatch(setClubs(data));
     } else {

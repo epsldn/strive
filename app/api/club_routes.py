@@ -9,6 +9,7 @@ club_routes = Blueprint("clubs", __name__)
 @club_routes.route("/")
 # @login_required
 def get_clubs():
+    print("\n HELLOOOOOOO \n")
     clubs = Club.query.all()
     return jsonify({club.id: club.to_dict() for club in clubs}), 200
 
