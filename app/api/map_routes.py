@@ -16,7 +16,8 @@ map_routes = Blueprint("maps", __name__)
 # @login_required
 def city_search():
     search = request.get_json()["search"]
+    coordinates = request.get_json()["coordinates"]
     places_key = os.getenv("GOOGLE_MAPS")
-    url = f"https://maps.googleapis.com/maps/api/place/autocomplete/json?input={search}&&types=%28cities%29&key={places_key}"
+    url = f"https://maps.googleapis.com/maps/api/place/autocomplete/json?input={search}&&types=%28cities%29&key={places_key}&location={coordinates}&radius=50000"
     data = requests.get(url)
-    return data.json()
+    return jsonify([prediction["description"] for prediction in data.json()["predictions"]]), 200
