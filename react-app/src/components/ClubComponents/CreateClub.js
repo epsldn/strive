@@ -171,6 +171,7 @@ function CreateClub() {
                                             onClick={() => {
                                                 setLocation(city);
                                                 setShowCities(false);
+                                                setCities([city]);
                                             }}
                                         >{city}</li>
                                     )
