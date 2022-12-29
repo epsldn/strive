@@ -10,7 +10,6 @@ const NavBar = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("DISPATCHINGGGGGG")
     dispatch(fetchClubs());
   }, [path]);
 

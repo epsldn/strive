@@ -57,7 +57,6 @@ function CreateClub() {
 
     function handleKeyDown(event) {
         const key = event.code;
-        console.log(event, key);
 
 
         if (key === "ArrowUp" && selected > 0) {
