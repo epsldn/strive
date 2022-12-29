@@ -119,6 +119,11 @@ function EditClub() {
         history.goBack();
     }
 
+
+    // <i className="fa-solid fa-circle-plus"/>
+    // <i className="fa-solid fa-camera"/>
+    // <i className="fa-solid fa-square-plus"/>
+    
     useEffect(() => {
         fetch("/api/maps/city-search", {
             method: "POST",
