@@ -171,6 +171,7 @@ function CreateClub() {
                                             onClick={() => {
                                                 setLocation(city);
                                                 setShowCities(false);
+                                                setCities([city]);
                                             }}
                                         >{city}</li>
                                     )
@@ -182,7 +183,8 @@ function CreateClub() {
                         <div>
                             <label>Website</label>
                             <input
-                                type="text"
+                                type="url"
+                                required={false}
                                 onChange={(event) => setWebsite(event.target.value)}
                                 value={website}
                             />

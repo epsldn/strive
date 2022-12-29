@@ -37,9 +37,12 @@ function EditClub() {
     document.title = `${club?.clubName || "Edit Club"} | Strive Club`;
 
     useEffect(() => {
+        let club;
         if (Object.keys(clubs).length > 0) {
             setLoaded(true);
-            setClub(clubs[clubId]);
+            club = clubs[clubId];
+            setClub(club);
+            setShowCities(false);
         }
 
         if (club) {
@@ -85,7 +88,6 @@ function EditClub() {
         event.preventDefault();
         dispatch(deleteClub(clubId));
     }
-
 
     function handleKeyDown(event) {
         const key = event.code;
@@ -206,6 +208,7 @@ function EditClub() {
                                             onClick={() => {
                                                 setLocation(city);
                                                 setShowCities(false);
+                                                setCities([city]);
                                             }}
                                         >{city}</li>
                                     )
@@ -217,7 +220,8 @@ function EditClub() {
                         <div>
                             <label>Website</label>
                             <input
-                                type="text"
+                                type="url"
+                                required={false}
                                 onChange={(event) => setWebsite(event.target.value)}
                                 value={website}
                             />
