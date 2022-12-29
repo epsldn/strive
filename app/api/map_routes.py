@@ -18,6 +18,6 @@ def city_search():
     search = request.get_json()["search"]
     coordinates = request.get_json()["coordinates"]
     places_key = os.getenv("GOOGLE_MAPS")
-    url = f"https://maps.googleapis.com/maps/api/place/autocomplete/json?input={search}&&types=%28cities%29&key={places_key}&location={coordinates}&radius=50000"
+    url = f"https://maps.googleapis.com/maps/api/place/autocomplete/json?input={search}&&types=%28cities%29&key={places_key}&location={coordinates}&radius=5000"
     data = requests.get(url)
     return jsonify([prediction["description"] for prediction in data.json()["predictions"]]), 200

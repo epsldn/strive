@@ -41,6 +41,43 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 2rem;
+    position: relative;
+}
+
+#location {
+    z-index: 6;
+}
+
+#location:focus {
+    background-color: white;
+}
+
+.cities {
+    position: absolute;
+    top: calc(100% - .5rem);
+    background-color: white;
+    width: 100%;
+    z-index: 5;
+    border: 1px solid #66afe9;
+    border-radius: .4rem;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+    z-index: 5;
+}
+
+.cities li {
+    padding: 0 1.6rem;
+    display: flex;
+    align-items: center;
+    height: 4rem;
+    line-height: 2rem;
+    font-size: 1.4rem;
+    user-select: none;
+    border-bottom: 1px solid var(--strive-border-lightgray)
+}
+
+.cities li:hover {
+    cursor: pointer;
+    background-color: lightgray;
 }
 
 .mainContent form input,

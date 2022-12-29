@@ -16,6 +16,7 @@ function CreateClub() {
     const [clubType, setClubType] = useState("club");
     const [description, setDescription] = useState("");
     const [coordinates, setCoordinates] = useState("");
+    const [showCities, setShowCities] = useState(true);
     const [cities, setCities] = useState([]);
     const path = useLocation().pathname;
     const history = useHistory();
@@ -90,14 +91,15 @@ function CreateClub() {
                             <label>Location *</label>
                             <input
                                 type="text"
-                                list="cities"
                                 onChange={(event) => setLocation(event.target.value)}
                                 value={location}
-                                autoComplete="off"
+                                id={styles.location}
                             />
-                            <datalist id="cities">
-                                {cities.map(k => <option>{k}</option>)}
-                            </datalist>
+                            {showCities && cities.length > 0 &&
+                                <ul className={styles.cities}>
+                                    {cities.map(k => <li>{k}</li>)}
+                                </ul>
+                            }
                             <label className={styles.errors}>{errors.location}</label>
                         </div>
                         <div>
