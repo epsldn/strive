@@ -219,7 +219,8 @@ function EditClub() {
                         <div>
                             <label>Website</label>
                             <input
-                                type="text"
+                                type="url"
+                                required={false}
                                 onChange={(event) => setWebsite(event.target.value)}
                                 value={website}
                             />
