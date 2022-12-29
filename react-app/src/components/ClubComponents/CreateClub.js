@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useEffect, useReducer, useRef, useState } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 import MainNavBar from "../MainNavBar";
 import styles from "../../stylesheets/ClubForm.module.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,9 +13,21 @@ function CreateClub() {
     const [sport, setSport] = useState("cycling");
     const [clubType, setClubType] = useState("club");
     const [description, setDescription] = useState("");
+    const [coordinates, setCoordinates] = useState("");
+    const [selected, setSelected] = useState(0);
+    const [showCities, setShowCities] = useState(true);
+    const [cities, setCities] = useState([]);
+
+
+    const path = useLocation().pathname;
     const history = useHistory();
     const dispatch = useDispatch();
     const user = useSelector(state => state.session.user);
+
+    const locationRef = useRef(null);
+    const locationContainer = useRef(null);
+    const cityRef = useRef(null);
+
     document.title = "Create Club | Strive Club";
 
     async function handleSubmission(event) {
@@ -43,10 +55,68 @@ function CreateClub() {
         }
     }
 
+    function handleKeyDown(event) {
+        const key = event.code;
+
+
+        if (key === "ArrowUp" && selected > 0) {
+            event.preventDefault();
+            setSelected(selected => selected - 1);
+        }
+
+        if (key === "ArrowDown" && selected < 4) {
+            event.preventDefault();
+            setSelected(selected => selected + 1);
+        }
+
+        if (key === "Enter" && cityRef.current) {
+            event.preventDefault();
+            setCities([cityRef.current.textContent]);
+            setLocation(cityRef.current.textContent);
+            setShowCities(false);
+        }
+
+        if (key === "Tab" && cityRef.current) {
+            setShowCities(false);
+        }
+    }
+
     function handleCancel(event) {
         event.preventDefault();
         history.goBack();
     }
+
+    useEffect(() => {
+        fetch("/api/maps/city-search", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ coordinates, search: location })
+        })
+            .then(response => response.json())
+            .then(data => {
+                setCities(data);
+            });
+
+        if (locationContainer.current && cities.length > 1) {
+            setShowCities(true);
+        }
+
+        function onClick(e) {
+            if (locationContainer.current && locationContainer.current.contains(e.target) === false) {
+                setShowCities(false);
+            }
+        }
+
+        document.addEventListener("click", onClick);
+        return () => document.removeEventListener("click", onClick);
+    }, [location]);
+
+    useEffect(() => {
+        navigator.geolocation.getCurrentPosition(
+            (position) => setCoordinates(position.coords.latitude + "," + position.coords.longitude),
+            () => setCoordinates(null),
+            { enableHighAccurary: true, timeout: 3000 });
+    }, [path]);
 
     return (
         <div className={styles.mainWrapper}>
@@ -67,13 +137,46 @@ function CreateClub() {
                             />
                             <label className={styles.errors}>{errors.clubName}</label>
                         </div>
-                        <div>
+                        <div ref={locationContainer} onKeyDown={handleKeyDown}>
                             <label>Location *</label>
                             <input
                                 type="text"
                                 onChange={(event) => setLocation(event.target.value)}
                                 value={location}
+                                id={styles.location}
+                                ref={locationRef}
+                                onFocus={() => setShowCities(true)}
+                                autoComplete="off"
+                                onBlur={() => {
+                                    if (location !== cities[0]) {
+                                        setLocation("");
+                                    }
+                                }}
+
                             />
+                            {showCities && cities.length > 0 &&
+                                <ul className={styles.cities}>
+                                    {cities.map((city, index) => (
+                                        <li key={city}
+                                            style={
+                                                selected === index ?
+                                                    { backgroundColor: "lightgray" } :
+                                                    {}
+                                            }
+                                            ref={
+                                                selected === index ?
+                                                    cityRef :
+                                                    undefined
+                                            }
+                                            onClick={() => {
+                                                setLocation(city);
+                                                setShowCities(false);
+                                            }}
+                                        >{city}</li>
+                                    )
+                                    )}
+                                </ul>
+                            }
                             <label className={styles.errors}>{errors.location}</label>
                         </div>
                         <div>
