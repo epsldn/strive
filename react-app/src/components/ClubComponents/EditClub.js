@@ -123,7 +123,7 @@ function EditClub() {
     // <i className="fa-solid fa-circle-plus"/>
     // <i className="fa-solid fa-camera"/>
     // <i className="fa-solid fa-square-plus"/>
-    
+
     useEffect(() => {
         fetch("/api/maps/city-search", {
             method: "POST",
@@ -166,7 +166,7 @@ function EditClub() {
         <div className={styles.mainWrapper}>
             <MainNavBar />
             <div className={styles.mainContent}>
-                <CLubPictures club={club} />
+                <CLubPictures club={club} user={user} />
                 <div className={styles.formWrapper}>
                     <p>Fields marked with * are required</p>
                     <form onSubmit={handleSubmission}>

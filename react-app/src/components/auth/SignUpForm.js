@@ -78,7 +78,7 @@ const SignUpForm = () => {
 
     setShowConfirmPassword(true);
   }, [password]);
-  
+
   if (user) {
     return <Redirect to='/' />;
   }
@@ -89,8 +89,6 @@ const SignUpForm = () => {
       <div className={styles.mainContent}>
         <img id={styles.backgroundImage} src={backgroundImage} alt="Background athletes" />
         <form className={styles.formContainer}>
-          {<div>
-          </div>}
           <h2>Join Strive today, it's Free.</h2>
           <div className={styles.formContent}>
             <div style={{ marginBottom: "2rem" }}>

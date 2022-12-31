@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from flask_login import login_required
+from flask_login import login_required, current_user
 from app.models import User, Club, db
 from app.forms import ClubForm
 
@@ -9,7 +9,6 @@ club_routes = Blueprint("clubs", __name__)
 @club_routes.route("/")
 # @login_required
 def get_clubs():
-    print("\n HELLOOOOOOO \n")
     clubs = Club.query.all()
     return jsonify({club.id: club.to_dict() for club in clubs}), 200
 
@@ -35,6 +34,8 @@ def create_club():
 @club_routes.route("/<int:clubId>", methods=["PUT"])
 # @login_required
 def update_club(clubId):
+    if clubId not in current_user.to_dict()["owned_clubs"]:
+        return {"error": "No club with that ID found"}, 400
     form = ClubForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
@@ -61,13 +62,14 @@ def update_club(clubId):
 @club_routes.route("<int:clubId>", methods=["DELETE"])
 # @login_required
 def delete_club(clubId):
+    if clubId not in current_user.to_dict()["owned_clubs"]:
+        return {"error": "No club with that ID found"}, 400
     club = Club.query.get(clubId)
-
     if not club:
         return {"errors": "No club with that ID found."}, 400
     else:
         db.session.delete(club)
-        db.session.commit();
+        db.session.commit()
         return {"message": f"Success! Club with id {clubId} deleted"}
 
 
