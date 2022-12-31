@@ -17,7 +17,7 @@
     position: absolute;
     bottom: 0;
     left: 1.5%;
-    height: 30%;
+    min-height: 30%;
 }
 
 #clubImage img {
@@ -30,4 +30,90 @@
     font-size: 1.3rem;
     text-align: center;
     font-weight: 400;
+}
+
+#clubImage label {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: .4rem;
+    max-height: 12.4rem;
+}
+
+#clubImage label div {
+    position: absolute;
+    bottom: 0;
+    right: -.2rem;
+}
+
+#cameraIcon {
+    position: absolute;
+    border: 3px solid var(--strive-international-orange);
+    padding: 8px 16px;
+    font-size: 4rem;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--strive-international-orange);
+}
+
+#cameraIcon:hover {
+    background-color: var(--strive-international-orange);
+    color: white;
+    cursor: pointer;
+}
+
+#cameraPlus {
+    position: absolute;
+    font-size: 2rem;
+    font-weight: bolder;
+    top: 0;
+    right: 0;
+    transform: translate(+51%, -50%);
+    overflow-y: hidden;
+    padding: 4px;
+}
+
+
+#cameraIcon:hover #cameraPlus {
+    display: none;
+}
+
+#cameraIconCorner {
+    border: 3px solid var(--strive-international-orange);
+    padding: 4px 8px;
+    font-size: 1rem;
+    color: var(--strive-international-orange);
+}
+
+#cameraIconCorner:hover {
+    background-color: var(--strive-international-orange);
+    color: white;
+    cursor: pointer;
+}
+
+#cameraIconCorner #cameraPlus {
+    position: absolute;
+    font-size: 1rem;
+    top: 0;
+    right: 0;
+    transform: none;
+    background-color: rgba(0, 0, 0, 0.91);
+    padding: 2px;
+}
+
+#cameraIconCorner:hover #cameraPlus {
+    display: none;
+}
+
+#cameraBackground {
+    background-color: rgba(0, 0, 0, 0.91);
+    padding: 1rem .5rem;
+    position: absolute;
+    bottom: 20%;
+    right: 1.5%;
 }

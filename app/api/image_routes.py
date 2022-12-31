@@ -7,7 +7,7 @@ image_routes = Blueprint("images", __name__)
 
 
 @image_routes.route("/user-profile", methods=["POST"])
-def upload_image():
+def user_profile():
     if "image" not in request.files:
         return {"errors": "image required"}, 400
 
@@ -20,14 +20,37 @@ def upload_image():
 
     upload = upload_file(image)
 
-    print(upload)
     if "url" not in upload:
         return upload, 400
 
     url = upload["url"]
 
     user = User.query.get(current_user.id)
-    print(url)
+    user.profileImage = url
+    db.session.commit()
+    return jsonify({"url": url}), 200
+
+
+@image_routes.route("/club-images/", methods=["POST"])
+def club_images():
+    if "image" not in request.files:
+        return {"errors": "image required"}, 400
+
+    image = request.files["image"]
+
+    if not file_checker(image.filename):
+        return {"errors": "file type not permitted"}, 400
+
+    image.filename = get_unique_filename(image.filename)
+
+    upload = upload_file(image)
+
+    if "url" not in upload:
+        return upload, 400
+
+    url = upload["url"]
+
+    user = User.query.get(current_user.id)
     user.profileImage = url
     db.session.commit()
     return jsonify({"url": url}), 200
