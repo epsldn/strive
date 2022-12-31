@@ -3,14 +3,9 @@ import { useSelector } from "react-redux";
 import styles from "../../stylesheets/ClubPictures.module.css";
 function CLubPictures(props) {
     const { user, club, setClub } = props;
-    const [tempProfile, setTempProfile] = useState("");
-    const [tempBanner, setTempBanner] = useState("");
-    const [newProfile, setNewProfile] = useState("");
-    const [newBanner, setnewBanner] = useState("");
 
     async function handleSubmitProfile(event) {
         const image = event.target.files[0];
-        setTempBanner(image);
         const formData = new FormData();
         formData.append("image", image);
 
@@ -34,7 +29,6 @@ function CLubPictures(props) {
 
     async function handleSubmitBanner(event) {
         const image = event.target.files[0];
-        setTempProfile(image);
         const formData = new FormData();
         formData.append("image", image);
 
@@ -61,18 +55,21 @@ function CLubPictures(props) {
             <div id={styles.banner}>
                 <img src={club?.clubBanner || "https://striveonrender.s3.us-west-2.amazonaws.com/defaultBanner.png"} />
                 {club?.id in user?.owned_clubs &&
-                    <label id={styles.cameraIcon}>
-                        <input
-                            style={{ display: "none" }}
-                            type="file"
-                            accept="image/*"
-                            onChange={handleSubmitBanner}
-                            multiple={false}
-                        />
-                        <i className="fa-solid fa-camera-retro" >
-                            <i id={styles.cameraPlus} className="fa-solid fa-plus"></i>
-                        </i>
-                    </label>}
+                    <div id={club?.clubBanner ? styles.cameraBackground : ""}>
+                        <label id={!club?.clubBanner ? styles.cameraIcon : styles.cameraIconCorner}>
+                            <input
+                                style={{ display: "none" }}
+                                type="file"
+                                accept="image/*"
+                                onChange={handleSubmitBanner}
+                                multiple={false}
+                            />
+                            <i className="fa-solid fa-camera-retro" >
+                                <i id={styles.cameraPlus} className="fa-solid fa-plus"></i>
+                            </i>
+                        </label>
+                    </div>
+                }
             </div>
 
             <div id={styles.clubImage}>

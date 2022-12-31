@@ -74,11 +74,46 @@
     top: 0;
     right: 0;
     transform: translate(+51%, -50%);
-    background-color: #f5f5f5;
+    overflow-y: hidden;
     padding: 4px;
 }
 
 
 #cameraIcon:hover #cameraPlus {
     display: none;
+}
+
+#cameraIconCorner {
+    border: 3px solid var(--strive-international-orange);
+    padding: 4px 8px;
+    font-size: 1rem;
+    color: var(--strive-international-orange);
+}
+
+#cameraIconCorner:hover {
+    background-color: var(--strive-international-orange);
+    color: white;
+    cursor: pointer;
+}
+
+#cameraIconCorner #cameraPlus {
+    position: absolute;
+    font-size: 1rem;
+    top: 0;
+    right: 0;
+    transform: none;
+    background-color: rgba(0, 0, 0, 0.91);
+    padding: 2px;
+}
+
+#cameraIconCorner:hover #cameraPlus {
+    display: none;
+}
+
+#cameraBackground {
+    background-color: rgba(0, 0, 0, 0.91);
+    padding: 1rem .5rem;
+    position: absolute;
+    bottom: 20%;
+    right: 1.5%;
 }
