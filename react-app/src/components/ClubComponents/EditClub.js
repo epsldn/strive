@@ -166,7 +166,7 @@ function EditClub() {
         <div className={styles.mainWrapper}>
             <MainNavBar />
             <div className={styles.mainContent}>
-                <CLubPictures club={club} user={user} />
+                <CLubPictures club={club} user={user} setClub={setClub} />
                 <div className={styles.formWrapper}>
                     <p>Fields marked with * are required</p>
                     <form onSubmit={handleSubmission}>

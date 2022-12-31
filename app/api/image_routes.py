@@ -8,6 +8,7 @@ image_routes = Blueprint("images", __name__)
 
 @image_routes.route("/user-profile", methods=["POST"])
 def upload_image():
+    print("HEERE")
     if "image" not in request.files:
         return {"errors": "image required"}, 400
 
@@ -20,14 +21,12 @@ def upload_image():
 
     upload = upload_file(image)
 
-    print(upload)
     if "url" not in upload:
         return upload, 400
 
     url = upload["url"]
 
     user = User.query.get(current_user.id)
-    print(url)
     user.profileImage = url
     db.session.commit()
     return jsonify({"url": url}), 200
