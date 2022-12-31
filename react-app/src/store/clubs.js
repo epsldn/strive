@@ -99,7 +99,7 @@ export default function reducer(state = initialState, action) {
         }
         case EDIT_CLUB: {
             const newState = { ...state };
-            newState[action.club.updatedClub.id] = action.club;
+            newState[action.club.updatedClub.id] = action.club.updatedClub;
             return newState;
         }
         case DELETE_CLUB: {

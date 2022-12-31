@@ -18,6 +18,6 @@ class ClubForm(FlaskForm):
     description = TextAreaField(
         "Description", [DataRequired("Please enter a valid description")])
     club_image = StringField(
-        "Club Image", default="https://striveonrender.s3.us-west-2.amazonaws.com/clubDefault.png"),
+        "Club Image"),
     club_banner = StringField(
-        "Club Banner", default="https://striveonrender.s3.us-west-2.amazonaws.com/defaultBanner.png"),
+        "Club Banner"),
