@@ -7,8 +7,16 @@ function CreateActivity() {
     const [distanceType, setDistanceType] = useState("miles");
     const [showDistanceOptions, setShowDistanceOptions] = useState(false);
 
+    const [hours, setHours] = useState("01");
+    const [minutes, setMinutes] = useState("00");
+    const [seconds, setSeconds] = useState("00");
+
+    const [elevation, setElevation] = useState("");
+    const [elevationType, setElevationType] = useState("feet");
+    const [showElevationOptions, setShowElevationOptions] = useState(false);
 
     const distanceDropDownContainer = useRef(null);
+    const elevationDropDownContainer = useRef(null);
 
     function onSubmit(event) {
         event.preventDefault();
@@ -33,6 +41,20 @@ function CreateActivity() {
 
         return () => document.removeEventListener("click", onClick);
     }, [showDistanceOptions]);
+
+    useEffect(() => {
+        if (!showElevationOptions) return;
+
+        function onClick(event) {
+            if (elevationDropDownContainer && elevationDropDownContainer.current.contains(event.target) === false) {
+                setShowElevationOptions(false);
+            }
+        }
+
+        document.addEventListener("click", onClick);
+
+        return () => document.removeEventListener("click", onClick);
+    }, [showElevationOptions]);
 
     return (
         <div className={styles.outerContainer}>
@@ -72,15 +94,55 @@ function CreateActivity() {
                                     </div>
                                 </div>
                             </div>
+
+                            <div className={styles.contentSection}>
+                                <label>
+                                    Duration
+                                </label>
+
+                                <div className={styles.sectionInnerContent}>
+                                    <div id={styles.hours}>
+                                        <input
+                                            type="number"
+                                            value={hours}
+                                            onChange={(event) => setHours(event.target.value)}
+                                            max={99}
+                                            min={0}
+                                        />
+                                    </div>
+                                    <div id={styles.minutes}>
+                                        <input
+                                            type="number"
+                                            value={minutes}
+                                            id={styles.minutes}
+                                            onChange={(event) => setMinutes(event.target.value)}
+                                            max={59}
+                                            min={0}
+                                        />
+                                    </div>
+                                    <div id={styles.seconds}>
+                                        <input
+                                            type="number"
+                                            value={seconds}
+                                            id={styles.seconds}
+                                            onChange={(event) => setSeconds(event.target.value)}
+                                            max={59}
+                                            min={0}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className={styles.contentSection}>
+                                <label>
+                                    Elevation
+                                </label>
+
+                                <div className={styles.sectionInnerContent}>
+
+                                </div>
+                            </div>
                         </div>
-
-                        {/* <div>
-                            <label>
-                                <select>
-
-                                </select>
-                            </label>
-                        </div> */}
                     </form>
 
                 </div>

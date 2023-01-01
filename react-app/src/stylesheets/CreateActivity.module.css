@@ -28,6 +28,7 @@
 
 .section1 {
     display: flex;
+    gap: 3.6rem;
 }
 
 .contentSection {
@@ -48,6 +49,10 @@
     font-size: 1.4rem;
 }
 
+.sectionInnerContent input {
+    width: 100%;
+}
+
 .sectionInnerContent>* {
     display: flex;
     align-items: center;
@@ -55,6 +60,7 @@
     padding: .6rem 3rem .6rem 1rem;
     border: 1px solid lightgray;
     border-right: none;
+    position: relative;
 }
 
 .sectionInnerContent>*:not(:first-child) {
@@ -127,4 +133,45 @@ input#distance {
 
 .dropDownOptions li:hover {
     background-color: var(--strive-border-lightgray);
+}
+
+#hours::after {
+    content: "hrs";
+}
+
+#minutes::after {
+    content: "min";
+}
+
+#seconds::after {
+    content: "sec";
+}
+
+#hours::after,
+#minutes::after,
+#seconds::after {
+    position: absolute;
+    display: flex;
+    height: 100%;
+    width: 35%;
+    align-items: center;
+    right: 0;
+    justify-content: center;
+    color: lightgray
+}
+
+#hours input,
+#minutes input,
+#seconds input {
+    appearance: textfield;
+    text-align: right;
+}
+
+#hours input:hover,
+#minutes input:hover,
+#seconds input:hover,
+#hours input:focus,
+#minutes input:focus,
+#seconds input:focus {
+    appearance: none;
 }
