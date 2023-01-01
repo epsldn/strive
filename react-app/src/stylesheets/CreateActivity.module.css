@@ -1,0 +1,130 @@
+.outerContainer {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.mainContainer {
+    max-width: 1248px;
+    width: 100%;
+    display: flex;
+    margin-top: 3rem;
+    margin-bottom: 8rem;
+}
+
+.activityTabs {
+    width: 15%;
+}
+
+.activityFormContainer {
+    width: 85%;
+}
+
+#title {
+    font-size: 3.4rem;
+    margin-bottom: .9rem;
+    font-weight: 900;
+}
+
+.section1 {
+    display: flex;
+}
+
+.contentSection {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.2rem;
+}
+
+.contentSection label {
+    margin-bottom: .5rem;
+}
+
+.sectionInnerContent {
+    display: grid;
+    width: 23.725rem;
+    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+    align-items: center;
+    font-size: 1.4rem;
+}
+
+.sectionInnerContent>* {
+    display: flex;
+    align-items: center;
+    min-height: 3.4rem;
+    padding: .6rem 3rem .6rem 1rem;
+    border: 1px solid lightgray;
+    border-right: none;
+}
+
+.sectionInnerContent>*:not(:first-child) {
+    border-left: 1px solid lightgray
+}
+
+.sectionInnerContent>*:last-child {
+    border-right: 1px solid lightgray
+}
+
+.sectionInnerContent>*:focus-within {
+    border-color: #007FB6;
+}
+
+input#distance {
+    padding: .6rem 1rem;
+}
+
+#dropDown {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    border-radius: 0 .4rem .4rem 0
+}
+
+#dropDown.dropDownActive {
+    border-left: 1px solid #007FB6;
+    border-color: #007FB6;
+    background-color: var(--strive-border-lightgray);
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+#dropDown:hover {
+    cursor: pointer;
+    background-color: var(--strive-border-lightgray);
+}
+
+#dropDown::after {
+    font-family: "Font Awesome 5 Free";
+    height: fit-content;
+    font-weight: 900;
+    content: "\f0d7";
+    display: block;
+    position: absolute;
+    right: 15px;
+    top: 30%;
+    margin-top: -2px;
+}
+
+.dropDownOptions {
+    position: absolute;
+    width: calc(100% + 2px);
+    background-color: white;
+    left: -1px;
+    top: 100%;
+    border: 1px solid #007FB6;
+    border-top: none;
+    display: flex;
+    flex-direction: column;
+
+    border-bottom-left-radius: .4rem;
+    border-bottom-right-radius: .4rem;
+
+}
+
+.dropDownOptions li {
+    padding: .9rem 1rem;
+}
+
+.dropDownOptions li:hover {
+    background-color: var(--strive-border-lightgray);
+}
