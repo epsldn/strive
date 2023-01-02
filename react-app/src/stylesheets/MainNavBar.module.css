@@ -1,0 +1,127 @@
+.navbarContainer {
+    height: 5.5rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.025);
+    border-bottom: 1px solid var(--strive-border-lightgray)
+}
+
+.navBar {
+    display: grid;
+    align-items: center;
+    max-width: 1248px;
+    width: 100%;
+    background-color: white;
+
+    grid-template-columns: 13% auto 24%;
+}
+
+#logo {
+    font-weight: 900;
+    font-size: 2.4rem;
+    color: var(--strive-international-orange);
+}
+
+.navBar .navlinks {
+    display: flex;
+}
+
+.navlinks li {
+    display: flex;
+    align-items: center;
+    height: 5.5rem;
+    font-size: 1.4rem;
+    min-width: 11.2rem;
+    justify-content: center;
+}
+
+.navlinks li:hover {
+    cursor: pointer;
+    border-left: 1px solid var(--strive-border-lightgray);
+    border-right: 1px solid var(--strive-border-lightgray);
+    border-bottom: 1px solid var(--strive-border-lightgray);
+    color: var(--strive-international-orange)
+}
+
+.navBar .actions {
+    display: flex;
+    justify-content: flex-end;
+    height: 5.5rem;
+}
+
+#profileAction {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0 1rem;
+    color: lightgray;
+    height: 100%;
+    width: fit-content;
+    position: relative;
+    background-color: white;
+    border-bottom: 1px solid var(--strive-border-lightgray)
+}
+
+#profileAction:hover {
+    color: var(--strive-international-orange);
+    cursor: pointer;
+    border: 1px solid var(--strive-border-lightgray);
+    border-top: none;
+    border-bottom: white;
+}
+
+#profileAction:hover #profileList {
+    display: block;
+}
+
+#profileImageContainer {
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    overflow: hidden;
+}
+
+#profileList {
+    position: absolute;
+    background-color: white;
+    top: calc(100% - 1px);
+    right: -1px;
+    color: black;
+    width: 175%;
+    display: none;
+    border: 1px solid var(--strive-border-lightgray);
+}
+
+#profileList>*:first-child:after {
+    content: "";
+    position: absolute;
+    top: -1px;
+    right: 0;
+    height: 1px;
+    width: 72px;
+    background-color: white;
+}
+
+#profileList>*:first-child:hover:after {
+    background-color: var(--strive-border-lightgray);
+}
+
+#profileList>* {
+    font-size: 1.4rem;
+    min-height: 3.2rem;
+    padding: 1.2rem 1.4rem;
+    position: relative;
+    z-index: 2;
+}
+
+#profileList>*:hover {
+    background-color: var(--strive-border-lightgray);
+}
+
+#profileImageContainer img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
