@@ -3,6 +3,7 @@ import styles from "../../stylesheets/LandingPageNavBar.module.css";
 
 function LandingPageNavBar() {
     const history = useHistory();
+    document.body.style = "background: #f9f8f5";
     return (
         <div className={styles.mainContainer}>
             <nav className={styles.navBarContent}>
