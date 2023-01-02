@@ -13,11 +13,25 @@
 }
 
 .activityTabs {
-    width: 15%;
+    width: 12.5%;
+    margin-right: 3rem;
+}
+
+.activityTabs li {
+    padding: 1.4rem 2rem;
+    font-size: 1.6rem;
+    border: 1px solid var(--strive-border-lightgray);
+    display: flex;
+    color: #333;
+    user-select: none;
+}
+
+.activityTabs .active {
+    border-left: 3px solid var(--strive-international-orange)
 }
 
 .activityFormContainer {
-    width: 85%;
+    width: 87.5%;
 }
 
 #title {
@@ -253,6 +267,7 @@
 */
 .slider {
     -webkit-appearance: none;
+    appearance: none;
     width: 100%;
     height: 7.5px;
     background: linear-gradient(90deg, rgba(255, 255, 255, 1) 0%, white 20%);
@@ -359,4 +374,43 @@
 
 #pExtertion>:last-child {
     font-size: 1.1rem;
+}
+
+.buttonContainer {
+    display: flex;
+    margin-top: 3.6rem;
+}
+
+.buttonContainer button {
+    margin: 0;
+    height: fit-content;
+    width: fit-content;
+}
+
+.buttonContainer :first-child {
+    height: 4rem;
+    background-color: var(--strive-international-orange);
+    color: white;
+    font-weight: 800;
+    margin-right: 1.2rem;
+}
+
+.buttonContainer button:first-child:hover {
+    background-color: #c94100;
+    border-color: #bf3e00;
+    font-weight: 800;
+    transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+}
+
+.buttonContainer button:last-child {
+    width: fit-content;
+    padding: 0;
+    min-height: fit-content;
+    color: var(--strive-hyperlink-blue);
+    height: 40px;
+}
+
+.buttonContainer button:last-child:hover {
+    color: var(--strive-hyperlink-darkblue);
+    text-decoration: underline;
 }

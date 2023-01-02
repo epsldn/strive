@@ -1,9 +1,10 @@
 import MainNavBar from "../MainNavBar";
 import styles from "../../stylesheets/CreateActivity.module.css";
 import { useEffect, useRef, useState } from "react";
+import { useHistory } from "react-router-dom";
 
 function CreateActivity() {
-    const [distance, setDistance] = useState("");
+    let [distance, setDistance] = useState("");
     const [distanceType, setDistanceType] = useState("miles");
     const [showDistanceOptions, setShowDistanceOptions] = useState(false);
 
@@ -11,29 +12,67 @@ function CreateActivity() {
     const [minutes, setMinutes] = useState("00");
     const [seconds, setSeconds] = useState("00");
 
-    const [elevation, setElevation] = useState("");
+    let [elevation, setElevation] = useState("");
     const [elevationType, setElevationType] = useState("feet");
     const [showElevationOptions, setShowElevationOptions] = useState(false);
 
     const [sportType, setSportType] = useState("Run");
     const [showSportOptions, setShowSportOptions] = useState(false);
 
-    const today = new Date().toJSON().slice(0, 10);
+    const today = new Date(new Date().toLocaleDateString()).toJSON().slice(0, 10);
     const [selectedDate, setSelectedDate] = useState(today);
     const [time, setTime] = useState("");
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
 
-    const [prviateNotes, setPrivateNotes] = useState("");
+    const [privateNotes, setPrivateNotes] = useState("");
     const [extertionLevel, setExtertionLevel] = useState("");
 
     const distanceDropDownContainer = useRef(null);
     const elevationDropDownContainer = useRef(null);
     const sportDropDownContainer = useRef(null);
 
+    const history = useHistory();
+
     function onSubmit(event) {
         event.preventDefault();
+
+        if (distanceType !== "miles") {
+            if (distanceType === "kilometers") {
+                distance = (distance * 0.621371).toFixed(2);
+            }
+
+            if (distanceType === "meters") {
+                distance = (distance * 0.000621371).toFixed(2);
+            }
+
+            if (distanceType === "yards") {
+                distance = (distance * 0.000568182).toFixed(2);
+            }
+        }
+
+        if (elevationType !== "feet") {
+            elevation = (elevation * 3.28084).toFixed(2);
+        }
+
+        const payload = {
+            "distance": +distance,
+            "hours": +hours,
+            "minutes": +minutes,
+            "seconds": +seconds,
+            "elevation": +elevation,
+            "sport_type": sportType,
+            "date": selectedDate,
+            "time": time,
+            "title": title,
+            "description": description,
+            "private_notes": privateNotes,
+            "extertion_level": +extertionLevel
+        };
+
+        console.log(payload);
+
     }
 
     function updateDistanceType(event) {
@@ -53,6 +92,11 @@ function CreateActivity() {
         event.stopPropagation();
         setSportType(event.target.innerText);
         setShowSportOptions(false);
+    }
+
+    function handleCancel(event) {
+        event.preventDefault();
+        history.goBack();
     }
 
     useEffect(() => {
@@ -102,7 +146,7 @@ function CreateActivity() {
             <MainNavBar />
             <div className={styles.mainContainer}>
                 <ul className={styles.activityTabs}>
-                    <li>Manual</li>
+                    <li className={styles.active}> Manual</li>
                 </ul>
                 <div className={styles.activityFormContainer}>
                     <h1 id={styles.title}>
@@ -118,6 +162,7 @@ function CreateActivity() {
                                 <div className={styles.sectionInnerContent}>
                                     <input
                                         type="number"
+                                        step={.01}
                                         value={distance}
                                         id={styles.distance}
                                         onChange={(event) => setDistance(event.target.value)}
@@ -145,6 +190,7 @@ function CreateActivity() {
                                     <div id={styles.hours}>
                                         <input
                                             type="number"
+                                            step={1}
                                             value={hours}
                                             onChange={(event) => setHours(event.target.value)}
                                             max={99}
@@ -154,6 +200,7 @@ function CreateActivity() {
                                     <div id={styles.minutes}>
                                         <input
                                             type="number"
+                                            step={1}
                                             value={minutes}
                                             id={styles.minutes}
                                             onChange={(event) => setMinutes(event.target.value)}
@@ -164,6 +211,7 @@ function CreateActivity() {
                                     <div id={styles.seconds}>
                                         <input
                                             type="number"
+                                            step={1}
                                             value={seconds}
                                             id={styles.seconds}
                                             onChange={(event) => setSeconds(event.target.value)}
@@ -182,6 +230,7 @@ function CreateActivity() {
                                 <div className={styles.sectionInnerContent}>
                                     <input
                                         type="number"
+                                        step={.01}
                                         value={elevation}
                                         max={29029}
                                         onChange={(event) => setElevation(event.target.value)}
@@ -314,7 +363,7 @@ function CreateActivity() {
                                     <div className={styles.sectionInnerContent}>
                                         <textarea
                                             id={styles.description}
-                                            value={prviateNotes}
+                                            value={privateNotes}
                                             onChange={(event) => setPrivateNotes(event.target.value)}
                                         />
                                     </div>
@@ -390,15 +439,17 @@ function CreateActivity() {
                                                     </div>
                                                 </>
                                             }
-                                            {console.log(extertionLevel)}
                                         </div>
                                         <div id="eSliderColor" />
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <div className={styles.buttonContainer}>
+                            <button type="submit">Create</button>
+                            <button onClick={handleCancel}>Cancel</button>
+                        </div>
                     </form>
-
                 </div>
             </div >
         </div >
