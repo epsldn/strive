@@ -33,11 +33,14 @@ def user_profile():
 
 @image_routes.route("/club-images/", methods=["POST"])
 def club_images():
+
+    print(request.files)
     if "image" not in request.files:
         return {"errors": "image required"}, 400
 
     image = request.files["image"]
 
+    print(image)
     if not file_checker(image.filename):
         return {"errors": "file type not permitted"}, 400
 
