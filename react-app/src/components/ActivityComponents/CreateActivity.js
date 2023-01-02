@@ -18,9 +18,12 @@ function CreateActivity() {
     const [sportType, setSportType] = useState("Run");
     const [showSportOptions, setShowSportOptions] = useState(false);
 
-    const today = new Date().toJSON().slice(0,10);
+    const today = new Date().toJSON().slice(0, 10);
     const [selectedDate, setSelectedDate] = useState(today);
     const [time, setTime] = useState("");
+
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
 
     const distanceDropDownContainer = useRef(null);
     const elevationDropDownContainer = useRef(null);
@@ -247,6 +250,7 @@ function CreateActivity() {
                                     </div>
                                 </div>
                             </div>
+
                             <div className={styles.contentSection}>
                                 <label>
                                     Date & Time
@@ -259,12 +263,41 @@ function CreateActivity() {
                                         value={selectedDate}
                                         onChange={(event) => setSelectedDate(event.target.value)}
                                     />
-                                    {console.log(selectedDate)}
                                     <input
                                         type="time"
                                         value={time}
                                         onChange={(event) => setTime(event.target.value)}
                                     />
+                                </div>
+                            </div>
+
+                            <div className={styles.fullWidthSection}>
+                                <div className={styles.contentSection}>
+                                    <label>
+                                        Title
+                                    </label>
+                                    <div className={styles.sectionInnerContent}>
+                                        <input
+                                            type="text"
+                                            value={title}
+                                            onChange={(event) => setTitle(event.target.value)}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className={styles.fullWidthSection}>
+                                <div className={styles.contentSection}>
+                                    <label>
+                                        Description
+                                    </label>
+                                    <div className={styles.sectionInnerContent}>
+                                        <textarea
+                                            id={styles.description}
+                                            value={description}
+                                            onChange={(event) => setDescription(event.target.value)}
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         </div>

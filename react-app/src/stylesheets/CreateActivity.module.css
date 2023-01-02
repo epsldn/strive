@@ -92,7 +92,8 @@
     display: flex;
     justify-content: space-between;
     position: relative;
-    border-radius: 0 .4rem .4rem 0
+    border-radius: 0 .4rem .4rem 0;
+    background-color: white;
 }
 
 #dropDown.dropDownActive {
@@ -133,7 +134,7 @@
 
     border-bottom-left-radius: .4rem;
     border-bottom-right-radius: .4rem;
-
+    z-index: 2;
 }
 
 .dropDownOptions li {
@@ -191,9 +192,28 @@
     gap: 3.6rem;
     padding: 3.6rem 0;
     border-bottom: 1px solid lightgray;
+    flex-wrap: wrap;
 }
 
 #sportsDropDown {
     max-height: 44.5rem;
+    overflow-y: auto;
+}
+
+.fullWidthSection {
+    width: 100%;
+}
+
+.fullWidthSection .contentSection {
+    width: 51.05rem
+}
+
+.fullWidthSection .contentSection .sectionInnerContent {
+    width: 100%;
+}
+
+#description {
+    height: 10.8rem;
+    resize: none;
     overflow-y: auto;
 }
