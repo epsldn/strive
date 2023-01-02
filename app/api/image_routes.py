@@ -46,14 +46,15 @@ def club_images():
 
     image.filename = get_unique_filename(image.filename)
 
+    print("**** 49", image)
     upload = upload_file(image)
+
+    print("*** 52", upload)
 
     if "url" not in upload:
         return upload, 400
 
     url = upload["url"]
 
-    user = User.query.get(current_user.id)
-    user.profileImage = url
-    db.session.commit()
+    print(url)
     return jsonify({"url": url}), 200
