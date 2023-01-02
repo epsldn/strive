@@ -25,6 +25,9 @@ function CreateActivity() {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
 
+    const [prviateNotes, setPrivateNotes] = useState("");
+    const [extertionLevel, setExtertionLevel] = useState(1);
+
     const distanceDropDownContainer = useRef(null);
     const elevationDropDownContainer = useRef(null);
     const sportDropDownContainer = useRef(null);
@@ -297,6 +300,48 @@ function CreateActivity() {
                                             value={description}
                                             onChange={(event) => setDescription(event.target.value)}
                                         />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className={styles.section3}>
+                            <div className={styles.fullWidthSection}>
+                                <div className={styles.contentSection}>
+                                    <label>
+                                        Private Notes
+                                    </label>
+                                    <div className={styles.sectionInnerContent}>
+                                        <textarea
+                                            id={styles.description}
+                                            value={prviateNotes}
+                                            onChange={(event) => setPrivateNotes(event.target.value)}
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className={styles.contentSection}>
+                                    <label>
+                                        Extertion Rating
+                                    </label>
+
+                                    <div className={styles.extertionSection}>
+                                        <div id={styles.extertionSlider}>
+                                            <p>How did that activity feel?</p>
+                                            <input
+                                                type="range"
+                                                min="1"
+                                                max="10"
+                                                value={extertionLevel}
+                                                onChange={(event) => setExtertionLevel(event.target.value)}
+                                                className={`${styles.slider} ${styles[`sliderStep${extertionLevel}`]}`}
+                                            />
+                                        </div>
+                                        <div id={styles.pExtertion}>
+                                            <p>What is Perceived Extertion</p>
+                                            <p>Perceived Exertion is how hard your workout felt overall. Add it to your activities to track how your body is responding to your training. Perceived Exertion can also be used in place of heart rate data with subscription features, so you can better understand how your fitness is trending over time.</p>
+                                        </div>
+                                        <div id="eSliderColor" />
                                     </div>
                                 </div>
                             </div>
