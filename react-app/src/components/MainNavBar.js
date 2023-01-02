@@ -43,7 +43,7 @@ function MainNavBar() {
                         <div id={styles.profileImageContainer}>
                             <img alt="Profile Image" src={user?.profileImage || "https://striveonrender.s3.us-west-2.amazonaws.com/29215abf55974d0084dcb1b46a1f3c8c.png"} />
                         </div>
-                        <i class="fa-solid fa-chevron-down" />
+                        <i className="fa-solid fa-chevron-down" />
                         <ul id={styles.profileList}>
                             <li>My Account</li>
                             <li onClick={onLogout}>Log out</li>
@@ -56,7 +56,7 @@ function MainNavBar() {
                         <ul className={styles.createActionsList}>
                             <li onClick={() => history.push("/activities/create")}>
                                 <i className="fa-solid fa-pen-to-square" />
-                                Add Manual Entry
+                                Log Activity
                             </li>
                             <li onClick={() => history.push("/clubs/create")}>
                                 <i className="fa-solid fa-people-group" />

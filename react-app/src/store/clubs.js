@@ -44,12 +44,14 @@ export const createClub = (club) => async dispatch => {
     if (response.ok) {
         club = await response.json();
         dispatch(addClub(club));
+        return club;
     } else {
         const dbErrors = await response.json();
         return {
             clubName: dbErrors.errors.club_name,
             location: dbErrors.errors.location,
-            description: dbErrors.errors.description
+            description: dbErrors.errors.description,
+            error: "An error has occurred"
         };
     };
 };

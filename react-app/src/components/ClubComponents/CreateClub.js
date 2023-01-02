@@ -49,9 +49,11 @@ function CreateClub() {
             "website": website,
         };
 
-        errors = await dispatch(createClub(payload));
-        if (errors) {
+        const club = await dispatch(createClub(payload));
+        if (club.errors) {
             setErrors(errors);
+        } else {
+            history.push(`/clubs/${club.id}/edit`)
         }
     }
 

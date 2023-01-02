@@ -119,11 +119,6 @@ function EditClub() {
         history.goBack();
     }
 
-
-    // <i className="fa-solid fa-circle-plus"/>
-    // <i className="fa-solid fa-camera"/>
-    // <i className="fa-solid fa-square-plus"/>
-
     useEffect(() => {
         fetch("/api/maps/city-search", {
             method: "POST",
@@ -156,11 +151,9 @@ function EditClub() {
             { enableHighAccurary: true, timeout: 3000 });
     }, [path]);
 
-    if (loaded && clubId in user.owned_clubs === false) {
+    if (loaded && (club.owner_id === user.id) === false) {
         return <Redirect to="/" />;
     }
-
-
 
     return (
         <div className={styles.mainWrapper}>
