@@ -39,7 +39,7 @@ function CLubPictures(props) {
             {console.log(club)}
             <div id={styles.banner}>
                 <img src={club?.clubBanner || "https://striveonrender.s3.us-west-2.amazonaws.com/defaultBanner.png"} />
-                {club?.id in user?.owned_clubs &&
+                {club?.owner_id === user?.id &&
                     <div id={club?.clubBanner ? styles.cameraBackground : ""}>
                         <label id={!club?.clubBanner ? styles.cameraIcon : styles.cameraIconCorner}>
                             <input
@@ -61,7 +61,7 @@ function CLubPictures(props) {
             <div id={styles.clubImage}>
                 <div style={{ border: "2px solid white", borderRadius: ".4rem" }}>
                     <img style={{ borderRadius: ".4rem", height: "124px", width: "124px" }} src={club?.clubImage || "https://striveonrender.s3.us-west-2.amazonaws.com/clubDefault.png"} />
-                    {club?.id in user?.owned_clubs && <label >
+                    {club?.owner_id === user?.id && <label >
                         <input
                             style={{ display: "none" }}
                             type="file"
@@ -76,7 +76,7 @@ function CLubPictures(props) {
                     </label>}
                 </div>
                 {
-                    club?.id in user?.owned_clubs && !club?.clubImage ?
+                    club?.owner_id === user?.id && !club?.clubImage ?
                         <>
                             <p>Recommended size</p>
                             <p>248ᕁ248 px</p>
