@@ -125,3 +125,79 @@
     width: 100%;
     object-fit: cover;
 }
+
+.createActionsContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background-color: white;
+    padding: 0 1rem;
+    height: 100%;
+    border-bottom: 1px solid var(--strive-border-lightgray);
+    width: 50px;
+}
+
+.createActionsContainer:hover {
+    color: var(--strive-international-orange);
+    cursor: pointer;
+    border-left: 1px solid var(--strive-border-lightgray);
+    border-right: 1px solid var(--strive-border-lightgray);
+    border-bottom: white;
+}
+
+.createActionsContainer:hover .createActionsList {
+    display: block;
+}
+
+.circlePlus {
+    width: fit-content;
+    height: fit-content;
+    border-radius: 100%;
+    background-color: white;
+    color: var(--strive-international-orange);
+    font-size: 2.2rem;
+}
+
+.createActionsList {
+    position: absolute;
+    background-color: white;
+    top: calc(100% - 1px);
+    right: -1px;
+    color: black;
+    width: 350%;
+    border: 1px solid var(--strive-border-lightgray);
+    display: none;
+}
+
+.createActionsList>* {
+    display: flex;
+    background-color: white;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.4rem;
+    min-height: 3.2rem;
+    padding: 1.2rem 1.4rem;
+    position: relative;
+    z-index: 2;
+}
+
+
+.createActionsList>*:hover {
+    cursor: pointer;
+    background-color: var(--strive-border-lightgray);
+}
+
+.createActionsList>*:first-child:after {
+    content: "";
+    position: absolute;
+    top: -1px;
+    right: 0;
+    height: 1px;
+    width: 48px;
+    background-color: white;
+}
+
+.createActionsList>*:first-child:hover:after {
+    background-color: var(--strive-border-lightgray);
+}
