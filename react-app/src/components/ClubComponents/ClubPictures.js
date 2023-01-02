@@ -31,6 +31,7 @@ function CLubPictures(props) {
         }
         else {
             const errors = await res.json();
+            console.log(errors);
         }
     }
 
