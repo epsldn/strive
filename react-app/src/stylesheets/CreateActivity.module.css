@@ -29,6 +29,8 @@
 .section1 {
     display: flex;
     gap: 3.6rem;
+    padding-bottom: 3.6rem;
+    border-bottom: 1px solid lightgray;
 }
 
 .contentSection {
@@ -38,7 +40,9 @@
 }
 
 .contentSection label {
+    font-size: 1.2rem;
     margin-bottom: .5rem;
+    user-select: none;
 }
 
 .sectionInnerContent {
@@ -51,6 +55,11 @@
 
 .sectionInnerContent input {
     width: 100%;
+}
+
+#date {
+    padding: 0;
+    padding-left: 1rem;
 }
 
 .sectionInnerContent>* {
@@ -75,7 +84,7 @@
     border-color: #007FB6;
 }
 
-input#distance {
+.sectionInnerContent>input {
     padding: .6rem 1rem;
 }
 
@@ -174,4 +183,17 @@ input#distance {
 #minutes input:focus,
 #seconds input:focus {
     appearance: none;
+}
+
+
+.section2 {
+    display: flex;
+    gap: 3.6rem;
+    padding: 3.6rem 0;
+    border-bottom: 1px solid lightgray;
+}
+
+#sportsDropDown {
+    max-height: 44.5rem;
+    overflow-y: auto;
 }
