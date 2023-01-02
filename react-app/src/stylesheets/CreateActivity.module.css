@@ -329,6 +329,20 @@
     background: linear-gradient(90deg, rgba(255, 255, 255, 1) 0%, rgba(255, 236, 228, 1) 10%, rgba(255, 218, 201, 1) 20%, rgba(255, 204, 180, 1) 30%, rgba(255, 192, 163, 1) 40%, rgba(254, 170, 130, 1) 50%, rgba(254, 158, 112, 1) 60%, rgba(253, 143, 90, 1) 70%, rgba(253, 127, 67, 1) 80%, rgba(252, 101, 29, 1) 90%, rgba(252, 82, 0, 1) 100%);
 }
 
+#extertionLabels {
+    display: flex;
+    font-size: 1rem;
+    color: #6d6d78;
+    width: 100%;
+    justify-content: space-between;
+    padding-top: 1rem;
+}
+
+.extertionPoints {
+    display: flex;
+    flex-direction: column;
+}
+
 #pExtertion {
     display: flex;
     flex-direction: column;
@@ -338,11 +352,11 @@
     width: 50%;
 }
 
-#pExtertion :first-child {
+#pExtertion>:first-child {
     margin-bottom: 1rem;
     font-weight: 700;
 }
 
-#pExtertion :last-child {
+#pExtertion>:last-child {
     font-size: 1.1rem;
 }

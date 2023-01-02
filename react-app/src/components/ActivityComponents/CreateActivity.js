@@ -26,7 +26,7 @@ function CreateActivity() {
     const [description, setDescription] = useState("");
 
     const [prviateNotes, setPrivateNotes] = useState("");
-    const [extertionLevel, setExtertionLevel] = useState(1);
+    const [extertionLevel, setExtertionLevel] = useState("");
 
     const distanceDropDownContainer = useRef(null);
     const elevationDropDownContainer = useRef(null);
@@ -332,14 +332,65 @@ function CreateActivity() {
                                                 type="range"
                                                 min="1"
                                                 max="10"
-                                                value={extertionLevel}
+                                                value={extertionLevel || 1}
                                                 onChange={(event) => setExtertionLevel(event.target.value)}
                                                 className={`${styles.slider} ${styles[`sliderStep${extertionLevel}`]}`}
                                             />
+                                            <div id={styles.extertionLabels}>
+                                                <p>Easy</p>
+                                                <p>Moderate</p>
+                                                <p>Max Effort</p>
+                                            </div>
                                         </div>
                                         <div id={styles.pExtertion}>
-                                            <p>What is Perceived Extertion</p>
-                                            <p>Perceived Exertion is how hard your workout felt overall. Add it to your activities to track how your body is responding to your training. Perceived Exertion can also be used in place of heart rate data with subscription features, so you can better understand how your fitness is trending over time.</p>
+                                            {!extertionLevel &&
+                                                <>
+                                                    <p>What is Perceived Extertion</p>
+                                                    <p>Perceived Exertion is how hard your workout felt overall. Add it to your activities to track how your body is responding to your training. Perceived Exertion can also be used in place of heart rate data with subscription features, so you can better understand how your fitness is trending over time.</p>
+                                                </>
+                                            }
+                                            {extertionLevel && extertionLevel < 4 &&
+                                                <>
+                                                    <p>What's Easy?</p>
+                                                    <div className={styles.extertionPoints}>
+                                                        <p>Could talk normally.</p>
+                                                        <p>Breathing naturally.</p>
+                                                        <p>Felt very comfortable.</p>
+                                                    </div>
+                                                </>
+                                            }
+
+                                            {extertionLevel && extertionLevel > 3 && extertionLevel < 7 &&
+                                                <>
+                                                    <p>What's Moderate?</p>
+                                                    <div className={styles.extertionPoints}>
+                                                        <p>Could talk in short spurts.</p>
+                                                        <p>Breathing more labored.</p>
+                                                        <p>Within your comfort zone, but working.</p>
+                                                    </div>
+                                                </>
+                                            }
+                                            {extertionLevel && extertionLevel > 6 && extertionLevel < 10 &&
+                                                <>
+                                                    <p>What's Hard?</p>
+                                                    <div className={styles.extertionPoints}>
+                                                        <p>Could barely talk.</p>
+                                                        <p>Breathing heavily.</p>
+                                                        <p>Outside your comfort zone.</p>
+                                                    </div>
+                                                </>
+                                            }
+                                            {extertionLevel && extertionLevel == 10 &&
+                                                <>
+                                                    <p>What's Max Effort?</p>
+                                                    <div className={styles.extertionPoints}>
+                                                        <p>At your physical limit.</p>
+                                                        <p>Gasping for breath.</p>
+                                                        <p>Couldn't talk/could barely remember your name.</p>
+                                                    </div>
+                                                </>
+                                            }
+                                            {console.log(extertionLevel)}
                                         </div>
                                         <div id="eSliderColor" />
                                     </div>
@@ -349,8 +400,8 @@ function CreateActivity() {
                     </form>
 
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 };
 
