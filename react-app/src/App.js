@@ -8,6 +8,7 @@ import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
 import "./stylesheets/reset.css";
+import ActivityShowCase from "./components/ActivityComponents/ActivityShowCase";
 import LandingPage from './components/LandingPage/LandingPage';
 import CreateClub from './components/ClubComponents/CreateClub';
 import MainNavBar from './components/MainNavBar';
@@ -59,6 +60,9 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute path="/activities/create" exact>
           <CreateActivity />
+        </ProtectedRoute>
+        <ProtectedRoute path={`/activities/:activityId`}>
+          <ActivityShowCase />
         </ProtectedRoute>
         <Route>
           404 Error

@@ -46,12 +46,9 @@ def club_images():
 
     upload = upload_file(image)
 
-    print("*** 52", upload)
-
     if "url" not in upload:
         return upload, 400
 
     url = upload["url"]
 
-    print(url)
     return jsonify({"url": url}), 200

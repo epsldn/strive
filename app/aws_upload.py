@@ -27,7 +27,6 @@ S3_LOCATION = f"http://{BUCKET_NAME}.s3.amazonaws.com/"
 
 
 def upload_file(file, acl="public-read"):
-    print(file)
     try:
         s3.upload_fileobj(
             file,

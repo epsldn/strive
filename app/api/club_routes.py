@@ -39,10 +39,8 @@ def update_club(clubId):
 
     request_json = request.get_json()
     if "club_banner" or "club_image" in request_json:
-        print("HELL YEAH")
         club = Club.query.get(clubId)
 
-        print(request_json)
         if "club_banner" in request_json:
             club.club_banner = request_json["club_banner"]
         if "club_image" in request_json:
