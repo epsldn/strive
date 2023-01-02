@@ -62,7 +62,7 @@ function CreateActivity() {
             "minutes": +minutes,
             "seconds": +seconds,
             "elevation": +elevation,
-            "sport_type": sportType,
+            "sport": sportType,
             "date": selectedDate,
             "time": time,
             "title": title,
@@ -71,7 +71,6 @@ function CreateActivity() {
             "extertion_level": +extertionLevel
         };
 
-        console.log(payload);
 
     }
 

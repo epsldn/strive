@@ -1,5 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
-from datetime import datetime
+from datetime import date, datetime
 
 
 class Activity(db.Model):
@@ -21,8 +21,8 @@ class Activity(db.Model):
     seconds = db.Column(db.Integer, nullable=False, default=0)
     elevation = db.Column(db.Float, nullable=False, default=0)
     sport = db.Column(db.String(100), nullable=False)
-    date = db.Column(db.Date, nullable=False, default=datetime.date())
-    time = db.Column(db.String, nullable=False, default=datetime.time())
+    date = db.Column(db.Date, default=date.today(), nullable=False)
+    time = db.Column(db.Time, default=datetime.now().time(), nullable=False)
     title = db.Column(db.String, nullable=False)
     description = db.Column(db.String, nullable=False)
     private_notes = db.Column(db.String, nullable=False)

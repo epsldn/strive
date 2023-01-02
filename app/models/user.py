@@ -22,8 +22,8 @@ class User(db.Model, UserMixin):
 
     clubs = db.relationship("Club", secondary=club_members,
                             back_populates="members")
-                            
-    activites = db.relationship("Activity", back_populates="user")
+
+    activities = db.relationship("Activity", back_populates="user")
 
     @property
     def password(self):
