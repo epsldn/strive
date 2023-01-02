@@ -151,7 +151,7 @@ function EditClub() {
             { enableHighAccurary: true, timeout: 3000 });
     }, [path]);
 
-    if (loaded && (club.owner_id === user.id) === false) {
+    if (loaded && (club && club?.owner_id === user?.id) === false) {
         return <Redirect to="/" />;
     }
 
