@@ -12,6 +12,7 @@ import LandingPage from './components/LandingPage/LandingPage';
 import CreateClub from './components/ClubComponents/CreateClub';
 import MainNavBar from './components/MainNavBar';
 import EditClub from './components/ClubComponents/EditClub';
+import CreateActivity from './components/ActivityComponents/CreateActivity';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -53,9 +54,15 @@ function App() {
         <ProtectedRoute path="/clubs/create" exact>
           <CreateClub />
         </ProtectedRoute>
-        <ProtectedRoute path="/clubs/:clubId/edit">
+        <ProtectedRoute path="/clubs/:clubId/edit" exact>
           <EditClub />
         </ProtectedRoute>
+        <ProtectedRoute path="/activities/create" exact>
+          <CreateActivity />
+        </ProtectedRoute>
+        <Route>
+          404 Error
+        </Route>
       </Switch>
     </BrowserRouter>
   );
