@@ -23,7 +23,7 @@ def get_activities():
     [[activites.append(activity.to_dict())
       for activity in member.activities] for member in list(members)]
 
-    return jsonify(activites)
+    return jsonify({activity["id"]: activity for activity in activites})
 
 
 @activity_routes.route("/", methods=["POST"])
