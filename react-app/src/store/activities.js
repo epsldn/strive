@@ -67,7 +67,7 @@ export const deleteActivity = (activityId) => async dispatch => {
     }
 };
 
-const initialState = { activites: [] };
+const initialState = { activities: [] };
 export default function reducer(state = initialState, action) {
     switch (action.type) {
         case GET_ACTIVITIES: {

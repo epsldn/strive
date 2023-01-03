@@ -7,7 +7,7 @@ import MainNavBar from "../MainNavBar";
 function ActivityShowCase() {
     const { activityId } = useParams();
     const user = useSelector(state => state.session.user);
-    const activity = useSelector(state => state.activites[activityId]);
+    const activity = useSelector(state => state.activities[activityId]);
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -35,7 +35,7 @@ function ActivityShowCase() {
     }
 
     function handleEdit(event) {
-        history.push(`/activites/${activityId}/edit`);
+        history.push(`/activities/${activityId}/edit`);
     }
 
     let date;
