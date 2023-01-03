@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { deleteActivity } from "../../store/activities";
@@ -7,7 +8,9 @@ import MainNavBar from "../MainNavBar";
 function ActivityShowCase() {
     const { activityId } = useParams();
     const user = useSelector(state => state.session.user);
-    const activity = useSelector(state => state.activites[activityId]);
+    const activities = useSelector(state => state.activities);
+    const [isLoaded, setIsloaded] = useState(false);
+    const activity = activities[activityId];
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -27,26 +30,34 @@ function ActivityShowCase() {
         time = time.toString();
 
         if (time.length === 1) {
-            console.log(time);
             return "0" + time;
         }
 
         return time;
     }
 
-    let date, tHours, tMinutes, tSeconds;
-    if (activity) {
-        date = new Date();
-        [tHours, tMinutes, tSeconds] = activity.time.split(":");
+    function handleEdit(event) {
+        history.push(`/activities/${activityId}/edit`);
     }
-    console.log(date);
+
+    if (isLoaded && !activity) {
+        history.push("/");
+        return null;
+    }
+
+    let date;
+
+    if (activity) {
+        date = new Date(activity.date + " " + activity.time);
+    }
+
     return (
         <div className={styles.pageOuterContainer}>
-            <MainNavBar />
+            <MainNavBar setIsloaded={setIsloaded} />
             <div className={styles.activitiesContainer}>
                 {
                     user?.id === activity?.user_id &&
-                    <div className={styles.iconsContainer}>
+                    <div className={styles.iconsContainer} onClick={handleEdit}>
                         <div className={styles.iconContainer}>
                             <i className="fa-solid fa-pencil" />
                         </div>
@@ -67,10 +78,17 @@ function ActivityShowCase() {
                                     <img src={activity?.profilePicture || "https://striveonrender.s3.us-west-2.amazonaws.com/29215abf55974d0084dcb1b46a1f3c8c.png"} alt="Profile" />
                                 </div>
                                 <div id={styles.activityMainContentInfo}>
-                                    <p></p>
-                                    <p>{activity?.title}</p>
-                                    <p>{activity?.description}</p>
+                                    <p id={styles.time}>{date?.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} on {date?.toLocaleDateString([], { weekday: "long", month: "long", day: "numeric", year: "numeric" })}</p>
+                                    <p id={styles.title}>{activity?.title}</p>
+                                    {activity?.description ?
+                                        <p>{activity.description} </p> :
+                                        <button onClick={handleEdit} className={styles.missingAttribute}>Add a description</button>}
                                 </div>
+                            </div>
+                            <div id={styles.privateNotes}>
+                                {activity?.private_notes ?
+                                    <p>{activity.private_notes} </p> :
+                                    <button onClick={handleEdit} className={styles.missingAttribute}>Add private notes</button>}
                             </div>
                         </div>
                         <div className={styles.activityBodyRight}>

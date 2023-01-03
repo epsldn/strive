@@ -25,12 +25,13 @@
     width: 50%;
     font-size: 2rem;
     height: 4rem;
-    border: 1px solid #f0f0f5;
+    border: 1px solid var(--strive-background-fill);
+    transition: var(--strive-background-transition)
 }
 
 .iconContainer:hover {
     cursor: pointer;
-    background-color: #f0f0f5;
+    background-color: var(--strive-background-fill);
 }
 
 .activityInfo {
@@ -54,7 +55,7 @@
     display: flex;
 }
 
-.activityBody > div{
+.activityBody>div {
     width: 50%;
     padding: 2rem 1.5rem;
 }
@@ -65,10 +66,14 @@
 
 #activityMainContent {
     display: flex;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--strive-border-lightgray)
 }
 
 #activityProfilePicture {
+    min-width: 10rem;
     height: 10rem;
+    width: 10rem;
     border-radius: 100%;
     overflow: hidden;
 }
@@ -79,7 +84,48 @@
     object-fit: cover;
 }
 
-#activityMainContentInfo {}
+#activityMainContentInfo {
+    padding: 0 1.5rem;
+    font-size: 1.2rem;
+    color: #666666;
+    display: flex;
+    flex-direction: column;
+    gap: .15rem;
+    width: auto;
+}
+
+#title {
+    color: black;
+    font-weight: 800;
+    font-size: 28px;
+    line-height: 34px;
+    word-wrap: break-word;
+    letter-spacing: -0.28px;
+}
+
+#activityMainContentInfo .missingAttribute {
+    margin-top: 1rem;
+}
+
+.missingAttribute {
+    margin: 0;
+    height: fit-content;
+    width: fit-content;
+    padding: .2rem .9rem;
+    background-color: var(--strive-background-fill);
+    font-weight: 700;
+}
+
+.missingAttribute:hover {
+    border-color: #e1e1eb;
+    background-color: #e1e1eb;
+}
+
+#privateNotes {
+    padding-top: 2rem;
+    word-wrap: break-word;
+}
+
 
 #activityTime {
     font-size: 2.8rem;

@@ -80,7 +80,6 @@ function CreateActivity() {
         if (activity.error) {
             console.log(activity);
         } else {
-            console.log(activity);
             history.push(`/activities/${activity.id}`);
         }
     }
@@ -342,6 +341,7 @@ function CreateActivity() {
                                         <input
                                             type="text"
                                             value={title}
+                                            required
                                             onChange={(event) => setTitle(event.target.value)}
                                         />
                                     </div>

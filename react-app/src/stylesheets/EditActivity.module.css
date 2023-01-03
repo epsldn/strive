@@ -1,0 +1,76 @@
+.outerContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mainContainer {
+    max-width: 1248px;
+    width: 100%;
+    display: flex;
+    padding: 2rem 0;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 3.4rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid #f7f7fa;
+    width: 100%;
+}
+
+.headerContent {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1248px;
+    width: 100%;
+}
+
+.headerContent h1 {
+    max-width: 1061px;
+    width: 100%;
+}
+
+.headerContent button {
+    max-width: 14rem;
+    margin-bottom: 0;
+    color: white;
+    background-color: var(--strive-international-orange);
+    max-height: 4rem;
+    font-weight: 800;
+}
+
+.headerContent button:hover {
+    background-color: #c94100;
+    border-color: #bf3e00;
+}
+
+#editActivityForm {
+    width: 56%;
+}
+
+#activityInfo {
+    width: 32rem;
+    background-color: #f7f7fa;
+    user-select: none;
+}
+
+.activityInfoContent {
+    display: flex;
+    font-size: 1.4rem;
+}
+
+.activityInfoContent>p {
+    padding: .8rem 1.6rem;
+}
+
+.activityInfoContentLeft {
+    width: 54%;
+    font-weight: 800;
+}
+
+.activityInfoContentRight {
+    width: 46%;
+}

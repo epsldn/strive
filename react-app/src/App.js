@@ -14,6 +14,7 @@ import CreateClub from './components/ClubComponents/CreateClub';
 import MainNavBar from './components/MainNavBar';
 import EditClub from './components/ClubComponents/EditClub';
 import CreateActivity from './components/ActivityComponents/CreateActivity';
+import EditActivity from './components/ActivityComponents/EditActivity';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -61,8 +62,11 @@ function App() {
         <ProtectedRoute path="/activities/create" exact>
           <CreateActivity />
         </ProtectedRoute>
-        <ProtectedRoute path={`/activities/:activityId`}>
+        <ProtectedRoute path={`/activities/:activityId`} exact>
           <ActivityShowCase />
+        </ProtectedRoute>
+        <ProtectedRoute path={`/activities/:activityId/edit`} exact>
+          <EditActivity />
         </ProtectedRoute>
         <Route>
           404 Error

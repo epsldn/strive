@@ -6,7 +6,7 @@ import { fetchClubs } from "../store/clubs";
 import { logout } from "../store/session";
 import styles from "../stylesheets/MainNavBar.module.css";
 
-function MainNavBar() {
+function MainNavBar(props) {
     const user = useSelector(state => state.session.user);
     const path = useLocation().pathname;
 
@@ -14,9 +14,14 @@ function MainNavBar() {
     const dispatch = useDispatch();
     const history = useHistory();
 
+    const setIsLoaded = props.setIsloaded;
+
     useEffect(() => {
-        dispatch(fetchClubs());
-        dispatch(fetchActivities());
+        (async function () {
+            await dispatch(fetchClubs());
+            await dispatch(fetchActivities());
+            if (setIsLoaded) setIsLoaded(true);
+        })();
     }, [path, dispatch]);
 
     async function onLogout() {

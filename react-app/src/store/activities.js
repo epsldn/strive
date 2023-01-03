@@ -62,11 +62,11 @@ export const deleteActivity = (activityId) => async dispatch => {
         dispatch(deleteActivityFromStore(activityId));
         return data;
     } else {
-        return data;
+        return { ...data, error: "Something has gone wrong" };
     }
 };
 
-const initialState = { activites: [] };
+const initialState = {};
 export default function reducer(state = initialState, action) {
     switch (action.type) {
         case GET_ACTIVITIES: {
