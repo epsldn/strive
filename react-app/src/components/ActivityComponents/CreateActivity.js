@@ -80,7 +80,6 @@ function CreateActivity() {
         if (activity.error) {
             console.log(activity);
         } else {
-            console.log(activity);
             history.push(`/activities/${activity.id}`);
         }
     }

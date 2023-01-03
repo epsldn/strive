@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { deleteActivity } from "../../store/activities";
@@ -7,7 +8,9 @@ import MainNavBar from "../MainNavBar";
 function ActivityShowCase() {
     const { activityId } = useParams();
     const user = useSelector(state => state.session.user);
-    const activity = useSelector(state => state.activities[activityId]);
+    const activities = useSelector(state => state.activities);
+    const [isLoaded, setIsloaded] = useState(false);
+    const activity = activities[activityId];
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -27,7 +30,6 @@ function ActivityShowCase() {
         time = time.toString();
 
         if (time.length === 1) {
-            console.log(time);
             return "0" + time;
         }
 
@@ -38,6 +40,11 @@ function ActivityShowCase() {
         history.push(`/activities/${activityId}/edit`);
     }
 
+    if (isLoaded && !activity) {
+        history.push("/");
+        return null;
+    }
+
     let date;
 
     if (activity) {
@@ -46,7 +53,7 @@ function ActivityShowCase() {
 
     return (
         <div className={styles.pageOuterContainer}>
-            <MainNavBar />
+            <MainNavBar setIsloaded={setIsloaded} />
             <div className={styles.activitiesContainer}>
                 {
                     user?.id === activity?.user_id &&

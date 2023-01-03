@@ -1,11 +1,12 @@
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import MainNavBar from "../MainNavBar";
 import styles from "../../stylesheets/EditActivity.module.css";
 function EditActivity() {
     const { activityId } = useParams();
     const activity = useSelector(state => state.activities[activityId]);
-
+    const user = useSelector(state => state.session.user);
+    const history = useHistory();
     function onSubmit(event) {
         event.preventDefault();
         console.log("submitting...");
@@ -15,6 +16,10 @@ function EditActivity() {
     let date;
 
     if (activity) {
+        if (activity.user_id !== user.id) {
+            history.push(`/activities/${activityId}`);
+            return null;
+        }
         date = new Date(activity.date + " " + activity.time);
     }
 

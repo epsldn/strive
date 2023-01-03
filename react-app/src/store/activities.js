@@ -37,7 +37,6 @@ export const fetchActivities = () => async dispatch => {
 };
 
 export const createActivity = (activity) => async dispatch => {
-    console.log(activity);
     const response = await fetch("/api/activities/", {
         method: "POST",
         headers: { "Content-type": "application/json" },
@@ -67,7 +66,7 @@ export const deleteActivity = (activityId) => async dispatch => {
     }
 };
 
-const initialState = { activities: [] };
+const initialState = {};
 export default function reducer(state = initialState, action) {
     switch (action.type) {
         case GET_ACTIVITIES: {
