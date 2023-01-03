@@ -1,7 +1,8 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import Activity, User, db
-import json
+from app.forms import ActivityForm
+
 activity_routes = Blueprint("activites", __name__)
 
 
@@ -25,4 +26,17 @@ def get_activities():
     return jsonify(activites)
 
 
+@activity_routes.route("/", methods=["POST"])
+@login_required
+def create_activity():
+    form = ActivityForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
 
+    if form.validate_on_submit():
+        del form["csrf_token"]
+        activity = Activity(**form.data)
+        db.session.add(activity)
+        db.session.commit()
+        return jsonify({"message": f"Success! Activity created with id {activity.id}", "activity": activity.to_dict()}), 200
+    else:
+        return {'errors': {k: v[0] for k, v in form.errors.items()}}, 400

@@ -2,6 +2,7 @@ import MainNavBar from "../MainNavBar";
 import styles from "../../stylesheets/CreateActivity.module.css";
 import { useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function CreateActivity() {
     let [distance, setDistance] = useState("");
@@ -32,6 +33,7 @@ function CreateActivity() {
     const distanceDropDownContainer = useRef(null);
     const elevationDropDownContainer = useRef(null);
     const sportDropDownContainer = useRef(null);
+    const user = useSelector(state => state.session.user);
 
     const history = useHistory();
 
@@ -68,9 +70,11 @@ function CreateActivity() {
             "title": title,
             "description": description,
             "private_notes": privateNotes,
-            "extertion_level": +extertionLevel
+            "extertion_level": +extertionLevel,
+            "user_id": user.id
         };
 
+        console.log(JSON.stringify(payload));
 
     }
 
