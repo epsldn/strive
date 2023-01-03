@@ -74,8 +74,11 @@ function EditClub() {
         };
 
         errors = await dispatch(updateClub(payload, clubId));
+
         if (errors) {
             setErrors(errors);
+        } else {
+            history.push(`/clubs/${clubId}`);
         }
     }
 
@@ -84,9 +87,15 @@ function EditClub() {
         history.goBack();
     }
 
-    function handleDelete(event) {
+    async function handleDelete(event) {
         event.preventDefault();
-        dispatch(deleteClub(clubId));
+        const data = dispatch(deleteClub(clubId));
+
+        if (data.errors) {
+            console.log(data);
+        } else {
+            history.push(`/clubs/${clubId}`);
+        }
     }
 
     function handleKeyDown(event) {
@@ -154,8 +163,6 @@ function EditClub() {
     if (loaded && club?.owner_id === user?.id === false) {
         return <Redirect to="/" />;
     }
-
-
 
     return (
         <div className={styles.mainWrapper}>

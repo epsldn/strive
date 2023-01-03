@@ -50,8 +50,12 @@ function EditActivity() {
                     </div>
                     <div className={styles.activityInfoContent}>
                         <p className={styles.activityInfoContentLeft}>Elevation Gain</p>
-                        <p className={styles.activityInfoContentRight}>{activity?.elevation}</p>
+                        <p className={styles.activityInfoContentRight}>{activity?.elevation} ft</p>
                     </div>
+                    {activity?.distance && <div className={styles.activityInfoContent}>
+                        <p className={styles.activityInfoContentLeft}>Distance</p>
+                        <p className={styles.activityInfoContentRight}>{activity.distance} mi</p>
+                    </div>}
                 </div>
             </div>
         </div >

@@ -62,7 +62,7 @@ export const deleteActivity = (activityId) => async dispatch => {
         dispatch(deleteActivityFromStore(activityId));
         return data;
     } else {
-        return data;
+        return { ...data, error: "Something has gone wrong" };
     }
 };
 

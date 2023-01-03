@@ -38,7 +38,9 @@ def update_club(clubId):
         return {"error": "No club with that ID found"}, 400
 
     request_json = request.get_json()
-    if "club_banner" or "club_image" in request_json:
+    print(request_json)
+
+    if "club_banner" in request_json or "club_image" in request_json:
         club = Club.query.get(clubId)
 
         if "club_banner" in request_json:
@@ -54,6 +56,8 @@ def update_club(clubId):
     if form.validate_on_submit():
         del form["csrf_token"]
         club = Club.query.get(clubId)
+        print("\n")
+        print("\n", club.to_dict())
         if club:
             club.club_name = form.data["club_name"]
             club.description = form.data["description"]
@@ -61,6 +65,7 @@ def update_club(clubId):
             club.sport = form.data["sport"]
             club.type = form.data["type"]
             club.website = form.data["website"]
+            print(club.to_dict())
             db.session.commit()
 
             return jsonify({"message": "success!", "updatedClub": club.to_dict()}), 200
