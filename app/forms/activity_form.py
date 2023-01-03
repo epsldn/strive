@@ -14,6 +14,6 @@ class ActivityForm(FlaskForm):
         "Please enter a sport"), Length(min=1, max=100)])
     date = DateField("Date", [Optional()])
     time = TimeField("Time", [Optional()])
-    title = StringField("Title", [Optional()])
+    title = StringField("Title", [DataRequired()])
     description = StringField("Description", [Optional()])
     private_notes = StringField("Private Notes", [Optional()])

@@ -34,13 +34,12 @@ function ActivityShowCase() {
         return time;
     }
 
-    let date, tHours, tMinutes, tSeconds;
+    let date;
+
     if (activity) {
-        date = new Date(activity.date);
-        [tHours, tMinutes, tSeconds] = activity.time.split(":");
+        date = new Date(activity.date + " " + activity.time);
     }
 
-    console.log(date, tHours, tMinutes, tSeconds);
     return (
         <div className={styles.pageOuterContainer}>
             <MainNavBar />
@@ -68,10 +67,17 @@ function ActivityShowCase() {
                                     <img src={activity?.profilePicture || "https://striveonrender.s3.us-west-2.amazonaws.com/29215abf55974d0084dcb1b46a1f3c8c.png"} alt="Profile" />
                                 </div>
                                 <div id={styles.activityMainContentInfo}>
-                                    <p></p>
-                                    <p>{activity?.title}</p>
-                                    <p>{activity?.description}</p>
+                                    <p id={styles.time}>{date?.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} on {date?.toLocaleDateString([], { weekday: "long", month: "long", day: "numeric", year: "numeric" })}</p>
+                                    <p id={styles.title}>{activity?.title}</p>
+                                    {activity?.description ?
+                                        <p>{activity.description} </p> :
+                                        <button className={styles.missingAttribute}>Add a description</button>}
                                 </div>
+                            </div>
+                            <div id={styles.privateNotes}>
+                                {activity?.private_notes ?
+                                    <p>{activity.private_notes} </p> :
+                                    <button className={styles.missingAttribute}>Add private notes</button>}
                             </div>
                         </div>
                         <div className={styles.activityBodyRight}>

@@ -342,6 +342,7 @@ function CreateActivity() {
                                         <input
                                             type="text"
                                             value={title}
+                                            required
                                             onChange={(event) => setTitle(event.target.value)}
                                         />
                                     </div>

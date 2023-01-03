@@ -9,6 +9,9 @@
     --strive-auth-font-color-gray: #CCC;
     --strive-hyperlink-blue: #007FB6;
     --strive-hyperlink-darkblue: #005b83;
+    --strive-background-fill: #f0f0f5;
+    --strive-button-transition: border-color 0.1s linear, background 0.1s linear, color 0.1s linear;
+    --strive-background-transition: background 0.1s linear, color 0.1s linear;
     font-family: 'Lato', sans-serif;
     box-sizing: border-box;
 }
@@ -30,6 +33,7 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: var(--strive-button-transition)
 }
 
 body {
