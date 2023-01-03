@@ -39,3 +39,14 @@ def create_activity():
         return {'errors': {k: v[0] for k, v in form.errors.items()}}, 400
 
 
+@activity_routes.route("/<int:activityId>", methods=["DELETE"])
+@login_required
+def delete_activity(activityId):
+    activity = Activity.query.get(activityId)
+
+    if (activity.user_id != current_user.id):
+        return {"error": "activity not found"}, 401
+
+    db.session.delete(activity)
+    db.session.commit()
+    return {"message" : f"Success! Activity with id {activityId} deleted." }
