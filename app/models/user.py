@@ -19,8 +19,11 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
 
     owned_clubs = db.relationship("Club", back_populates="owner")
+
     clubs = db.relationship("Club", secondary=club_members,
                             back_populates="members")
+
+    activities = db.relationship("Activity", back_populates="user")
 
     @property
     def password(self):

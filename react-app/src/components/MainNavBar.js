@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory, useLocation } from "react-router-dom";
+import { fetchActivities } from "../store/activities";
 import { fetchClubs } from "../store/clubs";
 import { logout } from "../store/session";
 import styles from "../stylesheets/MainNavBar.module.css";
@@ -15,6 +16,7 @@ function MainNavBar() {
 
     useEffect(() => {
         dispatch(fetchClubs());
+        dispatch(fetchActivities());
     }, [path, dispatch]);
 
     async function onLogout() {

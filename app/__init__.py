@@ -10,6 +10,7 @@ from .api.auth_routes import auth_routes
 from .api.image_routes import image_routes
 from .api.club_routes import club_routes
 from .api.map_routes import map_routes
+from .api.activity_routes import activity_routes
 from .seeds import seed_commands
 from .config import Config
 
@@ -34,6 +35,8 @@ app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(image_routes, url_prefix="/api/images")
 app.register_blueprint(club_routes, url_prefix="/api/clubs")
 app.register_blueprint(map_routes, url_prefix="/api/maps")
+app.register_blueprint(activity_routes, url_prefix="/api/activities")
+
 db.init_app(app)
 Migrate(app, db)
 

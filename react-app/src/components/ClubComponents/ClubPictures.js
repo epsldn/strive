@@ -37,7 +37,6 @@ function CLubPictures(props) {
 
     return (
         <div className={styles.picturesContainer} style={club?.clubImage ? { marginBottom: "-1rem" } : undefined}>
-            {console.log(club)}
             <div id={styles.banner}>
                 <img src={club?.clubBanner || "https://striveonrender.s3.us-west-2.amazonaws.com/defaultBanner.png"} />
                 {club?.owner_id === user?.id &&
