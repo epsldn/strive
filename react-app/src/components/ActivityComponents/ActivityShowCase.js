@@ -34,6 +34,10 @@ function ActivityShowCase() {
         return time;
     }
 
+    function handleEdit(event) {
+        history.push(`/activites/${activityId}/edit`);
+    }
+
     let date;
 
     if (activity) {
@@ -46,7 +50,7 @@ function ActivityShowCase() {
             <div className={styles.activitiesContainer}>
                 {
                     user?.id === activity?.user_id &&
-                    <div className={styles.iconsContainer}>
+                    <div className={styles.iconsContainer} onClick={handleEdit}>
                         <div className={styles.iconContainer}>
                             <i className="fa-solid fa-pencil" />
                         </div>
@@ -71,13 +75,13 @@ function ActivityShowCase() {
                                     <p id={styles.title}>{activity?.title}</p>
                                     {activity?.description ?
                                         <p>{activity.description} </p> :
-                                        <button className={styles.missingAttribute}>Add a description</button>}
+                                        <button onClick={handleEdit} className={styles.missingAttribute}>Add a description</button>}
                                 </div>
                             </div>
                             <div id={styles.privateNotes}>
                                 {activity?.private_notes ?
                                     <p>{activity.private_notes} </p> :
-                                    <button className={styles.missingAttribute}>Add private notes</button>}
+                                    <button onClick={handleEdit} className={styles.missingAttribute}>Add private notes</button>}
                             </div>
                         </div>
                         <div className={styles.activityBodyRight}>
