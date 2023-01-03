@@ -20,6 +20,26 @@ function ActivityShowCase() {
             history.push("/");
         }
     }
+
+    function formatTime(time) {
+        if (!time) return "00";
+
+        time = time.toString();
+
+        if (time.length === 1) {
+            console.log(time);
+            return "0" + time;
+        }
+
+        return time;
+    }
+
+    let date, tHours, tMinutes, tSeconds;
+    if (activity) {
+        date = new Date();
+        [tHours, tMinutes, tSeconds] = activity.time.split(":");
+    }
+    console.log(date);
     return (
         <div className={styles.pageOuterContainer}>
             <MainNavBar />
@@ -35,6 +55,32 @@ function ActivityShowCase() {
                         </div>
                     </div>
                 }
+
+                <div className={styles.activityInfo}>
+                    <div className={styles.activityHeader}>
+                        <h1>{`${"first".slice(0, 1).toUpperCase() + "first".slice(1).toLocaleLowerCase()} ${"last".slice(0, 1).toUpperCase() + "last".slice(1).toLocaleLowerCase()} - ${activity?.sport}`}</h1>
+                    </div>
+                    <div className={styles.activityBody}>
+                        <div className={styles.activityBodyLeft}>
+                            <div id={styles.activityMainContent}>
+                                <div id={styles.activityProfilePicture}>
+                                    <img src={activity?.profilePicture || "https://striveonrender.s3.us-west-2.amazonaws.com/29215abf55974d0084dcb1b46a1f3c8c.png"} alt="Profile" />
+                                </div>
+                                <div id={styles.activityMainContentInfo}>
+                                    <p></p>
+                                    <p>{activity?.title}</p>
+                                    <p>{activity?.description}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={styles.activityBodyRight}>
+                            <div id={styles.activityTime}>
+                                {`${activity?.hours}:${formatTime(activity?.minutes)}:${formatTime(activity?.seconds)}`}
+                                <p>Duration</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div >
     );
