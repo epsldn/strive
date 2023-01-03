@@ -12,9 +12,17 @@ def get_activities():
     print([club.members for club in current_user.clubs])
     print(current_user.clubs)
 
-    test = set()
+    members = set()
 
-    [[test.add(member) for member in club.members]
+    [[members.add(member) for member in club.members]
      for club in current_user.clubs]
-    print(test)
-    return "HELLO"
+
+    activites = []
+
+    [[activites.append(activity.to_dict())
+      for activity in member.activities] for member in list(members)]
+
+    return jsonify(activites)
+
+
+
