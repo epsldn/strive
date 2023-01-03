@@ -37,3 +37,5 @@ def create_activity():
         return jsonify({"message": f"Success! Activity created with id {activity.id}", "activity": activity.to_dict()}), 200
     else:
         return {'errors': {k: v[0] for k, v in form.errors.items()}}, 400
+
+

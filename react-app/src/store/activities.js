@@ -39,8 +39,9 @@ export const createActivity = (activity) => async dispatch => {
     const data = await response.json();
     if (response.ok) {
         dispatch(addActivityToStore(data.activity));
+        return data.activity;
     } else {
-        return data;
+        return { ...data.activity, error: "An error has occured" };
     }
 };
 
