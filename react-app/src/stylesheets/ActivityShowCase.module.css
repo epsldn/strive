@@ -32,3 +32,59 @@
     cursor: pointer;
     background-color: #f0f0f5;
 }
+
+.activityInfo {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--strive-border-lightgray);
+    width: 100%;
+}
+
+.activityHeader {
+    background-color: #f7f7fa;
+    border-bottom: 1px solid var(--strive-border-lightgray);
+    font-size: 2rem;
+    padding: 0 2rem;
+    height: 4.3rem;
+    display: flex;
+    align-items: center;
+}
+
+.activityBody {
+    display: flex;
+}
+
+.activityBody > div{
+    width: 50%;
+    padding: 2rem 1.5rem;
+}
+
+.activityBodyRight {
+    border-left: 1px solid var(--strive-border-lightgray);
+}
+
+#activityMainContent {
+    display: flex;
+}
+
+#activityProfilePicture {
+    height: 10rem;
+    border-radius: 100%;
+    overflow: hidden;
+}
+
+#activityProfilePicture img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+#activityMainContentInfo {}
+
+#activityTime {
+    font-size: 2.8rem;
+}
+
+#activityTime>p {
+    font-size: 1.2rem;
+}
