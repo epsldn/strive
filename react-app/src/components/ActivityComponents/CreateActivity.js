@@ -75,10 +75,13 @@ function CreateActivity() {
             "extertion_level": +extertionLevel,
         };
 
-        const data = await dispatch(createActivity(payload));
+        const activity = await dispatch(createActivity(payload));
 
-        if (data) {
-            console.log(data);
+        if (activity.error) {
+            console.log(activity);
+        } else {
+            console.log(activity);
+            history.push(`/activities/${activity.id}`);
         }
     }
 

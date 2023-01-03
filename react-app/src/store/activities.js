@@ -19,6 +19,13 @@ const addActivityToStore = (activity) => {
     });
 };
 
+const deleteActivityFromStore = (activityId) => {
+    return ({
+        type: DELETE_ACTIVITY,
+        activityId
+    });
+};
+
 export const fetchActivities = () => async dispatch => {
     const response = await fetch("/api/activities/");
     const data = await response.json();
@@ -39,6 +46,21 @@ export const createActivity = (activity) => async dispatch => {
     const data = await response.json();
     if (response.ok) {
         dispatch(addActivityToStore(data.activity));
+        return data.activity;
+    } else {
+        return { ...data.activity, error: "An error has occured" };
+    }
+};
+
+export const deleteActivity = (activityId) => async dispatch => {
+    const response = await fetch(`/api/activities/${activityId}`, {
+        method: "DELETE"
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+        dispatch(deleteActivityFromStore(activityId));
+        return data;
     } else {
         return data;
     }
@@ -53,6 +75,11 @@ export default function reducer(state = initialState, action) {
         case ADD_ACTIVITY: {
             const newState = { ...state };
             newState[action.activity.id] = action.activity;
+            return newState;
+        }
+        case DELETE_ACTIVITY: {
+            const newState = { ...state };
+            delete newState[action.activityId];
             return newState;
         }
         default:
