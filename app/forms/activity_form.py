@@ -4,7 +4,7 @@ from wtforms.validators import DataRequired, ValidationError, NumberRange, Lengt
 
 
 class ActivityForm(FlaskForm):
-    user_id = IntegerField("User id", [DataRequired("Owner Id required")])
+    user_id = IntegerField("User id", [DataRequired("User Id required")])
     distance = FloatField("Distance", [Optional(), NumberRange(min=0)])
     hours = FloatField("Hours", [Optional(), NumberRange(min=0)])
     minutes = FloatField("Minutes", [Optional(), NumberRange(min=0, max=60)])

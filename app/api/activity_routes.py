@@ -9,10 +9,6 @@ activity_routes = Blueprint("activites", __name__)
 @activity_routes.route("/")
 @login_required
 def get_activities():
-    print([club.get_members() for club in current_user.clubs])
-    print([club.members for club in current_user.clubs])
-    print(current_user.clubs)
-
     members = set()
 
     [[members.add(member) for member in club.members]
@@ -31,6 +27,7 @@ def get_activities():
 def create_activity():
     form = ActivityForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+    form["user_id"].data = current_user.id
 
     if form.validate_on_submit():
         del form["csrf_token"]

@@ -2,7 +2,8 @@ import MainNavBar from "../MainNavBar";
 import styles from "../../stylesheets/CreateActivity.module.css";
 import { useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { createActivity } from "../../store/activities";
 
 function CreateActivity() {
     let [distance, setDistance] = useState("");
@@ -33,11 +34,12 @@ function CreateActivity() {
     const distanceDropDownContainer = useRef(null);
     const elevationDropDownContainer = useRef(null);
     const sportDropDownContainer = useRef(null);
+    const dispatch = useDispatch();
     const user = useSelector(state => state.session.user);
 
     const history = useHistory();
 
-    function onSubmit(event) {
+    async function onSubmit(event) {
         event.preventDefault();
 
         if (distanceType !== "miles") {
@@ -71,11 +73,13 @@ function CreateActivity() {
             "description": description,
             "private_notes": privateNotes,
             "extertion_level": +extertionLevel,
-            "user_id": user.id
         };
 
-        console.log(JSON.stringify(payload));
+        const data = await dispatch(createActivity(payload));
 
+        if (data) {
+            console.log(data);
+        }
     }
 
     function updateDistanceType(event) {
