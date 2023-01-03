@@ -56,3 +56,6 @@ class Club(db.Model):
 
     def get_id(self):
         return self.id
+
+    def get_members(self):
+        return [user.id for user in self.members]
