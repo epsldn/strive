@@ -37,6 +37,7 @@ export const fetchActivities = () => async dispatch => {
 };
 
 export const createActivity = (activity) => async dispatch => {
+    console.log(activity);
     const response = await fetch("/api/activities/", {
         method: "POST",
         headers: { "Content-type": "application/json" },

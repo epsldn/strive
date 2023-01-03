@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import Activity, User, db
 from app.forms import ActivityForm
+from datetime import datetime
 
 activity_routes = Blueprint("activites", __name__)
 
@@ -28,7 +29,11 @@ def create_activity():
     form = ActivityForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     form["user_id"].data = current_user.id
+    time = request.get_json()["time"]
+    form["time"].data = datetime.strptime(time, '%H:%M').time() if time else None
 
+    print(form.data)
+    print("\n", request.get_json())
     if form.validate_on_submit():
         del form["csrf_token"]
         activity = Activity(**form.data)
@@ -36,6 +41,7 @@ def create_activity():
         db.session.commit()
         return jsonify({"message": f"Success! Activity created with id {activity.id}", "activity": activity.to_dict()}), 200
     else:
+        print(form.errors)
         return {'errors': {k: v[0] for k, v in form.errors.items()}}, 400
 
 
@@ -49,4 +55,4 @@ def delete_activity(activityId):
 
     db.session.delete(activity)
     db.session.commit()
-    return {"message" : f"Success! Activity with id {activityId} deleted." }
+    return {"message": f"Success! Activity with id {activityId} deleted."}

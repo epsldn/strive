@@ -36,10 +36,11 @@ function ActivityShowCase() {
 
     let date, tHours, tMinutes, tSeconds;
     if (activity) {
-        date = new Date();
+        date = new Date(activity.date);
         [tHours, tMinutes, tSeconds] = activity.time.split(":");
     }
-    console.log(date);
+
+    console.log(date, tHours, tMinutes, tSeconds);
     return (
         <div className={styles.pageOuterContainer}>
             <MainNavBar />

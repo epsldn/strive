@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, DateField, IntegerField, TextAreaField, FloatField
+from wtforms import StringField, DateField, IntegerField, TextAreaField, FloatField, TimeField
 from wtforms.validators import DataRequired, ValidationError, NumberRange, Length, Optional
 
 
@@ -13,7 +13,7 @@ class ActivityForm(FlaskForm):
     sport = StringField("Sport", [DataRequired(
         "Please enter a sport"), Length(min=1, max=100)])
     date = DateField("Date", [Optional()])
-    time = DateField("Time", [Optional()])
+    time = TimeField("Time", [Optional()])
     title = StringField("Title", [Optional()])
     description = StringField("Description", [Optional()])
     private_notes = StringField("Private Notes", [Optional()])
