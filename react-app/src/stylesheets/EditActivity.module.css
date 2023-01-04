@@ -103,7 +103,7 @@
     flex-direction: column;
 }
 
-.inputContainer>label {
+.inputContainer>label, #extertionLabel {
     font-weight: 700;
     font-size: 1.4rem;
     line-height: 2rem;
@@ -135,4 +135,23 @@
 .inputContainer .styledTextArea {
     resize: none;
     height: 13rem;
+}
+
+#pExtertion {
+    display: flex;
+    flex-direction: column;
+    border: none;
+    text-align: left;
+    justify-content: start;
+    width: 55%;
+    font-size: 1.1rem;
+}
+
+#pExtertion>:first-child {
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+#pExtertion>:last-child {
+    font-size: 1.1rem;
 }

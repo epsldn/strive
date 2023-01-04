@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import MainNavBar from "../MainNavBar";
 import styles from "../../stylesheets/EditActivity.module.css";
+import slider from "../../stylesheets/CreateActivity.module.css";
 import { useState } from "react";
 function EditActivity() {
     const { activityId } = useParams();
@@ -11,7 +12,7 @@ function EditActivity() {
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const [extertion, setExtertion] = useState("");
+    const [extertionLevel, setExtertionLevel] = useState("");
     const [privateNotes, setPrivateNotes] = useState("");
     const [sport, setSport] = useState("Run");
 
@@ -62,6 +63,82 @@ function EditActivity() {
                                 onChange={event => setDescription(event.target.value)}
                                 className={styles.styledTextArea}
                             />
+                        </div>
+                        <div className={slider.contentSection}>
+                            <label
+                                id={styles.extertionLabel}
+                            >
+                                Extertion Rating
+                            </label>
+
+                            <div className={slider.extertionSection}>
+                                <div id={slider.extertionSlider}>
+                                    <p>How did that activity feel?</p>
+                                    <input
+                                        type="range"
+                                        min="1"
+                                        max="10"
+                                        value={extertionLevel || 1}
+                                        onChange={(event) => setExtertionLevel(event.target.value)}
+                                        className={`${slider.slider} ${slider[`sliderStep${extertionLevel}`]}`}
+                                    />
+                                    <div id={slider.extertionLabels}>
+                                        <p>Easy</p>
+                                        <p>Moderate</p>
+                                        <p>Max Effort</p>
+                                    </div>
+                                </div>
+                                <div id={styles.pExtertion}>
+                                    {!extertionLevel &&
+                                        <>
+                                            <p>What is Perceived Extertion</p>
+                                            <p>Perceived Exertion is how hard your workout felt overall. Add it to your activities to track how your body is responding to your training. Perceived Exertion can also be used in place of heart rate data with subscription features, so you can better understand how your fitness is trending over time.</p>
+                                        </>
+                                    }
+                                    {extertionLevel && extertionLevel < 4 &&
+                                        <>
+                                            <p>What's Easy?</p>
+                                            <div className={slider.extertionPoints}>
+                                                <p>Could talk normally.</p>
+                                                <p>Breathing naturally.</p>
+                                                <p>Felt very comfortable.</p>
+                                            </div>
+                                        </>
+                                    }
+
+                                    {extertionLevel && extertionLevel > 3 && extertionLevel < 7 &&
+                                        <>
+                                            <p>What's Moderate?</p>
+                                            <div className={slider.extertionPoints}>
+                                                <p>Could talk in short spurts.</p>
+                                                <p>Breathing more labored.</p>
+                                                <p>Within your comfort zone, but working.</p>
+                                            </div>
+                                        </>
+                                    }
+                                    {extertionLevel && extertionLevel > 6 && extertionLevel < 10 &&
+                                        <>
+                                            <p>What's Hard?</p>
+                                            <div className={slider.extertionPoints}>
+                                                <p>Could barely talk.</p>
+                                                <p>Breathing heavily.</p>
+                                                <p>Outside your comfort zone.</p>
+                                            </div>
+                                        </>
+                                    }
+                                    {extertionLevel && extertionLevel == 10 &&
+                                        <>
+                                            <p>What's Max Effort?</p>
+                                            <div className={slider.extertionPoints}>
+                                                <p>At your physical limit.</p>
+                                                <p>Gasping for breath.</p>
+                                                <p>Couldn't talk/could barely remember your name.</p>
+                                            </div>
+                                        </>
+                                    }
+                                </div>
+                                <div id="eSliderColor" />
+                            </div>
                         </div>
                         <div className={styles.inputContainer}>
                             <label>
