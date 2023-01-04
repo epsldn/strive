@@ -21,7 +21,6 @@ function EditActivity() {
 
     function onSubmit(event) {
         event.preventDefault();
-        console.log("submitting...");
 
         const payload = {
             "sport": sport,
@@ -227,11 +226,9 @@ function EditActivity() {
                                 <option value="Velomobile">Velomobile</option>
                                 <option value="Virtual Ride">Virtual Ride</option>
                                 <option value="Virtual Run">Virtual Run</option>
-                                <option value="Weight Training">Weight Training</option>
                                 <option value="Wheelchair">Wheelchair</option>
                                 <option value="Windsurf">Windsurf</option>
                                 <option value="Workout">Workout</option>
-                                <option value="Yoga">Yoga</option>
                             </select>
                         </div>
                     </div>

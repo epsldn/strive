@@ -29,7 +29,7 @@ function CreateActivity() {
     const [description, setDescription] = useState("");
 
     const [privateNotes, setPrivateNotes] = useState("");
-    const [extertionLevel, setExtertionLevel] = useState("");
+    const [extertionLevel, setExtertionLevel] = useState(1);
 
     const distanceDropDownContainer = useRef(null);
     const elevationDropDownContainer = useRef(null);
@@ -301,11 +301,9 @@ function CreateActivity() {
                                                 <li onClick={updateSportType}>Velomobile</li>
                                                 <li onClick={updateSportType}>Virtual Ride</li>
                                                 <li onClick={updateSportType}>Virtual Run</li>
-                                                <li onClick={updateSportType}>Weight Training</li>
                                                 <li onClick={updateSportType}>Wheelchair</li>
                                                 <li onClick={updateSportType}>Windsurf</li>
                                                 <li onClick={updateSportType}>Workout</li>
-                                                <li onClick={updateSportType}>Yoga</li>
                                             </ul>
                                         }
                                     </div>
@@ -389,8 +387,8 @@ function CreateActivity() {
                                             <p>How did that activity feel?</p>
                                             <input
                                                 type="range"
-                                                min="1"
-                                                max="10"
+                                                min={1}
+                                                max={10}
                                                 value={extertionLevel || 1}
                                                 onChange={(event) => setExtertionLevel(event.target.value)}
                                                 className={`${styles.slider} ${styles[`sliderStep${extertionLevel}`]}`}
