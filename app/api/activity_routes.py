@@ -15,12 +15,21 @@ def get_activities():
     [[members.add(member) for member in club.members]
      for club in current_user.clubs]
 
-    activites = []
+    activites = Activity.query.filter(Activity.user_id.in_(
+        [member.id for member in members])).filter(Activity.date <= datetime.now()).order_by(Activity.date.desc(), Activity.time.desc()).all()
 
-    [[activites.append(activity.to_dict())
-      for activity in member.activities] for member in list(members)]
+    activites = [activity.to_dict() for activity in activites]
 
-    return jsonify({activity["id"]: activity for activity in activites})
+    print("\n")
+    print("\n")
+    print(members)
+    print([member.id for member in members])
+    print(Activity.query.filter(Activity.user_id.in_(
+        [member.id for member in members])).order_by(Activity.date.asc()).all())
+    print("\n")
+    print("\n")
+
+    return jsonify([activity for activity in activites])
 
 
 @activity_routes.route("/", methods=["POST"])
@@ -31,7 +40,7 @@ def create_activity():
     form["user_id"].data = current_user.id
     time = request.get_json()["time"]
     form["time"].data = datetime.strptime(
-        time, '%H:%M').time() if time else None
+        time, '%H:%M').time() if time else datetime.now().time()
 
     print(form.data)
     print("\n", request.get_json())

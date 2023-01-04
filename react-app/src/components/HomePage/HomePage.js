@@ -3,19 +3,21 @@ import defaultProfile from "../../assets/defaultProfile.png";
 import styles from "../../stylesheets/HomePage.module.css";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-
-
-function setBodyColor() {
-    document.body.style = "background: #666666";
-    return null;
-}
+import TimeAgo from "javascript-time-ago";
+import ReactTimeAgo from "react-time-ago";
+import { useState } from "react";
+import en from "javascript-time-ago/locale/en.json";
+import ActivityCard from "./ActivityCard";
+TimeAgo.addDefaultLocale(en);
 
 function HomePage() {
     const user = useSelector(state => state.session.user);
+    const activities = useSelector(state => state.activities);
 
+    const [isLoaded, setIsLoaded] = useState(false);
     return (
         <div className={styles.outerContainer}>
-            <MainNavBar />
+            <MainNavBar setIsloaded={setIsLoaded} />
             <div className={styles.mainContent} >
                 <div className={styles.mainSides} id={styles.leftSide}>
                     <div id={styles.profileImage}>
@@ -32,19 +34,35 @@ function HomePage() {
                     </div>
                     <div id={styles.latestActivity}>
                         <p>Latest Activity</p>
-                        <Link to={`/activities/${user?.last_activity.id}`}><p>{user?.last_activity.title}</p></Link>
+                        <Link to={`/activities/${user?.last_activity.id}`}>
+                            <p>{user?.last_activity.title}</p>
+                            <div id={styles.timeAgo}>
+                                <p>
+                                    •
+                                </p>
+                                <ReactTimeAgo date={new Date(user?.last_activity.date + " " + user?.last_activity.time)} locale="en-US" />
+                            </div>
+                        </Link>
                     </div>
                 </div>
                 <div className={styles.mainMiddle}>
-
+                    {isLoaded &&
+                        <ul id={styles.activityCards}>
+                            {activities.map(activity => {
+                                return (
+                                    <li key={activity.id} className={styles.activityCard}><ActivityCard activity={activity} /></li>
+                                );
+                            })}
+                        </ul>
+                    }
                 </div>
                 <div className={styles.mainSides} id={styles.rightSide}>
                     <div id={styles.clubSection}>
                         <p className={styles.homePageTitle}>Your Clubs</p>
-                        {user && <ul id={styles.clubContainer}>
+                        {isLoaded && <ul id={styles.clubContainer}>
                             {Object.values(user.joined_clubs).map(club => {
                                 return (
-                                    <li key={club.clubImage} className={styles.clubImage}>
+                                    <li key={club.id} className={styles.clubImage}>
                                         <img src={club.clubImage} alt="Club Avatar" />
                                     </li>
                                 );

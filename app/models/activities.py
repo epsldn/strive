@@ -32,6 +32,22 @@ class Activity(db.Model):
         "User", back_populates="activities"
     )
 
+    def last_to_dict(self):
+        return {
+            "distance": self.distance,
+            "hours": self.hours,
+            "minutes": self.minutes,
+            "seconds": self.seconds,
+            "elevation": self.elevation,
+            "sport": self.sport,
+            "date": self.date.strftime("%Y-%m-%d"),
+            "time": self.time.strftime("%H:%M:%S"),
+            "title": self.title,
+            "description": self.description,
+            "private_notes": self.private_notes,
+            "extertion": self.extertion
+        }
+
     def to_dict(self):
         return {
             "distance": self.distance,
@@ -47,5 +63,6 @@ class Activity(db.Model):
             "private_notes": self.private_notes,
             "user_id": self.user_id,
             "id": self.id,
-            "extertion": self.extertion
+            "extertion": self.extertion,
+            "user": {**self.user.activity_info()}
         }
