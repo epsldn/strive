@@ -45,7 +45,8 @@ class Activity(db.Model):
             "title": self.title,
             "description": self.description,
             "private_notes": self.private_notes,
-            "extertion": self.extertion
+            "extertion": self.extertion,
+            "id": self.id
         }
 
     def to_dict(self):

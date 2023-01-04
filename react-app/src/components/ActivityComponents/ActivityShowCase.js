@@ -10,8 +10,6 @@ function ActivityShowCase() {
     const { activityId } = useParams();
     const user = useSelector(state => state.session.user);
     let activities = useSelector(state => state.activities);
-
-
     const [isLoaded, setIsloaded] = useState(false);
     const activity = activities[activityId];
     const dispatch = useDispatch();
