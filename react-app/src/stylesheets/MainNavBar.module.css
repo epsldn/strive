@@ -114,6 +114,7 @@
     padding: 1.2rem 1.4rem;
     position: relative;
     z-index: 2;
+    background-color: white;
 }
 
 #profileList>*:hover {

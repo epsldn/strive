@@ -1,0 +1,37 @@
+.outerContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mainContent {
+    display: flex;
+    gap: 3.6rem;
+    max-width: 1248px;
+    width: 100%;
+    position: relative;
+}
+
+.mainContent>div {
+    display: flex;
+    flex-direction: column;
+    min-height: 100px;
+    margin-top: 6.4rem;
+    margin-bottom: 2.4rem;
+}
+
+.mainSides {
+    width: 22.5%;
+    background-color: rgba(0, 255, 255, 0.134);
+    height: 100vh;
+    position: sticky;
+    top: 0;
+}
+
+.mainMiddle {
+    width: 55%;
+    background-color: rgba(255, 105, 180, 0.175);
+    height: 10000px;
+    position: sticky;
+    top: 0;
+}

@@ -28,7 +28,11 @@ function MainNavBar(props) {
         await dispatch(logout());
     }
 
-    document.body.style = "background: #ffffff";
+    if (history.location.pathname === "/") {
+        document.body.style = "background: #f7f7fa";
+    } else {
+        document.body.style = "background: #ffffff";
+    }
     return (
         <div className={styles.navbarContainer}>
             <div className={styles.navBar}>
