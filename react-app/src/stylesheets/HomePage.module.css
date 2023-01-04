@@ -31,7 +31,7 @@
 
 .mainMiddle {
     width: 55%;
-    background-color: rgba(255, 105, 180, 0.175);
+    background-color: rgba(115, 239, 255, 0.175);
     height: 10000px;
     position: sticky;
     top: 0;
@@ -43,7 +43,9 @@
 }
 
 #rightSide {
-    top: 0;
+    height: fit-content;
+    background-color: var(--strive-body-fill);
+    box-shadow: none;
 }
 
 #profileImage {
@@ -117,4 +119,49 @@
 
 #latestActivity :last-child:hover {
     color: var(--strive-international-orange)
+}
+
+#clubSection {
+    display: flex;
+    flex-direction: column;
+}
+
+.homePageTitle {
+    font-size: 1.6rem;
+    margin-bottom: 1.6rem;
+    font-weight: 800;
+}
+
+#clubContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: .9rem;
+}
+
+.clubImage {
+    height: 4.8rem;
+    width: 4.8rem;
+    border-radius: .4rem;
+    overflow: hidden;
+}
+
+.clubImage img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.rightSideButton {
+    font-size: 1.2rem;
+    font-weight: 800;
+    padding: .6rem 1.6rem;
+    margin: 0;
+    height: fit-content;
+    background-color: white;
+    width: fit-content;
+}
+
+.rightSideButton:hover {
+    background-color: #e6e6e6;
 }
