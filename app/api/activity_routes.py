@@ -10,7 +10,7 @@ activity_routes = Blueprint("activites", __name__)
 @activity_routes.route("/")
 @login_required
 def get_activities():
-    members = set()
+    members = set([current_user])
 
     [[members.add(member) for member in club.members]
      for club in current_user.clubs]
@@ -29,7 +29,7 @@ def get_activities():
     print("\n")
     print("\n")
 
-    return jsonify([activity for activity in activites])
+    return jsonify(activites)
 
 
 @activity_routes.route("/", methods=["POST"])

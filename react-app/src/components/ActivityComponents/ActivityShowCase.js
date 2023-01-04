@@ -9,7 +9,9 @@ import styles from "../../stylesheets/ActivityShowCase.module.css";
 function ActivityShowCase() {
     const { activityId } = useParams();
     const user = useSelector(state => state.session.user);
-    const activities = useSelector(state => state.activities);
+    let activities = useSelector(state => state.activities);
+
+
     const [isLoaded, setIsloaded] = useState(false);
     const activity = activities[activityId];
     const dispatch = useDispatch();
@@ -64,6 +66,7 @@ function ActivityShowCase() {
         pace = Number(hours) !== 0 ? `${hours}:${minutes}:${seconds}` : `${minutes}:${seconds}`;
     }
 
+    console.log(activities)
     return (
         <div className={styles.pageOuterContainer}>
             <MainNavBar setIsloaded={setIsloaded} />

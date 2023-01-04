@@ -182,18 +182,16 @@
     padding: 0 .2rem;
 }
 
-#activityCards {
+#activityCards{
     display: flex;
-    gap: 1.5rem;
+    gap: 1rem;
     flex-direction: column;
     background-color: var(--strive-body-fill);
 }
 
 .activityCard {
     display: flex;
-    min-height: 100px;
     box-shadow: 0px 8px 24px rgba(13, 13, 18, 0.04);
     border-radius: .4rem;
     background-color: white;
-    padding: 1.6rem 2.4rem;
 }

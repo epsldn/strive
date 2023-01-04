@@ -32,7 +32,7 @@ function HomePage() {
                             </div>
                         </div>
                     </div>
-                    <div id={styles.latestActivity}>
+                    {user?.last_activity && <div id={styles.latestActivity}>
                         <p>Latest Activity</p>
                         <Link to={`/activities/${user?.last_activity.id}`}>
                             <p>{user?.last_activity.title}</p>
@@ -43,12 +43,12 @@ function HomePage() {
                                 <ReactTimeAgo date={new Date(user?.last_activity.date + " " + user?.last_activity.time)} locale="en-US" />
                             </div>
                         </Link>
-                    </div>
+                    </div>}
                 </div>
                 <div className={styles.mainMiddle}>
                     {isLoaded &&
                         <ul id={styles.activityCards}>
-                            {activities.map(activity => {
+                            {activities.array.map(activity => {
                                 return (
                                     <li key={activity.id} className={styles.activityCard}><ActivityCard activity={activity} /></li>
                                 );

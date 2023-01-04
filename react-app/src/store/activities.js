@@ -52,7 +52,7 @@ export const createActivity = (activity) => async dispatch => {
 
     const data = await response.json();
     if (response.ok) {
-        dispatch(addActivityToStore(data.activity));
+        await dispatch(fetchActivities());
         return data.activity;
     } else {
         return { ...data.activity, error: "An error has occured" };
@@ -68,7 +68,7 @@ export const updateActivity = (activity, activityId) => async dispatch => {
 
     const data = await response.json();
     if (response.ok) {
-        dispatch(addActivityToStore(data.updatedActivity));
+        await dispatch(fetchActivities());
         return data.updatedActivity;
     } else {
         return { ...data, error: "An error has occured" };
@@ -82,18 +82,24 @@ export const deleteActivity = (activityId) => async dispatch => {
 
     const data = await response.json();
     if (response.ok) {
-        dispatch(deleteActivityFromStore(activityId));
+        await dispatch(fetchActivities());
         return data;
     } else {
         return { ...data, error: "Something has gone wrong" };
     }
 };
 
-const initialState = {};
+const initialState = [];
 export default function reducer(state = initialState, action) {
     switch (action.type) {
         case GET_ACTIVITIES: {
-            return action.activities;
+            const activities = action.activities.reduce((obj, activity) => {
+                obj[activity.id] = activity;
+                return obj;
+            }, {});
+
+            activities.array = action.activities;
+            return activities;
         }
         case ADD_ACTIVITY: {
             const newState = { ...state };
