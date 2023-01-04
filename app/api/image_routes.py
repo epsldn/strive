@@ -7,6 +7,7 @@ image_routes = Blueprint("images", __name__)
 
 
 @image_routes.route("/user-profile", methods=["POST"])
+@login_required
 def user_profile():
     if "image" not in request.files:
         return {"errors": "image required"}, 400
@@ -32,6 +33,7 @@ def user_profile():
 
 
 @image_routes.route("/club-images/", methods=["POST"])
+@login_required
 def club_images():
 
     if "image" not in request.files:

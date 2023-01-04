@@ -20,6 +20,16 @@ function EditActivity() {
     function onSubmit(event) {
         event.preventDefault();
         console.log("submitting...");
+
+        const payload = {
+            "sport": sport,
+            "title": title,
+            "description": description,
+            "private_notes": privateNotes,
+            "extertion": +extertionLevel,
+        };
+
+        console.log(JSON.stringify(payload));
     }
 
     useEffect(() => {
