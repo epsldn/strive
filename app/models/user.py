@@ -42,5 +42,7 @@ class User(db.Model, UserMixin):
             'email': self.email,
             "birthdate": f"{self.birthdate}",
             "joined_clubs": {club.get_id(): {"id": club.to_dict()["id"], "clubImage": club.to_dict()["clubImage"]} for club in self.clubs},
-            "owned_clubs": {club.get_id(): club.get_id() for club in self.owned_clubs}
+            "owned_clubs": {club.get_id(): club.get_id() for club in self.owned_clubs},
+            "total_activitites": len(self.activities),
+            "last_activity": self.activities[-1].to_dict()
         }

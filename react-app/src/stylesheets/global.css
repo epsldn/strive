@@ -5,11 +5,12 @@
     --strive-form-error-dark-red: #a94442;
     --strive-cream-background: #f9f8f5;
     --strive-border-lightgray: #dfdfe8;
-    --strive-auth-border-gray: #666;
+    --strive-auth-border-gray: #666666;
     --strive-auth-font-color-gray: #CCC;
     --strive-hyperlink-blue: #007FB6;
     --strive-hyperlink-darkblue: #005b83;
     --strive-background-fill: #f0f0f5;
+    --strive-body-fill: #f7f7fa;
     --strive-button-transition: border-color 0.1s linear, background 0.1s linear, color 0.1s linear;
     --strive-background-transition: background 0.1s linear, color 0.1s linear;
     font-family: 'Lato', sans-serif;

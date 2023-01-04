@@ -15,6 +15,7 @@ import MainNavBar from './components/MainNavBar';
 import EditClub from './components/ClubComponents/EditClub';
 import CreateActivity from './components/ActivityComponents/CreateActivity';
 import EditActivity from './components/ActivityComponents/EditActivity';
+import HomePage from './components/HomePage/HomePage';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -44,8 +45,7 @@ function App() {
           <SignUpForm />
         </Route>
         <ProtectedRoute path="/" exact>
-          <MainNavBar />
-          THIS WILL SOME DAY BE THE HOME PAGE
+          <HomePage />
         </ProtectedRoute>
         <ProtectedRoute path='/users' exact >
           <UsersList />

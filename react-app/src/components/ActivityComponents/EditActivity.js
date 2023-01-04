@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory, useParams } from "react-router-dom";
 import MainNavBar from "../MainNavBar";
-import styles from "../../stylesheets/EditActivity.module.css";
-import slider from "../../stylesheets/CreateActivity.module.css";
 import { useEffect, useState } from "react";
 import { updateActivity } from "../../store/activities";
+import styles from "../../stylesheets/EditActivity.module.css";
+import slider from "../../stylesheets/CreateActivity.module.css";
 function EditActivity() {
     const { activityId } = useParams();
     const activity = useSelector(state => state.activities[activityId]);
