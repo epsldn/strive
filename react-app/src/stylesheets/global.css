@@ -39,4 +39,5 @@ button {
 
 body {
     background-color: #f9f8f5;
+    word-break: break-word;
 }

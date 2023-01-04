@@ -104,20 +104,26 @@
     flex-direction: column;
     padding: 1.6rem;
     font-size: 1.2rem;
+    word-break: break-word;
 }
 
-#latestActivity :first-child {
+#latestActivity> :first-child {
     margin-bottom: .8rem;
 }
 
-#latestActivity :last-child {
+#latestActivity> :last-child {
     font-size: 1.6rem;
     font-weight: 700;
     transition: color 0.1s linear;
     width: fit-content;
+    display: flex;
+    align-items: center;
+    margin-bottom: .8rem;
+    display: flex;
+    flex-wrap: wrap;
 }
 
-#latestActivity :last-child:hover {
+#latestActivity>:last-child:hover {
     color: var(--strive-international-orange)
 }
 
@@ -164,4 +170,15 @@
 
 .rightSideButton:hover {
     background-color: #e6e6e6;
+}
+
+#latestActivity #timeAgo,
+#latestActivity #timeAgo * {
+    display: flex;
+    font-weight: 400;
+    height: 100%;
+}
+
+#latestActivity #timeAgo>p {
+    font-weight: 100;
 }

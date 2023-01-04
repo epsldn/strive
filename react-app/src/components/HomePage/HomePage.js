@@ -3,12 +3,11 @@ import defaultProfile from "../../assets/defaultProfile.png";
 import styles from "../../stylesheets/HomePage.module.css";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import TimeAgo from "javascript-time-ago";
+import ReactTimeAgo from "react-time-ago";
 
-
-function setBodyColor() {
-    document.body.style = "background: #666666";
-    return null;
-}
+import en from "javascript-time-ago/locale/en.json";
+TimeAgo.addDefaultLocale(en);
 
 function HomePage() {
     const user = useSelector(state => state.session.user);
@@ -32,7 +31,15 @@ function HomePage() {
                     </div>
                     <div id={styles.latestActivity}>
                         <p>Latest Activity</p>
-                        <Link to={`/activities/${user?.last_activity.id}`}><p>{user?.last_activity.title}</p></Link>
+                        <Link to={`/activities/${user?.last_activity.id}`}>
+                            <p>{user?.last_activity.title}</p>
+                            <div id={styles.timeAgo}>
+                                <p>
+                                    •
+                                </p>
+                                <ReactTimeAgo date={new Date(user?.last_activity.date + " " + user?.last_activity.time)} locale="en-US" />
+                            </div>
+                        </Link>
                     </div>
                 </div>
                 <div className={styles.mainMiddle}>
