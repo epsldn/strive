@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import defaultProfile from "../../assets/defaultProfile.png";
 import styles from "../../stylesheets/ActivityCard.module.css";
 
@@ -47,8 +48,8 @@ function ActivityCard({ activity }) {
                     <img src={activity.user.profilePicture || defaultProfile} alt="User Avatar" />
                 </div>
                 <div className={styles.activityInformationRight}>
-                    <p>{activity.user.firstName} {activity.user.lastName}</p>
-                    <p>{formatDate(date)} at {date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                    <p id={styles.name}>{activity.user.firstName} {activity.user.lastName}</p>
+                    <p className={styles.grayedOut}>{formatDate(date)} at {date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                 </div>
             </div>
             <div id={styles.activityStatsContainer}>
@@ -56,23 +57,31 @@ function ActivityCard({ activity }) {
 
                 </div>
                 <div className={styles.activityInformationRight}>
-                    {activity.title}
+                    <p id={styles.title}><Link to={`/activities/${activity.id}`}>{activity.title}</Link> </p>
                     <div className={styles.activityStats}>
                         {Boolean(activity?.distance) && <div className={styles.activityBodyRightContent}>
-                            <p>{Number(activity.distance).toFixed(2)} mi</p>
-                            <p>Distance</p>
+                            <div className={styles.statContainer}>
+                                <p className={styles.grayedOut}>Distance</p>
+                                <p className={styles.statNumber}>{Number(activity.distance).toFixed(2)} mi</p>
+                            </div>
                         </div>}
                         <div className={styles.activityBodyRightContent}>
-                            <p>{`${activity?.hours}:${formatTime(activity?.minutes)}:${formatTime(activity?.seconds)}`}</p>
-                            <p>Duration</p>
+                            <div className={styles.statContainer}>
+                                <p className={styles.grayedOut}>Duration</p>
+                                <p className={styles.statNumber}>{`${activity?.hours}:${formatTime(activity?.minutes)}:${formatTime(activity?.seconds)}`}</p>
+                            </div>
                         </div>
                         {Boolean(activity?.distance) && <div className={styles.activityBodyRightContent}>
-                            <p>{pace}/mi</p>
-                            <p>Pace</p>
+                            <div className={styles.statContainer}>
+                                <p className={styles.grayedOut}>Pace</p>
+                                <p className={styles.statNumber}>{pace}/mi</p>
+                            </div>
                         </div>}
                         <div className={styles.activityBodyRightContent}>
-                            <p>{activity?.elevation} ft</p>
-                            <p>Elevation</p>
+                            <div className={styles.statContainer}>
+                                <p className={styles.grayedOut}>Elevation</p>
+                                <p className={styles.statNumber}>{activity?.elevation} ft</p>
+                            </div>
                         </div>
                     </div>
                 </div>
