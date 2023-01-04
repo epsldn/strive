@@ -5,16 +5,19 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import TimeAgo from "javascript-time-ago";
 import ReactTimeAgo from "react-time-ago";
-
+import { useState } from "react";
 import en from "javascript-time-ago/locale/en.json";
+import ActivityCard from "./ActivityCard";
 TimeAgo.addDefaultLocale(en);
 
 function HomePage() {
     const user = useSelector(state => state.session.user);
+    const activities = useSelector(state => state.activities);
 
+    const [isLoaded, setIsLoaded] = useState(false);
     return (
         <div className={styles.outerContainer}>
-            <MainNavBar />
+            <MainNavBar setIsloaded={setIsLoaded} />
             <div className={styles.mainContent} >
                 <div className={styles.mainSides} id={styles.leftSide}>
                     <div id={styles.profileImage}>
@@ -43,15 +46,23 @@ function HomePage() {
                     </div>
                 </div>
                 <div className={styles.mainMiddle}>
-
+                    {isLoaded &&
+                        <ul id={styles.activityCards}>
+                            {activities.map(activity => {
+                                return (
+                                    <li key={activity.id} className={styles.activityCard}><ActivityCard activity={activity} /></li>
+                                );
+                            })}
+                        </ul>
+                    }
                 </div>
                 <div className={styles.mainSides} id={styles.rightSide}>
                     <div id={styles.clubSection}>
                         <p className={styles.homePageTitle}>Your Clubs</p>
-                        {user && <ul id={styles.clubContainer}>
+                        {isLoaded && <ul id={styles.clubContainer}>
                             {Object.values(user.joined_clubs).map(club => {
                                 return (
-                                    <li key={club.clubImage} className={styles.clubImage}>
+                                    <li key={club.id} className={styles.clubImage}>
                                         <img src={club.clubImage} alt="Club Avatar" />
                                     </li>
                                 );

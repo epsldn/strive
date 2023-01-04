@@ -1,0 +1,29 @@
+#activityContainer {
+    width: 100%;
+    height: 100%;
+}
+
+#activityInformation {
+    height: 4rem;
+    width: 100%;
+    display: flex;
+    gap: 2.4rem;
+}
+
+.activityInformationLeft {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 100%;
+    overflow: hidden;
+}
+
+.activityInformationLeft img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.activityInformationRight {
+    display: flex;
+    flex-direction: column;
+}

@@ -18,28 +18,26 @@
     min-height: 100px;
     margin-top: 6.4rem;
     margin-bottom: 2.4rem;
-    box-shadow: 0px 8px 24px rgba(13, 13, 18, 0.04);
     border-radius: .4rem;
 }
 
 .mainSides {
     width: 24.5%;
-    background-color: white;
     position: sticky;
     top: 6.4rem;
 }
 
 .mainMiddle {
     width: 51%;
-    background-color: rgba(115, 239, 255, 0.175);
-    height: 10000px;
     position: sticky;
     top: 0;
 }
 
 #leftSide {
+    background-color: white;
     padding-top: 2.4rem;
     height: fit-content;
+    box-shadow: 0px 8px 24px rgba(13, 13, 18, 0.04);
 }
 
 #rightSide {
@@ -181,4 +179,21 @@
 
 #latestActivity #timeAgo>p {
     font-weight: 100;
+    padding: 0 .2rem;
+}
+
+#activityCards {
+    display: flex;
+    gap: 1.5rem;
+    flex-direction: column;
+    background-color: var(--strive-body-fill);
+}
+
+.activityCard {
+    display: flex;
+    min-height: 100px;
+    box-shadow: 0px 8px 24px rgba(13, 13, 18, 0.04);
+    border-radius: .4rem;
+    background-color: white;
+    padding: 1.6rem 2.4rem;
 }
