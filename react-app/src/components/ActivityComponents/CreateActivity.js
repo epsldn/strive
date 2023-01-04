@@ -72,7 +72,7 @@ function CreateActivity() {
             "title": title,
             "description": description,
             "private_notes": privateNotes,
-            "extertion_level": +extertionLevel,
+            "extertion": +extertionLevel,
         };
 
         const activity = await dispatch(createActivity(payload));

@@ -10,6 +10,8 @@ class ActivityForm(FlaskForm):
     minutes = FloatField("Minutes", [Optional(), NumberRange(min=0, max=60)])
     seconds = FloatField("Seconds", [Optional(), NumberRange(min=0, max=60)])
     elevation = FloatField("Elevation", [Optional(), NumberRange(max=29029)])
+    extertion = IntegerField(
+        "Extertion level", [Optional(), NumberRange(min=0, max=10)])
     sport = StringField("Sport", [DataRequired(
         "Please enter a sport"), Length(min=1, max=100)])
     date = DateField("Date", [Optional()])

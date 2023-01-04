@@ -1,12 +1,13 @@
 import { useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
+import { Redirect, useHistory, useParams } from "react-router-dom";
 import MainNavBar from "../MainNavBar";
 import styles from "../../stylesheets/EditActivity.module.css";
 import slider from "../../stylesheets/CreateActivity.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 function EditActivity() {
     const { activityId } = useParams();
     const activity = useSelector(state => state.activities[activityId]);
+    const [isLoaded, setIsloaded] = useState(false);
     const user = useSelector(state => state.session.user);
     const history = useHistory();
 
@@ -21,6 +22,16 @@ function EditActivity() {
         console.log("submitting...");
     }
 
+    useEffect(() => {
+        if (!activity) return;
+
+        setTitle(activity.title);
+        setDescription(activity.description);
+        setExtertionLevel(activity.extertion);
+        setPrivateNotes(activity.private_notes);
+        setSport(activity.sport);
+    }, [activity]);
+
 
     let date;
 
@@ -29,12 +40,17 @@ function EditActivity() {
             history.push(`/activities/${activityId}`);
             return null;
         }
+
         date = new Date(activity.date + " " + activity.time);
+    }
+
+    if (isLoaded && !activity) {
+        return <Redirect to="/" />;
     }
 
     return (
         <div className={styles.outerContainer}>
-            <MainNavBar />
+            <MainNavBar setIsloaded={setIsloaded} />
             <div className={styles.header}>
                 <div className={styles.headerContent}>
                     <h1>Edit Activity</h1>
