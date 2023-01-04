@@ -31,7 +31,7 @@ def create_activity():
     form["user_id"].data = current_user.id
     time = request.get_json()["time"]
     form["time"].data = datetime.strptime(
-        time, '%H:%M').time() if time else None
+        time, '%H:%M').time() if time else datetime.now().time()
 
     print(form.data)
     print("\n", request.get_json())
