@@ -23,14 +23,14 @@
 }
 
 .mainSides {
-    width: 22.5%;
+    width: 24.5%;
     background-color: white;
     position: sticky;
     top: 6.4rem;
 }
 
 .mainMiddle {
-    width: 55%;
+    width: 51%;
     background-color: rgba(115, 239, 255, 0.175);
     height: 10000px;
     position: sticky;
