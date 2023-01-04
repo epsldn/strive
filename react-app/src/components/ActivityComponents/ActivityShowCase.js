@@ -87,7 +87,10 @@ function ActivityShowCase() {
                             </div>
                             <div id={styles.privateNotes}>
                                 {activity?.private_notes ?
-                                    <p>{activity.private_notes} </p> :
+                                    <>
+                                        <p id={styles.privateNotesTitle}>Private Notes</p>
+                                        <p>{activity.private_notes} </p>
+                                    </> :
                                     <button onClick={handleEdit} className={styles.missingAttribute}>Add private notes</button>}
                             </div>
                         </div>

@@ -14,7 +14,7 @@ def get_clubs():
 
 
 @club_routes.route("/", methods=["POST"])
-# @login_required
+@login_required
 def create_club():
     form = ClubForm()
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -32,7 +32,7 @@ def create_club():
 
 
 @club_routes.route("/<int:clubId>", methods=["PUT"])
-# @login_required
+@login_required
 def update_club(clubId):
     if clubId not in current_user.to_dict()["owned_clubs"]:
         return {"error": "No club with that ID found"}, 400
@@ -65,7 +65,6 @@ def update_club(clubId):
             club.sport = form.data["sport"]
             club.type = form.data["type"]
             club.website = form.data["website"]
-            print(club.to_dict())
             db.session.commit()
 
             return jsonify({"message": "success!", "updatedClub": club.to_dict()}), 200
@@ -76,7 +75,7 @@ def update_club(clubId):
 
 
 @club_routes.route("<int:clubId>", methods=["DELETE"])
-# @login_required
+@login_required
 def delete_club(clubId):
     if clubId not in current_user.to_dict()["owned_clubs"]:
         return {"error": "No club with that ID found"}, 400
@@ -90,7 +89,7 @@ def delete_club(clubId):
 
 
 @club_routes.route("/<int:clubId>")
-# @login_required
+@login_required
 def get_club_info(clubId):
     club = Club.query.get(clubId)
     if (club):

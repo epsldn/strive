@@ -13,6 +13,7 @@ def seed_activities():
         sport="Ride",
         date=date(2022, 10, 12),
         time=time(8, 50, 20),
+        extertion=2,
         title="Today I went out for a run",
         description="It was a nice run to be had, it was nice indeed. It was a run.",
         private_notes="I hope they see this and are impressed"
@@ -24,6 +25,7 @@ def seed_activities():
         minutes=32,
         seconds=12,
         elevation=14,
+        extertion=5,
         sport="Ice Skate",
         date=date(2022, 7, 12),
         time=time(14, 50, 20),
@@ -38,6 +40,7 @@ def seed_activities():
         minutes=2,
         seconds=12,
         elevation=1204,
+        extertion=10,
         sport="Virtual Run",
         title="Today I went out for a run",
         description="It was a nice run to be had, it was nice indeed. It was a run.",

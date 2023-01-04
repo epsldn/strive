@@ -26,6 +26,7 @@ class Activity(db.Model):
     title = db.Column(db.String, nullable=False)
     description = db.Column(db.String, nullable=False)
     private_notes = db.Column(db.String, nullable=False)
+    extertion = db.Column(db.Integer, nullable=False)
 
     user = db.relationship(
         "User", back_populates="activities"
@@ -45,5 +46,6 @@ class Activity(db.Model):
             "description": self.description,
             "private_notes": self.private_notes,
             "user_id": self.user_id,
-            "id": self.id
+            "id": self.id,
+            "extertion": self.extertion
         }

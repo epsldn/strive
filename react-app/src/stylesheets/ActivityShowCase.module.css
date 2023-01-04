@@ -94,6 +94,10 @@
     width: auto;
 }
 
+#activityMainContentInfo :last-child {
+    font-size: 1.4rem;
+}
+
 #title {
     color: black;
     font-weight: 800;
@@ -122,10 +126,17 @@
 }
 
 #privateNotes {
-    padding-top: 2rem;
+    padding-top: .5rem;
     word-wrap: break-word;
+    font-size: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
 }
 
+#privateNotes button {
+    margin-top: 1.5rem;
+}
 
 #activityTime {
     font-size: 2.8rem;
@@ -133,4 +144,9 @@
 
 #activityTime>p {
     font-size: 1.2rem;
+}
+
+#privateNotesTitle {
+    font-size: 1rem;
+    color: #666666;
 }
