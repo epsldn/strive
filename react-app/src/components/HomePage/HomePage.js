@@ -39,7 +39,19 @@ function HomePage() {
 
                 </div>
                 <div className={styles.mainSides} id={styles.rightSide}>
-
+                    <div id={styles.clubSection}>
+                        <p className={styles.homePageTitle}>Your Clubs</p>
+                        {user && <ul id={styles.clubContainer}>
+                            {Object.values(user.joined_clubs).map(club => {
+                                return (
+                                    <li key={club.clubImage} className={styles.clubImage}>
+                                        <img src={club.clubImage} alt="Club Avatar" />
+                                    </li>
+                                );
+                            })}
+                        </ul>}
+                        <button className={styles.rightSideButton}>View All Clubs </button>
+                    </div>
                 </div>
             </div>
         </div>
