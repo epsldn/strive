@@ -70,9 +70,9 @@ def update_activity(activityId):
 
         db.session.commit()
 
-        return {"message": f"Success! Activity with an id of {activityId} update", "udpatedActivity": activity.to_dict()}, 200
+        return jsonify({"message": f"Success! Activity with an id of {activityId} update", "updatedActivity": activity.to_dict()}), 200
     else:
-        return {'errors': {k: v[0] for k, v in form.errors.items()}}, 400
+        return jsonify({'errors': {k: v[0] for k, v in form.errors.items()}}), 400
 
 
 @activity_routes.route("/<int:activityId>", methods=["DELETE"])

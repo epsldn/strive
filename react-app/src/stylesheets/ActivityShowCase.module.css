@@ -94,7 +94,7 @@
     width: auto;
 }
 
-#activityMainContentInfo>p {
+#activityMainContentInfo :last-child {
     font-size: 1.4rem;
 }
 
@@ -129,6 +129,9 @@
     padding-top: .5rem;
     word-wrap: break-word;
     font-size: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
 }
 
 #privateNotes button {

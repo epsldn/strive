@@ -19,6 +19,13 @@ const addActivityToStore = (activity) => {
     });
 };
 
+const updateActivityInStore = (activity) => {
+    return ({
+        type: UPDATE_ACTIVITY,
+        activity
+    });
+};
+
 const deleteActivityFromStore = (activityId) => {
     return ({
         type: DELETE_ACTIVITY,
@@ -52,6 +59,22 @@ export const createActivity = (activity) => async dispatch => {
     }
 };
 
+export const updateActivity = (activity, activityId) => async dispatch => {
+    const response = await fetch(`/api/activities/${activityId}`, {
+        method: "PUT",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify(activity)
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+        dispatch(addActivityToStore(data.updatedActivity));
+        return data.updatedActivity;
+    } else {
+        return { ...data, error: "An error has occured" };
+    }
+};
+
 export const deleteActivity = (activityId) => async dispatch => {
     const response = await fetch(`/api/activities/${activityId}`, {
         method: "DELETE"
@@ -73,6 +96,11 @@ export default function reducer(state = initialState, action) {
             return action.activities;
         }
         case ADD_ACTIVITY: {
+            const newState = { ...state };
+            newState[action.activity.id] = action.activity;
+            return newState;
+        }
+        case UPDATE_ACTIVITY: {
             const newState = { ...state };
             newState[action.activity.id] = action.activity;
             return newState;

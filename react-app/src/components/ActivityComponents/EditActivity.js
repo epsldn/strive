@@ -1,19 +1,21 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory, useParams } from "react-router-dom";
 import MainNavBar from "../MainNavBar";
 import styles from "../../stylesheets/EditActivity.module.css";
 import slider from "../../stylesheets/CreateActivity.module.css";
 import { useEffect, useState } from "react";
+import { updateActivity } from "../../store/activities";
 function EditActivity() {
     const { activityId } = useParams();
     const activity = useSelector(state => state.activities[activityId]);
     const [isLoaded, setIsloaded] = useState(false);
     const user = useSelector(state => state.session.user);
     const history = useHistory();
+    const dispatch = useDispatch();
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const [extertionLevel, setExtertionLevel] = useState("");
+    const [extertionLevel, setExtertionLevel] = useState(1);
     const [privateNotes, setPrivateNotes] = useState("");
     const [sport, setSport] = useState("Run");
 
@@ -29,7 +31,13 @@ function EditActivity() {
             "extertion": +extertionLevel,
         };
 
-        console.log(JSON.stringify(payload));
+        const data = dispatch(updateActivity(payload, activityId));
+
+        if (data.errors) {
+            console.log(data);
+        } else {
+            history.push("/activities/" + activityId);
+        }
     }
 
     useEffect(() => {
@@ -40,6 +48,7 @@ function EditActivity() {
         setExtertionLevel(activity.extertion);
         setPrivateNotes(activity.private_notes);
         setSport(activity.sport);
+
     }, [activity]);
 
 
