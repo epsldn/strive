@@ -18,14 +18,15 @@
     min-height: 100px;
     margin-top: 6.4rem;
     margin-bottom: 2.4rem;
+    box-shadow: 0px 8px 24px rgba(13, 13, 18, 0.04);
+    border-radius: .4rem;
 }
 
 .mainSides {
     width: 22.5%;
-    background-color: rgba(0, 255, 255, 0.134);
-    height: 100vh;
+    background-color: white;
     position: sticky;
-    top: 0;
+    top: 6.4rem;
 }
 
 .mainMiddle {
@@ -34,4 +35,86 @@
     height: 10000px;
     position: sticky;
     top: 0;
+}
+
+#leftSide {
+    padding-top: 2.4rem;
+    height: fit-content;
+}
+
+#rightSide {
+    top: 0;
+}
+
+#profileImage {
+    height: 7rem;
+    width: 7rem;
+    overflow: hidden;
+    position: absolute;
+    left: calc(50% - 3.5rem);
+    top: -35px;
+    border-radius: 100%;
+}
+
+#profileImage img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+#profileInformation {
+    display: flex;
+    align-items: center;
+    padding: 1.6rem;
+    flex-direction: column;
+    border-bottom: 1px solid var(--strive-border-lightgray);
+}
+
+#userName {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-top: 1.2rem;
+    margin-bottom: 1.6rem;
+}
+
+#profileInformationStats {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.statContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.statContainer :first-child {
+    font-size: 1.2rem;
+}
+
+.statContainer :last-child {
+    font-size: 2rem;
+}
+
+#latestActivity {
+    display: flex;
+    flex-direction: column;
+    padding: 1.6rem;
+    font-size: 1.2rem;
+}
+
+#latestActivity :first-child {
+    margin-bottom: .8rem;
+}
+
+#latestActivity :last-child {
+    font-size: 1.6rem;
+    font-weight: 700;
+    transition: color 0.1s linear;
+    width: fit-content;
+}
+
+#latestActivity :last-child:hover {
+    color: var(--strive-international-orange)
 }

@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { fetchActivities } from "../store/activities";
 import { fetchClubs } from "../store/clubs";
-import { logout } from "../store/session";
+import { authenticate, logout } from "../store/session";
+import defaultProfile from "../assets/defaultProfile.png";
 import styles from "../stylesheets/MainNavBar.module.css";
 
 function MainNavBar(props) {
@@ -18,6 +19,7 @@ function MainNavBar(props) {
 
     useEffect(() => {
         (async function () {
+            await dispatch(authenticate());
             await dispatch(fetchClubs());
             await dispatch(fetchActivities());
             if (setIsLoaded) setIsLoaded(true);
@@ -52,7 +54,7 @@ function MainNavBar(props) {
                 <div className={styles.actions}>
                     <div id={styles.profileAction} >
                         <div id={styles.profileImageContainer}>
-                            <img alt="Profile Image" src={user?.profileImage || "https://striveonrender.s3.us-west-2.amazonaws.com/29215abf55974d0084dcb1b46a1f3c8c.png"} />
+                            <img alt="Profile Image" src={user?.profileImage || defaultProfile} />
                         </div>
                         <i className="fa-solid fa-chevron-down" />
                         <ul id={styles.profileList}>

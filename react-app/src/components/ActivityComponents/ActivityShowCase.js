@@ -2,8 +2,9 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { deleteActivity } from "../../store/activities";
-import styles from "../../stylesheets/ActivityShowCase.module.css";
 import MainNavBar from "../MainNavBar";
+import defaultProfile from "../../assets/defaultProfile.png";
+import styles from "../../stylesheets/ActivityShowCase.module.css";
 
 function ActivityShowCase() {
     const { activityId } = useParams();
@@ -87,7 +88,7 @@ function ActivityShowCase() {
                         <div className={styles.activityBodyLeft}>
                             <div id={styles.activityMainContent}>
                                 <div id={styles.activityProfilePicture}>
-                                    <img src={activity?.profilePicture || "https://striveonrender.s3.us-west-2.amazonaws.com/29215abf55974d0084dcb1b46a1f3c8c.png"} alt="Profile" />
+                                    <img src={activity?.profilePicture || defaultProfile} alt="Profile" />
                                 </div>
                                 <div id={styles.activityMainContentInfo}>
                                     <p id={styles.time}>{date?.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} on {date?.toLocaleDateString([], { weekday: "long", month: "long", day: "numeric", year: "numeric" })}</p>
