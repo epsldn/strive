@@ -40,7 +40,9 @@ function AthleteShowcase() {
         });
 
         if (res.ok) {
-            await dispatch(authenticate());
+            fetch(`/api/users/${athleteId}`)
+                .then(response => response.json())
+                .then(athlete => setAthlete(athlete));
             const updatedAthlete = await res.json();
             setAthlete(updatedAthlete);
         }
