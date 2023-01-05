@@ -61,7 +61,22 @@
     width: fit-content;
     position: relative;
     background-color: white;
-    border-bottom: 1px solid var(--strive-border-lightgray)
+    border: 1px solid transparent;
+}
+
+#profileAction::after {
+    content: "";
+    position: absolute;
+    height: 1px;
+    bottom: -1px;
+    left: -1px;
+    width: calc(100% + 2px);
+    background-color: var(--strive-border-lightgray);
+    z-index: 10;
+}
+
+#profileAction:hover::after {
+    display: none;
 }
 
 #profileAction:hover {
