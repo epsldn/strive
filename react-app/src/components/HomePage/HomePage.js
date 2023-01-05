@@ -24,7 +24,7 @@ function HomePage() {
             <div className={styles.mainContent} >
                 <div className={styles.mainSides} id={styles.leftSide}>
                     <div id={styles.profileImage}>
-                        <img src={"" || defaultProfile} />
+                        <img src={user?.profilePicture || defaultProfile} />
                     </div>
                     <div id={styles.profileInformation}>
                         <Link to={`/athletes/${user.id}`} id={styles.userName}>{user?.firstName}{" "}{user?.lastName}</Link>
@@ -70,11 +70,11 @@ function HomePage() {
                         <p className={styles.homePageTitle}>Your Clubs</p>
                         {isLoaded && <ul id={styles.clubContainer}>
                             {Object.values(user.joined_clubs).length > 0 ?
-                            Object.values(user.joined_clubs).map(club => {
-                                return (
-                                    <Link key={club.id} to={`/clubs/${club.id}`}><ClubImages club={club} styles={styles} /></Link>
-                                );
-                            }) : <li style={{ fontSize: "1.4rem", marginBottom: "1rem" }}>No clubs yet!</li>}
+                                Object.values(user.joined_clubs).map(club => {
+                                    return (
+                                        <Link key={club.id} to={`/clubs/${club.id}`}><ClubImages club={club} styles={styles} /></Link>
+                                    );
+                                }) : <li style={{ fontSize: "1.4rem", marginBottom: "1rem" }}>No clubs yet!</li>}
                         </ul>}
                         <button className={styles.rightSideButton}>View All Clubs </button>
                     </div>

@@ -153,3 +153,8 @@
     font-size: 1rem;
     color: #666666;
 }
+
+#userName:hover {
+    color: #005b83;
+    text-decoration: underline;
+}

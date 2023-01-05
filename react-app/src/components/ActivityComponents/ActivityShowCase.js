@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import { deleteActivity } from "../../store/activities";
 import MainNavBar from "../MainNavBar";
 import defaultProfile from "../../assets/defaultProfile.png";
@@ -84,13 +84,13 @@ function ActivityShowCase() {
 
                 <div className={styles.activityInfo}>
                     <div className={styles.activityHeader}>
-                        <h1>{`${"first".slice(0, 1).toUpperCase() + "first".slice(1).toLocaleLowerCase()} ${"last".slice(0, 1).toUpperCase() + "last".slice(1).toLocaleLowerCase()} - ${activity?.sport}`}</h1>
+                        <h1><span id={styles.userName}><Link to={`/athletes/${activity?.user_id}`}>{`${"first".slice(0, 1).toUpperCase() + "first".slice(1).toLocaleLowerCase()} ${"last".slice(0, 1).toUpperCase() + "last".slice(1).toLocaleLowerCase()}`}</Link></span> - {activity?.sport}</h1>
                     </div>
                     <div className={styles.activityBody}>
                         <div className={styles.activityBodyLeft}>
                             <div id={styles.activityMainContent}>
                                 <div id={styles.activityProfilePicture}>
-                                    <img src={activity?.profilePicture || defaultProfile} alt="Profile" />
+                                    <img src={activity?.user.profilePicture || defaultProfile} alt="Profile" />
                                 </div>
                                 <div id={styles.activityMainContentInfo}>
                                     <p id={styles.time}>{date?.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} on {date?.toLocaleDateString([], { weekday: "long", month: "long", day: "numeric", year: "numeric" })}</p>
