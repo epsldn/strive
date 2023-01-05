@@ -14,6 +14,41 @@ def get_clubs():
     return jsonify({club.id: club.to_dict() for club in clubs}), 200
 
 
+@club_routes.route("/<int:clubId>/join")
+@login_required
+def join_club(clubId):
+    user = User.query.get(current_user.id)
+    club = Club.query.get(clubId)
+
+    if club is None:
+        return jsonify({"error": "club not found"}), 404
+
+    if club not in user.clubs:
+        user.clubs.append(club)
+        db.session.commit()
+        return jsonify({"message": "success!"}), 200
+    else:
+        return jsonify({"error": "User in Club"}), 400
+
+
+@club_routes.route("/<int:clubId>/leave")
+@login_required
+def leave_club(clubId):
+    user = User.query.get(current_user.id)
+    club = Club.query.get(clubId)
+
+    if club is None:
+        return jsonify({"error": "club not found"}), 404
+
+    if club in user.clubs:
+        user.clubs.remove(club)
+        db.session.commit()
+        return jsonify({"message": "success!"}), 200
+
+    else:
+        return jsonify({"error": "User not in club"}), 404
+
+
 @club_routes.route("/<int:clubId>/activities")
 @login_required
 def get_activities(clubId):
