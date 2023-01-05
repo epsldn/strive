@@ -75,7 +75,6 @@ function ClubShowcase() {
                                     })}
                                 </ul>
                             </div>
-
                         </div>
                     </div>
                 </div>

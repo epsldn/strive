@@ -1,0 +1,9 @@
+.outerContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.mainContent {
+    max-width: 1248px;
+    width: 100%;
+}

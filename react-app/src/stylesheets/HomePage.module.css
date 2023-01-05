@@ -83,6 +83,10 @@
     margin-bottom: 1.6rem;
 }
 
+#userName:hover {
+    color: #005b83;
+}
+
 #profileInformationStats {
     width: 100%;
     display: flex;

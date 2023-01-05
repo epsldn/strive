@@ -65,6 +65,7 @@
     transition: color .15s ease;
 }
 
-#title:hover {
+#title:hover,
+#name:hover {
     color: #005b83;
 }

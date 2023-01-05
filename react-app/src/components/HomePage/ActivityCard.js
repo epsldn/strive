@@ -48,7 +48,7 @@ function ActivityCard({ activity }) {
                     <img src={activity.user.profilePicture || defaultProfile} alt="User Avatar" />
                 </div>
                 <div className={styles.activityInformationRight}>
-                    <p id={styles.name}>{activity.user.firstName} {activity.user.lastName}</p>
+                    <Link to={`/athletes/${activity.user_id}`} id={styles.name}>{activity.user.firstName} {activity.user.lastName}</Link>
                     <p className={styles.grayedOut}>{formatDate(date)} at {date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                 </div>
             </div>

@@ -54,6 +54,9 @@ function App() {
         <ProtectedRoute path='/users/:userId' exact >
           <User />
         </ProtectedRoute>
+        <ProtectedRoute path="/athletes/:athleteId" exact>
+          
+        </ProtectedRoute>
         <ProtectedRoute path="/clubs/create" exact>
           <CreateClub />
         </ProtectedRoute>

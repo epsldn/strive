@@ -27,7 +27,7 @@ function HomePage() {
                         <img src={"" || defaultProfile} />
                     </div>
                     <div id={styles.profileInformation}>
-                        <p id={styles.userName}>{"First"}{" "}{"Last"}</p>
+                        <Link to={`/athletes/${user.id}`} id={styles.userName}>{user?.firstName}{" "}{user?.lastName}</Link>
                         <div id={styles.profileInformationStats}>
                             <div className={styles.statContainer}>
                                 <p>Activities</p>

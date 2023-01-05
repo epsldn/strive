@@ -44,7 +44,9 @@ class User(db.Model, UserMixin):
             "joined_clubs": {club.get_id(): {"id": club.to_dict()["id"], "clubImage": club.to_dict()["clubImage"], "clubName": club.to_dict()["clubName"]} for club in self.clubs},
             "owned_clubs": {club.get_id(): club.get_id() for club in self.owned_clubs},
             "total_activitites": len(self.activities),
-            "last_activity": self.activities[-1].last_to_dict() if self.activities else None
+            "last_activity": self.activities[-1].last_to_dict() if self.activities else None,
+            "firstName": "First",
+            "lastName": "Last"
         }
 
     def activity_info(self):
