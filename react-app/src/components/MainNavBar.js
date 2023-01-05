@@ -54,7 +54,7 @@ function MainNavBar(props) {
                 <div className={styles.actions}>
                     <div id={styles.profileAction} >
                         <div id={styles.profileImageContainer}>
-                            <img alt="Profile Image" src={user?.profileImage || defaultProfile} />
+                            <img alt="Profile Image" src={user?.profilePicture || defaultProfile} />
                         </div>
                         <i className="fa-solid fa-chevron-down" />
                         <ul id={styles.profileList}>

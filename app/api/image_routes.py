@@ -6,7 +6,7 @@ from app.aws_upload import upload_file, file_checker, get_unique_filename
 image_routes = Blueprint("images", __name__)
 
 
-@image_routes.route("/user-profile", methods=["POST"])
+@image_routes.route("/user-profile/", methods=["POST"])
 @login_required
 def user_profile():
     if "image" not in request.files:
@@ -27,9 +27,11 @@ def user_profile():
     url = upload["url"]
 
     user = User.query.get(current_user.id)
-    user.profileImage = url
+    user.profile_picture = url
+
     db.session.commit()
-    return jsonify({"url": url}), 200
+
+    return jsonify(user.to_dict()), 200
 
 
 @image_routes.route("/club-images/", methods=["POST"])
