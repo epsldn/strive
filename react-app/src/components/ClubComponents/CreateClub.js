@@ -53,7 +53,7 @@ function CreateClub() {
         if (club.errors) {
             setErrors(errors);
         } else {
-            history.push(`/clubs/${club.id}/edit`)
+            history.push(`/clubs/${club.id}`);
         }
     }
 

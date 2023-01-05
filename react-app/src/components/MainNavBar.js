@@ -47,9 +47,11 @@ function MainNavBar(props) {
                             Home
                         </li>
                     </Link>
-                    <li>
-                        Clubs
-                    </li>
+                    <Link to="/clubs/search">
+                        <li>
+                            Clubs
+                        </li>
+                    </Link>
                 </ul>
                 <div className={styles.actions}>
                     <div id={styles.profileAction} >

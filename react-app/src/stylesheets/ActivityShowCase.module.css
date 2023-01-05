@@ -69,7 +69,6 @@
 #activityMainContent {
     display: flex;
     padding-bottom: 1rem;
-    border-bottom: 1px solid var(--strive-border-lightgray)
 }
 
 #activityProfilePicture {
@@ -134,6 +133,7 @@
     display: flex;
     flex-direction: column;
     gap: .5rem;
+    border-top: 1px solid var(--strive-border-lightgray)
 }
 
 #privateNotes button {

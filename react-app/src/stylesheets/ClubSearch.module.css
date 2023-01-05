@@ -1,0 +1,103 @@
+.outerContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mainContainer {
+    max-width: 1248px;
+    width: 100%;
+    margin: 3rem 0;
+}
+
+#titleAndButton {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#titleAndButton h1 {
+    font-size: 3.4rem;
+    font-weight: 800;
+    min-width: fit-content;
+}
+
+#titleAndButton button {
+    width: fit-content;
+    margin-bottom: 0;
+    font-weight: 700;
+    color: white;
+    background-color: black;
+    padding: .6rem 1.6rem;
+    height: fit-content;
+}
+
+#titleAndButton button:hover {
+    background-color: #3c3c43;
+}
+
+#clubContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+
+#searchContainer {
+    margin: 3rem 0;
+    font-size: 1.4rem;
+    line-height: 2.03rem;
+    padding: 1.3rem 2rem;
+    background-color: #f2f2f2;
+    display: flex;
+    gap: .6rem;
+}
+
+#searchContainer input {
+    height: 3.4rem;
+    line-height: 1.96rem;
+    padding: 0 1.6rem;
+    background-color: white;
+    border: 1px solid var(--strive-border-lightgray);
+    transition: border-color 0.25s linear;
+}
+
+#searchContainer input:focus {
+    border-color: #007FB6;
+}
+
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    max-width: 20rem;
+    width: 100%;
+}
+
+#searchContainer select {
+    border: 1px solid var(--strive-border-lightgray);
+    cursor: pointer;
+    border-radius: .3rem;
+    font-size: 13px;
+    line-height: 30px;
+    height: 34px;
+    padding: 6px 3px;
+    max-width: 20rem;
+    width: 100%;
+}
+
+#search {
+    width: fit-content;
+    height: fit-content;
+    margin: 0;
+    padding: .6rem 1rem;
+    background-color: white;
+    color: var(--strive-auth-border-gray);
+    font-weight: 800;
+    border: 1px solid var(--strive-border-lightgray)
+}
+
+#search:hover {
+    background-color: #f7f7fa;
+}

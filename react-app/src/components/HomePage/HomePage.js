@@ -2,7 +2,7 @@ import MainNavBar from "../MainNavBar";
 import defaultProfile from "../../assets/defaultProfile.png";
 import styles from "../../stylesheets/HomePage.module.css";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import TimeAgo from "javascript-time-ago";
 import ReactTimeAgo from "react-time-ago";
 import { useState } from "react";
@@ -14,7 +14,7 @@ TimeAgo.addDefaultLocale(en);
 function HomePage() {
     const user = useSelector(state => state.session.user);
     const activities = useSelector(state => state.activities);
-
+    const history = useHistory();
     const [isLoaded, setIsLoaded] = useState(false);
     return (
         <div className={styles.outerContainer}>
@@ -76,7 +76,7 @@ function HomePage() {
                                     );
                                 }) : <li style={{ fontSize: "1.4rem", marginBottom: "1rem" }}>No clubs yet!</li>}
                         </ul>}
-                        <button className={styles.rightSideButton}>View All Clubs </button>
+                        <button className={styles.rightSideButton} onClick={() => history.push("/clubs/search")}>View All Clubs </button>
                     </div>
                 </div>
             </div>
