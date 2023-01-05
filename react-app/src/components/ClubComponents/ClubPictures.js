@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { updateClub } from "../../store/clubs";
 import styles from "../../stylesheets/ClubPictures.module.css";
 function CLubPictures(props) {
-    const { user, club, setClub } = props;
+    const { user, club } = props;
     const dispatch = useDispatch();
 
     async function handleImageChange(event) {

@@ -58,7 +58,7 @@ function MainNavBar(props) {
                         </div>
                         <i className="fa-solid fa-chevron-down" />
                         <ul id={styles.profileList}>
-                            <li>My Account</li>
+                            <li><Link to={`/athletes/${user?.id}`}>My Account</Link></li>
                             <li onClick={onLogout}>Log out</li>
                         </ul>
                     </div>

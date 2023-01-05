@@ -1,11 +1,16 @@
 #activityContainer {
     width: 100%;
-    height: 100%;
+    padding: 1.6rem 2.4rem;
+    font-size: 1.2rem;
 }
 
 #activityInformation {
     height: 4rem;
-    width: 100%;
+    display: flex;
+    gap: 2.4rem;
+}
+
+#activityStatsContainer {
     display: flex;
     gap: 2.4rem;
 }
@@ -25,5 +30,48 @@
 
 .activityInformationRight {
     display: flex;
+    width: calc((100% - 6.6rem));
     flex-direction: column;
+}
+
+.activityStats {
+    display: flex;
+    gap: 1.6rem;
+}
+
+#name,
+#noActivityTitle {
+    font-size: 1.4rem;
+    font-weight: 800;
+}
+
+.noActivityText {
+    margin-top: 1rem;
+    font-size: 1.4rem;
+}
+
+.grayedOut {
+    color: var(--strive-auth-border-gray)
+}
+
+.statNumber {
+    font-size: 1.8rem;
+    line-height: 2.3rem;
+}
+
+.statContainer {
+    padding-right: 1.6rem;
+    border-right: 1px solid var(--strive-background-fill);
+}
+
+#title {
+    margin-bottom: .9rem;
+    font-size: 2rem;
+    font-weight: 800;
+    transition: color .15s ease;
+}
+
+#title:hover,
+#name:hover {
+    color: #005b83;
 }

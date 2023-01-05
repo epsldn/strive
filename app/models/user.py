@@ -41,14 +41,18 @@ class User(db.Model, UserMixin):
             'id': self.id,
             'email': self.email,
             "birthdate": f"{self.birthdate}",
-            "joined_clubs": {club.get_id(): {"id": club.to_dict()["id"], "clubImage": club.to_dict()["clubImage"]} for club in self.clubs},
+            "joined_clubs": {club.get_id(): {"id": club.to_dict()["id"], "clubImage": club.to_dict()["clubImage"], "clubName": club.to_dict()["clubName"]} for club in self.clubs},
             "owned_clubs": {club.get_id(): club.get_id() for club in self.owned_clubs},
             "total_activitites": len(self.activities),
-            "last_activity": self.activities[-1].last_to_dict()
+            "last_activity": self.activities[-1].last_to_dict() if self.activities else None,
+            "firstName": "First",
+            "lastName": "Last",
+            "profilePicture": self.profile_picture
         }
 
     def activity_info(self):
         return {
             "firstName": "First",
-            "lastName": "Last"
+            "lastName": "Last",
+            "profilePicture": self.profile_picture
         }

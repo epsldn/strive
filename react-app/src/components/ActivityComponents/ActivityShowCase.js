@@ -9,13 +9,15 @@ import styles from "../../stylesheets/ActivityShowCase.module.css";
 function ActivityShowCase() {
     const { activityId } = useParams();
     const user = useSelector(state => state.session.user);
-    const activities = useSelector(state => state.activities);
+    let activities = useSelector(state => state.activities);
     const [isLoaded, setIsloaded] = useState(false);
     const activity = activities[activityId];
     const dispatch = useDispatch();
     const history = useHistory();
 
-    function handleDeleteActivity() {
+    function handleDeleteActivity(event) {
+        event.stopPropagation();
+        event.preventDefault();
         const deleted = dispatch(deleteActivity(activityId));
 
         if (deleted.error) {

@@ -2,6 +2,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
+}
+
+#navBarContainer {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 10;
 }
 
 .mainContent {
@@ -24,13 +32,11 @@
 .mainSides {
     width: 24.5%;
     position: sticky;
-    top: 6.4rem;
+    top: 11.9rem;
 }
 
 .mainMiddle {
     width: 51%;
-    position: sticky;
-    top: 0;
 }
 
 #leftSide {
@@ -75,6 +81,10 @@
     font-weight: 800;
     margin-top: 1.2rem;
     margin-bottom: 1.6rem;
+}
+
+#userName:hover {
+    color: #005b83;
 }
 
 #profileInformationStats {
@@ -143,11 +153,19 @@
     margin-bottom: .9rem;
 }
 
-.clubImage {
+
+
+.clubImage,
+.clubWrapper {
     height: 4.8rem;
     width: 4.8rem;
     border-radius: .4rem;
+    position: relative;
     overflow: hidden;
+}
+
+.clubWrapper {
+    overflow: visible;
 }
 
 .clubImage img {
@@ -155,6 +173,38 @@
     width: 100%;
     object-fit: cover;
 }
+
+.clubImage:hover {
+    cursor: pointer;
+}
+
+.clubTitle {
+    position: absolute;
+    left: 2.4rem;
+    bottom: 110%;
+    z-index: 5;
+    transform: translate(-50%, 0);
+    padding: .2rem .8rem;
+    border-radius: .4rem;
+    background-color: black;
+    color: white;
+    font-size: 1.1rem;
+    line-height: 1.8rem;
+    width: max-content;
+    opacity: 0;
+    animation: clubTitle 400ms ease-in-out forwards;
+}
+
+@keyframes clubTitle {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: .8;
+    }
+}
+
 
 .rightSideButton {
     font-size: 1.2rem;
@@ -184,16 +234,27 @@
 
 #activityCards {
     display: flex;
-    gap: 1.5rem;
+    gap: 1rem;
     flex-direction: column;
     background-color: var(--strive-body-fill);
 }
 
 .activityCard {
     display: flex;
-    min-height: 100px;
     box-shadow: 0px 8px 24px rgba(13, 13, 18, 0.04);
     border-radius: .4rem;
     background-color: white;
-    padding: 1.6rem 2.4rem;
+}
+
+#titleTriangle {
+    position: absolute;
+    background-color: black;
+    width: 1rem;
+    bottom: -2px;
+    z-index: -1;
+    height: 1rem;
+    rotate: 90;
+    left: calc(50% - .5rem);
+    transform: translate(-50%, 0);
+    transform: rotate(45deg);
 }
