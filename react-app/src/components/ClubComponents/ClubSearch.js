@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import MainNavBar from "../MainNavBar";
 import styles from "../../stylesheets/ClubSearch.module.css";
 import { useSelector } from "react-redux";
@@ -9,7 +9,101 @@ function ClubSearch() {
     const user = useSelector(state => state.session.user);
     const [isLoaded, setIsLoaded] = useState(false);
     const [results, setResults] = useState([]);
+
+
+    const [clubName, setClubName] = useState("");
+
+
+    const [location, setLocation] = useState("");
+    const [coordinates, setCoordinates] = useState("");
+    const [showCities, setShowCities] = useState(true);
+    const [cities, setCities] = useState([]);
+    const [selected, setSelected] = useState(-1);
+    const locationRef = useRef(null);
+    const locationContainer = useRef(null);
+    const cityRef = useRef(null);
+
+
+
+    const [sport, setSport] = useState("All");
+    const [type, setType] = useState("All");
+
     const history = useHistory();
+
+    function onSubmit(event) {
+        event.preventDefault();
+
+        const payload = {
+            "club_name": clubName,
+            "location": location,
+            "sport": sport,
+            "type": type
+        };
+
+        console.log("submitting...");
+        console.log(payload);
+    }
+
+    function handleKeyDown(event) {
+        const key = event.code;
+
+
+        if (key === "ArrowUp" && selected > 0) {
+            event.preventDefault();
+            setSelected(selected => selected - 1);
+        }
+
+        if (key === "ArrowDown" && selected < 4) {
+            event.preventDefault();
+            setSelected(selected => selected + 1);
+        }
+
+        if (key === "Enter" && cityRef.current) {
+            event.preventDefault();
+            setCities([cityRef.current.textContent]);
+            setLocation(cityRef.current.textContent);
+            setSelected(0);
+            setShowCities(false);
+        }
+
+        if (key === "Tab" && cityRef.current) {
+            setShowCities(false);
+        }
+    }
+
+
+    useEffect(() => {
+        fetch("/api/maps/city-search", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ coordinates, search: location })
+        })
+            .then(response => response.json())
+            .then(data => {
+                setCities(data);
+            });
+
+        if (locationContainer.current && cities.length > 1) {
+            setShowCities(true);
+        }
+
+        function onClick(e) {
+            if (locationContainer.current && locationContainer.current.contains(e.target) === false) {
+                setShowCities(false);
+            }
+        }
+
+        document.addEventListener("click", onClick);
+        return () => document.removeEventListener("click", onClick);
+    }, [location]);
+
+    useEffect(() => {
+        navigator.geolocation.getCurrentPosition(
+            (position) => setCoordinates(position.coords.latitude + "," + position.coords.longitude),
+            () => setCoordinates(null),
+            { enableHighAccurary: true, timeout: 3000 });
+    }, [history.location.pathname]);
+
 
     return (
         <div className={styles.outerContainer}>
@@ -27,24 +121,65 @@ function ClubSearch() {
                             );
                         }) : <li style={{ fontSize: "1.4rem", marginBottom: "1rem" }}>No clubs yet!</li>}
                 </ul>}
-                <div id={styles.searchContainer}>
+                <form id={styles.searchContainer} onSubmit={onSubmit}>
                     <div className={styles.inputContainer}>
                         <input
                             type="text"
                             placeholder="Club Name"
+                            value={clubName}
+                            onChange={event => setClubName(event.target.value)}
                         />
                     </div>
-                    <div className={styles.inputContainer}>
+                    <div id={styles.location} className={styles.inputContainer} ref={locationContainer} onKeyDown={handleKeyDown}>
                         <input
                             type="text"
                             placeholder="Location"
+                            onChange={(event) => setLocation(event.target.value)}
+                            value={location}
+                            id={styles.location}
+                            ref={locationRef}
+                            onFocus={() => setShowCities(true)}
+                            autoComplete="off"
+                            onBlur={() => {
+                                if (location !== cities[0]) {
+                                    setLocation("");
+                                }
+                            }}
+
                         />
+                        {showCities && cities.length > 0 &&
+                            <ul className={styles.cities}>
+                                {cities.map((city, index) => (
+                                    <li key={city}
+                                        onMouseOver={() => setSelected(-1)}
+                                        style={
+                                            selected === index ?
+                                                { backgroundColor: "#e9e9ed" } :
+                                                {}
+                                        }
+                                        ref={
+                                            selected === index ?
+                                                cityRef :
+                                                undefined
+                                        }
+                                        onClick={() => {
+                                            setLocation(city);
+                                            setShowCities(false);
+                                            setCities([city]);
+                                        }}
+                                    >{city}</li>
+                                )
+                                )}
+                            </ul>
+                        }
                     </div>
                     <div className={styles.inputContainer}>
                         <p>Sport Type</p>
                         <select
-
+                            value={sport}
+                            onChange={event => setSport(event.target.value)}
                         >
+                            <option value="all">All</option>
                             <option value="cycling">Cycling</option>
                             <option value="running">Running</option>
                             <option value="triathlon">Triathlon</option>
@@ -89,7 +224,10 @@ function ClubSearch() {
                     <div className={styles.inputContainer}>
                         <label>Club Type</label>
                         <select
+                            value={type}
+                            onChange={event => setType(event.target.value)}
                         >
+                            <option value="all">All</option>
                             <option value="club">Club</option>
                             <option value="racing_team">Racing Team</option>
                             <option value="shop">Shop</option>
@@ -100,7 +238,7 @@ function ClubSearch() {
                     <div className={styles.inputContainer}>
                         <button id={styles.search}>Search</button>
                     </div>
-                </div>
+                </form>
 
                 <div id={styles.searchResults}>
 

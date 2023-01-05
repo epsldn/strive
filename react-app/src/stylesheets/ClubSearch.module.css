@@ -61,6 +61,8 @@
     background-color: white;
     border: 1px solid var(--strive-border-lightgray);
     transition: border-color 0.25s linear;
+    max-width: 20rem;
+    width: 100%;
 }
 
 #searchContainer input:focus {
@@ -100,4 +102,25 @@
 
 #search:hover {
     background-color: #f7f7fa;
+}
+
+#location {
+    position: relative;
+}
+
+.cities {
+    position: absolute;
+    top: calc(100% + 1rem);
+    width: 100%;
+    border: 1px solid #007FB6;
+    background-color: white;
+}
+
+.cities>li {
+    padding: .8rem 1.6rem;
+}
+
+.cities>li:hover {
+    background-color: var(--strive-border-lightgray);
+    cursor: pointer;
 }
