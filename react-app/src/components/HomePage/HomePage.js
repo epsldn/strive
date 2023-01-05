@@ -65,7 +65,7 @@ function HomePage() {
                         {isLoaded && <ul id={styles.clubContainer}>
                             {Object.values(user.joined_clubs).map(club => {
                                 return (
-                                    <ClubImages key={club.id} club={club} styles={styles} />
+                                    <Link to={`/clubs/${club.id}`}><ClubImages key={club.id} club={club} styles={styles} /></Link>
                                 );
                             })}
                         </ul>}
