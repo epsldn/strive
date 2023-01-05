@@ -8,6 +8,7 @@ import ReactTimeAgo from "react-time-ago";
 import { useState } from "react";
 import en from "javascript-time-ago/locale/en.json";
 import ActivityCard from "./ActivityCard";
+import ClubImages from "./ClubImages";
 TimeAgo.addDefaultLocale(en);
 
 function HomePage() {
@@ -17,7 +18,9 @@ function HomePage() {
     const [isLoaded, setIsLoaded] = useState(false);
     return (
         <div className={styles.outerContainer}>
-            <MainNavBar setIsloaded={setIsLoaded} />
+            <div id={styles.navBarContainer}>
+                <MainNavBar setIsloaded={setIsLoaded} />
+            </div>
             <div className={styles.mainContent} >
                 <div className={styles.mainSides} id={styles.leftSide}>
                     <div id={styles.profileImage}>
@@ -62,9 +65,7 @@ function HomePage() {
                         {isLoaded && <ul id={styles.clubContainer}>
                             {Object.values(user.joined_clubs).map(club => {
                                 return (
-                                    <li key={club.id} className={styles.clubImage}>
-                                        <img src={club.clubImage} alt="Club Avatar" />
-                                    </li>
+                                    <ClubImages key={club.id} club={club} styles={styles} />
                                 );
                             })}
                         </ul>}
