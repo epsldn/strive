@@ -1,7 +1,8 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import User, Club, db
+from app.models import User, Club, db, Activity
 from app.forms import ClubForm
+from datetime import datetime
 
 club_routes = Blueprint("clubs", __name__)
 
@@ -11,6 +12,22 @@ club_routes = Blueprint("clubs", __name__)
 def get_clubs():
     clubs = Club.query.all()
     return jsonify({club.id: club.to_dict() for club in clubs}), 200
+
+
+@club_routes.route("/<int:clubId>/activities")
+@login_required
+def get_activities(clubId):
+    club = Club.query.get(clubId)
+
+    if club is None:
+        return {"error": "Club not found"}, 404
+
+    members = [member.id for member in club.members]
+
+    activities = Activity.query.filter(
+        Activity.user_id.in_(members)).filter(Activity.date <= datetime.now()).order_by(Activity.date.desc(), Activity.time.desc()).all()
+
+    return jsonify([activity.to_dict() for activity in activities]), 200
 
 
 @club_routes.route("/", methods=["POST"])
@@ -74,7 +91,7 @@ def update_club(clubId):
         return {'errors': {k: v[0] for k, v in form.errors.items()}}, 400
 
 
-@club_routes.route("<int:clubId>", methods=["DELETE"])
+@club_routes.route("/<int:clubId>", methods=["DELETE"])
 @login_required
 def delete_club(clubId):
     if clubId not in current_user.to_dict()["owned_clubs"]:

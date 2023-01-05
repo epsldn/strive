@@ -1,0 +1,142 @@
+.outerContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 3rem;
+}
+
+.mainContainer {
+    max-width: 1248px;
+    width: 100%;
+    font-size: 1.2rem;
+}
+
+.titleAndEdit {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    align-items: center;
+}
+
+.titleAndEdit>h1 {
+    font-size: 3.4rem;
+    font-weight: 800;
+    line-height: 4.1rem;
+}
+
+.titleAndEdit>button {
+    padding: .2rem 1rem;
+    margin-bottom: .2rem;
+    font-size: 1.2rem;
+    width: fit-content;
+    height: fit-content;
+    align-self: flex-end;
+    height: 3rem;
+    border: 1px solid var(--strive-border-lightgray);
+    font-weight: 800;
+}
+
+.titleAndEdit>button:hover {
+    background-color: #f7f7fa;
+}
+
+#description {
+    margin-top: 2rem;
+}
+
+.mainInfoContainer {
+    margin-top: 2rem;
+    display: flex;
+    width: 100%;
+    gap: 7.8rem;
+}
+
+.mainInfoContainerLeft {
+    width: 71%;
+}
+
+.mainInfoContainerRight {
+    width: 29%;
+}
+
+#tabs {
+    border-bottom: 1px solid var(--strive-border-lightgray);
+}
+
+#tabs li {
+    font-size: 1.4rem;
+    padding: 1rem 2rem;
+    width: fit-content;
+}
+
+#activeTab {
+    position: relative;
+    border-left: 1px solid var(--strive-border-lightgray);
+    border-right: 1px solid var(--strive-border-lightgray);
+}
+
+#activeTab::before {
+    content: "";
+    height: 2px;
+    width: calc(100% + 2px);
+    position: absolute;
+    z-index: 3;
+    bottom: 100%;
+    left: -1px;
+    background-color: var(--strive-international-orange);
+}
+
+#activeTab::after {
+    content: "";
+    height: 1px;
+    width: 100%;
+    position: absolute;
+    z-index: 3;
+    top: 100%;
+    left: 0;
+    background-color: white;
+}
+
+.clubActivities {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+    padding: .6rem;
+}
+
+.activityCard {
+    display: flex;
+    box-shadow: 0px 8px 24px rgba(13, 13, 18, 0.04);
+    border-radius: .4rem;
+    background-color: white;
+}
+
+.mainInfoContainerRightContent {
+    display: flex;
+    flex-direction: column;
+}
+
+.mainInfoContainerRightTitle {
+    margin-bottom: .9rem;
+    font-size: 2rem;
+}
+
+.memberLinks {
+    display: flex;
+    gap: .75rem;
+}
+
+.profileImageContainer {
+    height: 4rem;
+    width: 4 rem;
+    overflow: hidden;
+    border-radius: 100%;
+}
+
+.profileImageContainer img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}

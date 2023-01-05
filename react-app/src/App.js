@@ -16,6 +16,7 @@ import EditClub from './components/ClubComponents/EditClub';
 import CreateActivity from './components/ActivityComponents/CreateActivity';
 import EditActivity from './components/ActivityComponents/EditActivity';
 import HomePage from './components/HomePage/HomePage';
+import ClubShowcase from './components/ClubComponents/ClubShowcase';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -52,6 +53,9 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute path='/users/:userId' exact >
           <User />
+        </ProtectedRoute>
+        <ProtectedRoute path="/clubs/:clubId" exact>
+          <ClubShowcase />
         </ProtectedRoute>
         <ProtectedRoute path="/clubs/create" exact>
           <CreateClub />

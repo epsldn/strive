@@ -51,7 +51,9 @@ class Club(db.Model):
             "clubImage": self.club_image,
             "clubBanner": self.club_banner,
             "owner_id": self.owner_id,
-            "id": self.id
+            "id": self.id,
+            "members": {member.id: {"id": member.id, "profilePicture": member.profile_picture, "firstName": "First", "lastName": "Last"} for member in self.members},
+            "totalMembers": len(self.members)
         }
 
     def get_id(self):
