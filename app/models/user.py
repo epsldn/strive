@@ -46,7 +46,8 @@ class User(db.Model, UserMixin):
             "total_activitites": len(self.activities),
             "last_activity": self.activities[-1].last_to_dict() if self.activities else None,
             "firstName": "First",
-            "lastName": "Last"
+            "lastName": "Last",
+            "profilePicture": self.profile_picture
         }
 
     def activity_info(self):

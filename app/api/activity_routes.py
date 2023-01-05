@@ -20,15 +20,6 @@ def get_activities():
 
     activites = [activity.to_dict() for activity in activites]
 
-    print("\n")
-    print("\n")
-    print(members)
-    print([member.id for member in members])
-    print(Activity.query.filter(Activity.user_id.in_(
-        [member.id for member in members])).order_by(Activity.date.asc()).all())
-    print("\n")
-    print("\n")
-
     return jsonify(activites)
 
 

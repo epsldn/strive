@@ -51,11 +51,17 @@ function HomePage() {
                 <div className={styles.mainMiddle}>
                     {isLoaded &&
                         <ul id={styles.activityCards}>
-                            {activities.array.map(activity => {
+                            {activities.array.length > 0 ? activities.array.map(activity => {
                                 return (
                                     <li key={activity.id} className={styles.activityCard}><ActivityCard activity={activity} /></li>
                                 );
-                            })}
+                            }) :
+                                ["No Activities"].map(activity => {
+                                    return (
+                                        <li key={activity.id} className={styles.activityCard}><ActivityCard activity={activity} /></li>
+                                    );
+                                })
+                            }
                         </ul>
                     }
                 </div>
@@ -63,11 +69,12 @@ function HomePage() {
                     <div id={styles.clubSection}>
                         <p className={styles.homePageTitle}>Your Clubs</p>
                         {isLoaded && <ul id={styles.clubContainer}>
-                            {Object.values(user.joined_clubs).map(club => {
+                            {Object.values(user.joined_clubs).length > 0 ?
+                            Object.values(user.joined_clubs).map(club => {
                                 return (
                                     <Link key={club.id} to={`/clubs/${club.id}`}><ClubImages club={club} styles={styles} /></Link>
                                 );
-                            })}
+                            }) : <li style={{ fontSize: "1.4rem", marginBottom: "1rem" }}>No clubs yet!</li>}
                         </ul>}
                         <button className={styles.rightSideButton}>View All Clubs </button>
                     </div>

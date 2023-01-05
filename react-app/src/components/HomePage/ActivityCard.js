@@ -28,6 +28,20 @@ function formatTime(time) {
 
 
 function ActivityCard({ activity }) {
+
+    if (activity === "No Activities") {
+        return (
+            <div id={styles.activityContainer}>
+                <div id={styles.activityInformation}>
+                    <div className={styles.activityInformationRight}>
+                        <p id={styles.noActivityTitle}>No activities yet</p>
+                        <p className={styles.noActivityText}>Try logging a new activity or join a club to see this section expand!</p>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     const date = new Date(activity.date + " " + activity.time);
     let pace;
     const totalSeconds = (Number(activity.hours) * 3600) + Number(activity.minutes * 60) + Number(activity.seconds);

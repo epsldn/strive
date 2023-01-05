@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
+import styles from "../../stylesheets/HomePage.module.css";
 
-function ClubImages({ club, styles }) {
+function ClubImages({ club }) {
     const [showTitle, setShowTitle] = useState(false);
     const titleRef = useRef(null);
 
@@ -13,7 +14,7 @@ function ClubImages({ club, styles }) {
 
             setTimeout(() => setShowTitle(false), 300);
         }
-    }
+    };
     return (
         <>
             <li key={club.id} className={styles.clubWrapper} onMouseOver={() => setShowTitle(true)} onMouseLeave={titleLeave}>

@@ -1,9 +1,165 @@
 .outerContainer {
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .mainContent {
     max-width: 1248px;
     width: 100%;
+    margin: 3rem 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.profilePictureContainer {
+    position: relative;
+    height: 13.6rem;
+    width: 13.6rem;
+    margin-bottom: 2rem;
+}
+
+#profilePicture {
+    height: 13.6rem;
+    width: 13.6rem;
+    overflow: hidden;
+    border-radius: 100%;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+#profilePicture img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+#profilePicture label {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#profilePicture label:hover {
+    cursor: pointer;
+}
+
+#faStack {
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    font-size: 1.5rem;
+    opacity: .4;
+    transition: opacity .45s ease;
+}
+
+.profilePictureContainer:hover #faStack {
+    opacity: .9;
+}
+
+#faStack:hover {
+    cursor: pointer;
+    opacity: .9;
+}
+
+#name {
+    font-weight: 800;
+    margin-bottom: 2rem;
+    line-height: 3.4rem;
+    font-size: 2.8rem;
+}
+
+.mainInfoContainer {
+    margin-top: 2rem;
+    display: flex;
+    width: 100%;
+    gap: 7.8rem;
+}
+
+.mainInfoContainerLeft {
+    width: 71%;
+}
+
+.mainInfoContainerRight {
+    width: 29%;
+}
+
+#tabs {
+    border-bottom: 1px solid var(--strive-border-lightgray);
+}
+
+#tabs li {
+    font-size: 1.4rem;
+    padding: 1rem 2rem;
+    width: fit-content;
+}
+
+#activeTab {
+    position: relative;
+    border-left: 1px solid var(--strive-border-lightgray);
+    border-right: 1px solid var(--strive-border-lightgray);
+}
+
+#activeTab::before {
+    content: "";
+    height: 2px;
+    width: calc(100% + 2px);
+    position: absolute;
+    z-index: 3;
+    bottom: 100%;
+    left: -1px;
+    background-color: var(--strive-international-orange);
+}
+
+#activeTab::after {
+    content: "";
+    height: 1px;
+    width: 100%;
+    position: absolute;
+    z-index: 3;
+    top: 100%;
+    left: 0;
+    background-color: white;
+}
+
+#clubSection {
+    display: flex;
+    flex-direction: column;
+    margin-top: 3.8rem;
+    border-top: 1px solid var(--strive-border-lightgray);
+    padding: 2rem 0;
+}
+
+#clubs {
+    font-size: 2.2rem;
+    line-height: 2.8rem;
+    margin-bottom: 1rem;
+}
+
+#clubContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: .9rem;
+}
+
+#clubContainer div {
+    border-radius: 0;
+}
+
+.clubActivities {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+    padding: .6rem;
+}
+
+.activityCard {
+    display: flex;
+    box-shadow: 0px 8px 24px rgba(13, 13, 18, 0.04);
+    border-radius: .4rem;
+    background-color: white;
 }

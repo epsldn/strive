@@ -141,3 +141,8 @@
     width: 100%;
     object-fit: cover;
 }
+
+#locationIcon {
+    font-size: 1.4rem;
+    margin: 0 .5rem;
+}

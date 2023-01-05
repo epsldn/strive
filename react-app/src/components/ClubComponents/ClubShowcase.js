@@ -43,22 +43,26 @@ function ClubShowcase() {
                                     <button id={styles.join}>Join Club</button>
                         }
                     </div>
-                    <p>{club.location}</p>
+                    <p> <i className="fa-solid fa-location-dot" id={styles.locationIcon} /> {club.location}</p>
                     <p id={styles.description}>{club.description}</p>
                     <div className={styles.mainInfoContainer}>
                         <div className={styles.mainInfoContainerLeft}>
                             <ul id={styles.tabs}>
                                 <li id={styles.activeTab}>Recent Activity</li>
                             </ul>
-                            <div className={styles.clubActivities}>
-                                {activities &&
+                            <ul className={styles.clubActivities}>
+                                {activities && activities.length > 0 ?
                                     activities.map(activity => {
+                                        return (
+                                            <li key={activity.id} className={styles.activityCard}><ActivityCard activity={activity} /></li>
+                                        );
+                                    }) : ["No Activities"].map(activity => {
                                         return (
                                             <li key={activity.id} className={styles.activityCard}><ActivityCard activity={activity} /></li>
                                         );
                                     })
                                 }
-                            </div>
+                            </ul>
                         </div>
                         <div className={styles.mainInfoContainerRight}>
                             <div className={styles.mainInfoContainerRightContent}>
