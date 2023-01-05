@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link, Redirect, useHistory, useParams } from "react-router-dom";
 import ActivityCard from "../HomePage/ActivityCard";
 import CLubPictures from "./ClubPictures";
 import MainNavBar from "../MainNavBar";
@@ -15,11 +15,17 @@ function ClubShowcase() {
     const [activities, setActivities] = useState();
     const [isLoaded, setIsLoaded] = useState(false);
 
+    const history = useHistory();
+
     useEffect(() => {
         fetch(`/api/clubs/${clubId}/activities`)
             .then(response => response.json())
             .then(activities => setActivities(activities));
     }, [clubId]);
+
+    if (isLoaded && !club) {
+        return <Redirect to="/" />;
+    }
 
     return (
         <div className={styles.outerContainer}>
@@ -31,7 +37,7 @@ function ClubShowcase() {
                         <h1>{club.clubName}</h1>
                         {
                             club.owner_id === user.id ?
-                                <button id={styles.edit}>Edit Club</button> :
+                                <button id={styles.edit} onClick={() => history.push(`/clubs/${clubId}/edit`)}>Edit Club</button> :
                                 club.id in user.joined_clubs ?
                                     <button id={styles.leave}>Leave Club</button> :
                                     <button id={styles.join}>Join Club</button>

@@ -34,6 +34,7 @@
     height: 3rem;
     border: 1px solid var(--strive-border-lightgray);
     font-weight: 800;
+    min-width: 8rem;
 }
 
 .titleAndEdit>button:hover {

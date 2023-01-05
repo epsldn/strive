@@ -15,7 +15,9 @@ function ActivityShowCase() {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    function handleDeleteActivity() {
+    function handleDeleteActivity(event) {
+        event.stopPropagation();
+        event.preventDefault();
         const deleted = dispatch(deleteActivity(activityId));
 
         if (deleted.error) {
@@ -64,7 +66,6 @@ function ActivityShowCase() {
         pace = Number(hours) !== 0 ? `${hours}:${minutes}:${seconds}` : `${minutes}:${seconds}`;
     }
 
-    console.log(activities)
     return (
         <div className={styles.pageOuterContainer}>
             <MainNavBar setIsloaded={setIsloaded} />
