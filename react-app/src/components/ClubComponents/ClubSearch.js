@@ -5,10 +5,11 @@ import { useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import ClubImages from "../HomePage/ClubImages";
 
-function ClubSearch() {
+function ClubSearch({ preLoadedResults }) {
     const user = useSelector(state => state.session.user);
     const [isLoaded, setIsLoaded] = useState(false);
-    const [results, setResults] = useState([]);
+    const [results, setResults] = useState(preLoadedResults || []);
+    const [hasSearched, setHasSearched] = useState(false);
 
 
     const [clubName, setClubName] = useState("");
@@ -25,23 +26,40 @@ function ClubSearch() {
 
 
 
-    const [sport, setSport] = useState("All");
-    const [type, setType] = useState("All");
+    const [sport, setSport] = useState("all");
+    const [type, setType] = useState("all");
 
     const history = useHistory();
 
-    function onSubmit(event) {
+    async function onSubmit(event) {
         event.preventDefault();
-
+        setHasSearched(true);
         const payload = {
             "club_name": clubName,
             "location": location,
-            "sport": sport,
-            "type": type
+            "sport": sport === "all" ? "" : sport,
+            "type": type === "all" ? "" : type
         };
 
-        console.log("submitting...");
-        console.log(payload);
+        const response = await fetch("/api/clubs/search", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+        });
+
+        if (response.ok) {
+            const clubs = await response.json();
+            if (clubs.length > 0) {
+                setResults(clubs);
+            } else {
+                let message;
+                if (clubName) message = <p>No <span>{sport === "all" ? "" : sport}</span> clubs with <span>{clubName}</span> in the name {location ? <>, in <span>{location}</span></> : ""} found.</p>;
+                else if (location) message = <p>No <span>{sport === "all" ? "" : sport}</span> clubs in <span>{location}</span> found.</p>;
+                else message = <p>No clubs found with those selections.</p>;
+
+                setResults(message);
+            }
+        }
     }
 
     function handleKeyDown(event) {
@@ -240,9 +258,38 @@ function ClubSearch() {
                     </div>
                 </form>
 
-                <div id={styles.searchResults}>
-
-                </div>
+                <ul id={styles.searchResults}>
+                    {hasSearched ?
+                        (Array.isArray(results) ?
+                            results.map((result, idx) => {
+                                console.log(result);
+                                return (
+                                    <li key={result.id} className={`${styles.resultContainer} ${idx % 2 === 0 ? styles.white : styles.gray}`}>
+                                        <div className={styles.resultContainerLeft}>
+                                            <div className={styles.resultContainerLeftProfilePicture}>
+                                                <img src={result.clubImage} alt="Club Avatar" />
+                                            </div>
+                                            <div className={styles.resultContainerClubInfo}>
+                                                <p id={styles.clubTitle}>{result.clubName}</p>
+                                                <p id={styles.clubLocation}>{result.location}</p>
+                                                {result.id in user.joined_clubs ?
+                                                    <button class={styles.clubActionButton} id={styles.whiteButton}>Leave</button> :
+                                                    <button class={styles.clubActionButton} id={styles.orangeButton}>Join</button>
+                                                }
+                                            </div>
+                                        </div>
+                                        <div className={styles.resultContainerRight}>
+                                            <p>{result.totalMembers} Members</p>
+                                            <p>{result.sport.split("_").map(word => word[0].toUpperCase() + word.slice(1).toLowerCase()).join(" ")}</p>
+                                            <p>{result.type.split("_").map(word => word[0].toUpperCase() + word.slice(1).toLowerCase()).join(" ")}</p>
+                                        </div>
+                                    </li>
+                                );
+                            }) :
+                            results) :
+                        <p>Search for a club above.</p>
+                    }
+                </ul>
             </div>
         </div>
     );
