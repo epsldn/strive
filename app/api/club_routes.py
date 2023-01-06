@@ -14,8 +14,68 @@ def get_clubs():
     return jsonify({club.id: club.to_dict() for club in clubs}), 200
 
 
-@club_routes.route("/<int:clubId>/activities")
+@club_routes.route("/search", methods=["POST"])
 @login_required
+def club_search():
+    dataDictionary = request.get_json()
+
+    query = Club.query
+
+    if "club_name" in dataDictionary and dataDictionary["club_name"]:
+        club_name = dataDictionary["club_name"]
+        query = query.filter(Club.club_name.ilike("%" + club_name + "%"))
+    if "location" in dataDictionary and dataDictionary["location"]:
+        location = dataDictionary["location"]
+        query = query.filter(Club.location.ilike("%" + location + "%"))
+    if "sport" in dataDictionary and dataDictionary["sport"]:
+        sport = dataDictionary["sport"]
+        query = query.filter(Club.sport.ilike("%" + sport + "%"))
+    if "type" in dataDictionary and dataDictionary["type"]:
+        type = dataDictionary["type"]
+        query = query.filter(Club.type.ilike("%" + type + "%"))
+
+    clubs = query.order_by(Club.club_name).all()
+
+    return jsonify([club.to_dict() for club in clubs]), 200
+
+
+@ club_routes.route("/<int:clubId>/join")
+@ login_required
+def join_club(clubId):
+    user = User.query.get(current_user.id)
+    club = Club.query.get(clubId)
+
+    if club is None:
+        return jsonify({"error": "club not found"}), 404
+
+    if club not in user.clubs:
+        user.clubs.append(club)
+        db.session.commit()
+        return jsonify({"message": "success!"}), 200
+    else:
+        return jsonify({"error": "User in Club"}), 400
+
+
+@ club_routes.route("/<int:clubId>/leave")
+@ login_required
+def leave_club(clubId):
+    user = User.query.get(current_user.id)
+    club = Club.query.get(clubId)
+
+    if club is None:
+        return jsonify({"error": "club not found"}), 404
+
+    if club in user.clubs:
+        user.clubs.remove(club)
+        db.session.commit()
+        return jsonify({"message": "success!"}), 200
+
+    else:
+        return jsonify({"error": "User not in club"}), 404
+
+
+@ club_routes.route("/<int:clubId>/activities")
+@ login_required
 def get_activities(clubId):
     club = Club.query.get(clubId)
 
@@ -30,8 +90,8 @@ def get_activities(clubId):
     return jsonify([activity.to_dict() for activity in activities]), 200
 
 
-@club_routes.route("/", methods=["POST"])
-@login_required
+@ club_routes.route("/", methods=["POST"])
+@ login_required
 def create_club():
     form = ClubForm()
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -48,8 +108,8 @@ def create_club():
         return {'errors': {k: v[0] for k, v in form.errors.items()}}, 400
 
 
-@club_routes.route("/<int:clubId>", methods=["PUT"])
-@login_required
+@ club_routes.route("/<int:clubId>", methods=["PUT"])
+@ login_required
 def update_club(clubId):
     if clubId not in current_user.to_dict()["owned_clubs"]:
         return {"error": "No club with that ID found"}, 400
@@ -91,8 +151,8 @@ def update_club(clubId):
         return {'errors': {k: v[0] for k, v in form.errors.items()}}, 400
 
 
-@club_routes.route("/<int:clubId>", methods=["DELETE"])
-@login_required
+@ club_routes.route("/<int:clubId>", methods=["DELETE"])
+@ login_required
 def delete_club(clubId):
     if clubId not in current_user.to_dict()["owned_clubs"]:
         return {"error": "No club with that ID found"}, 400
@@ -105,8 +165,8 @@ def delete_club(clubId):
         return {"message": f"Success! Club with id {clubId} deleted"}
 
 
-@club_routes.route("/<int:clubId>")
-@login_required
+@ club_routes.route("/<int:clubId>")
+@ login_required
 def get_club_info(clubId):
     club = Club.query.get(clubId)
     if (club):

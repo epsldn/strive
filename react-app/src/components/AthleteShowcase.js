@@ -40,7 +40,9 @@ function AthleteShowcase() {
         });
 
         if (res.ok) {
-            await dispatch(authenticate());
+            fetch(`/api/users/${athleteId}`)
+                .then(response => response.json())
+                .then(athlete => setAthlete(athlete));
             const updatedAthlete = await res.json();
             setAthlete(updatedAthlete);
         }
@@ -49,6 +51,8 @@ function AthleteShowcase() {
             console.log(errors);
         }
     }
+
+    console.log(athlete)
 
     return (
         <div className={styles.outerContainer}>
@@ -101,7 +105,7 @@ function AthleteShowcase() {
                             <p id={styles.clubs}>Clubs</p>
                             <ul id={styles.clubContainer}>
                                 {console.log(Object.values(athlete.joined_clubs))}
-                                {Object.values(athlete.joined_clubs) > 0 ?
+                                {Object.values(athlete.joined_clubs).length > 0 ?
                                     Object.values(athlete.joined_clubs).map(club => {
                                         return (
                                             <Link key={club.id} to={`/clubs/${club.id}`}><ClubImages club={club} /></Link>

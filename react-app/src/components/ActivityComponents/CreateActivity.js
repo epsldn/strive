@@ -319,12 +319,16 @@ function CreateActivity() {
                                     <input
                                         id={styles.date}
                                         type="date"
+                                        max={(new Date()).toISOString().substring(0, 10)}
                                         value={selectedDate}
                                         onChange={(event) => setSelectedDate(event.target.value)}
                                     />
+                                    {console.log((new Date).toLocaleTimeString())}
+                                    {console.log((new Date()).toTimeString().substring(0, 5))}
                                     <input
                                         type="time"
                                         value={time}
+                                        max={(new Date()).toTimeString().substring(0, 5)}
                                         onChange={(event) => setTime(event.target.value)}
                                     />
                                 </div>

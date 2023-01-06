@@ -14,7 +14,7 @@ function CreateClub() {
     const [clubType, setClubType] = useState("club");
     const [description, setDescription] = useState("");
     const [coordinates, setCoordinates] = useState("");
-    const [selected, setSelected] = useState(0);
+    const [selected, setSelected] = useState(-1);
     const [showCities, setShowCities] = useState(true);
     const [cities, setCities] = useState([]);
 
@@ -53,7 +53,7 @@ function CreateClub() {
         if (club.errors) {
             setErrors(errors);
         } else {
-            history.push(`/clubs/${club.id}/edit`)
+            history.push(`/clubs/${club.id}`);
         }
     }
 
@@ -75,6 +75,7 @@ function CreateClub() {
             event.preventDefault();
             setCities([cityRef.current.textContent]);
             setLocation(cityRef.current.textContent);
+            setSelected(0);
             setShowCities(false);
         }
 
@@ -160,6 +161,7 @@ function CreateClub() {
                                 <ul className={styles.cities}>
                                     {cities.map((city, index) => (
                                         <li key={city}
+                                            onMouseOver={() => setSelected(-1)}
                                             style={
                                                 selected === index ?
                                                     { backgroundColor: "lightgray" } :

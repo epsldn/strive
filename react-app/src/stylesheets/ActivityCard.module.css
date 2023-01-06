@@ -43,6 +43,7 @@
 #noActivityTitle {
     font-size: 1.4rem;
     font-weight: 800;
+    width: fit-content;
 }
 
 .noActivityText {
@@ -69,6 +70,7 @@
     font-size: 2rem;
     font-weight: 800;
     transition: color .15s ease;
+    width: fit-content;
 }
 
 #title:hover,

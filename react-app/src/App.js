@@ -18,6 +18,7 @@ import EditActivity from './components/ActivityComponents/EditActivity';
 import HomePage from './components/HomePage/HomePage';
 import ClubShowcase from './components/ClubComponents/ClubShowcase';
 import AthleteShowcase from './components/AthleteShowcase';
+import ClubSearch from './components/ClubComponents/ClubSearch';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -60,6 +61,9 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute path="/clubs/create" exact>
           <CreateClub />
+        </ProtectedRoute>
+        <ProtectedRoute path="/clubs/search" exact>
+          <ClubSearch />
         </ProtectedRoute>
         <ProtectedRoute path="/clubs/:clubId" exact>
           <ClubShowcase />

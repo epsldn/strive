@@ -1,0 +1,217 @@
+.outerContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mainContainer {
+    max-width: 1248px;
+    width: 100%;
+    margin: 3rem 0;
+}
+
+#titleAndButton {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#titleAndButton h1 {
+    font-size: 3.4rem;
+    font-weight: 800;
+    min-width: fit-content;
+}
+
+#titleAndButton button {
+    width: fit-content;
+    margin-bottom: 0;
+    font-weight: 700;
+    color: white;
+    background-color: black;
+    padding: .6rem 1.6rem;
+    height: fit-content;
+}
+
+#titleAndButton button:hover {
+    background-color: #3c3c43;
+}
+
+#clubContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+
+#searchContainer {
+    margin: 3rem 0;
+    margin-bottom: 2rem;
+    font-size: 1.4rem;
+    line-height: 2.03rem;
+    padding: 1.3rem 2rem;
+    background-color: #f2f2f2;
+    display: flex;
+    gap: .6rem;
+    border-bottom: 2px solid var(--strive-border-lightgray)
+}
+
+#searchContainer input {
+    height: 3.4rem;
+    line-height: 1.96rem;
+    padding: 0 1.6rem;
+    background-color: white;
+    border: 1px solid var(--strive-border-lightgray);
+    transition: border-color 0.25s linear;
+    max-width: 20rem;
+    width: 100%;
+}
+
+#searchContainer input:focus {
+    border-color: #007FB6;
+}
+
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    max-width: 20rem;
+    width: 100%;
+}
+
+#searchContainer select {
+    border: 1px solid var(--strive-border-lightgray);
+    cursor: pointer;
+    border-radius: .3rem;
+    font-size: 13px;
+    line-height: 30px;
+    height: 34px;
+    padding: 6px 3px;
+    max-width: 20rem;
+    width: 100%;
+}
+
+#search, .clubActionButton {
+    width: fit-content;
+    height: fit-content;
+    margin: 0;
+    padding: .6rem 1rem;
+    background-color: white;
+    color: var(--strive-auth-border-gray);
+    font-weight: 800;
+    border: 1px solid var(--strive-border-lightgray)
+}
+
+#search:hover, .clubActionButton:hover {
+    background-color: #f7f7fa;
+}
+
+#location {
+    position: relative;
+}
+
+.cities {
+    position: absolute;
+    top: calc(100% + 1rem);
+    width: 100%;
+    border: 1px solid #007FB6;
+    background-color: white;
+}
+
+.cities>li {
+    padding: .8rem 1.6rem;
+}
+
+.cities>li:hover {
+    background-color: var(--strive-border-lightgray);
+    cursor: pointer;
+}
+
+#searchResults {
+    font-size: 1.6rem;
+}
+
+#searchResults span {
+    font-weight: 800;
+}
+
+.resultContainer {
+    display: flex;
+    width: 100%;
+    min-height: 11.8rem;
+    padding: 1.6rem 0;
+}
+
+.resultContainerLeft {
+    display: flex;
+    width: 60%;
+    padding: 0 1.5rem;
+    gap: 1.5rem;
+}
+
+.resultContainerRight {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 40%;
+    margin-right: 7.6rem;
+}
+
+.resultContainerRight>p {
+    padding: 0 1.5rem;
+}
+
+.resultContainerLeftProfilePicture {
+    width: 8.5rem;
+    height: 8.5rem;
+    border: 1px solid var(--strive-border-lightgray);
+    padding: .4rem;
+}
+
+.resultContainerLeftProfilePicture img {
+    height: 100%;
+    width: 100%;
+}
+
+.white {
+    background-color: white;
+}
+
+.gray {
+    background-color: #f2f2f2;
+}
+
+.resultContainerClubInfo {
+    display: flex;
+    flex-direction: column;
+    gap: .20rem;
+}
+
+#clubTitle {
+    color: var(--strive-hyperlink-blue);
+    font-size: 1.7rem;
+    line-height: 2.2rem;
+}
+
+#clubTitle:hover {
+    color: var(--strive-hyperlink-darkblue);
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+#clubLocation {
+    font-size: 1.2rem;
+}
+
+.clubActionButton{
+    margin-top: 1rem;
+}
+
+#orangeButton {
+    background-color: var(--strive-international-orange);
+    color: white;
+}
+
+#orangeButton:hover {
+    background-color: #c94100;
+    border-color: #bf3e00;
+}

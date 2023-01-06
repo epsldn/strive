@@ -81,6 +81,7 @@
     font-weight: 800;
     margin-top: 1.2rem;
     margin-bottom: 1.6rem;
+    width: fit-content;
 }
 
 #userName:hover {

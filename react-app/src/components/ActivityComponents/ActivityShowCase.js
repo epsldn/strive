@@ -100,14 +100,15 @@ function ActivityShowCase() {
                                         <button onClick={handleEdit} className={styles.missingAttribute}>Add a description</button>}
                                 </div>
                             </div>
-                            <div id={styles.privateNotes}>
-                                {activity?.private_notes ?
-                                    <>
-                                        <p id={styles.privateNotesTitle}>Private Notes</p>
-                                        <p>{activity.private_notes} </p>
-                                    </> :
-                                    <button onClick={handleEdit} className={styles.missingAttribute}>Add private notes</button>}
-                            </div>
+                            {activity?.user_id === user?.id &&
+                                <div id={styles.privateNotes}>
+                                    {activity?.private_notes ?
+                                        <>
+                                            <p id={styles.privateNotesTitle}>Private Notes</p>
+                                            <p>{activity.private_notes} </p>
+                                        </> :
+                                        <button onClick={handleEdit} className={styles.missingAttribute}>Add private notes</button>}
+                                </div>}
                         </div>
                         <div className={styles.activityBodyRight}>
                             {Boolean(activity?.distance) && <div className={styles.activityBodyRightContent}>
