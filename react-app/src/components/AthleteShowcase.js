@@ -52,7 +52,6 @@ function AthleteShowcase() {
         }
     }
 
-    console.log(athlete)
 
     return (
         <div className={styles.outerContainer}>
@@ -104,7 +103,6 @@ function AthleteShowcase() {
                         <div id={styles.clubSection}>
                             <p id={styles.clubs}>Clubs</p>
                             <ul id={styles.clubContainer}>
-                                {console.log(Object.values(athlete.joined_clubs))}
                                 {Object.values(athlete.joined_clubs).length > 0 ?
                                     Object.values(athlete.joined_clubs).map(club => {
                                         return (

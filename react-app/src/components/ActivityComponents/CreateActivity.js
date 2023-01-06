@@ -323,8 +323,6 @@ function CreateActivity() {
                                         value={selectedDate}
                                         onChange={(event) => setSelectedDate(event.target.value)}
                                     />
-                                    {console.log((new Date).toLocaleTimeString())}
-                                    {console.log((new Date()).toTimeString().substring(0, 5))}
                                     <input
                                         type="time"
                                         value={time}

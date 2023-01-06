@@ -34,8 +34,10 @@ function CreateClub() {
         event.preventDefault();
         let errors = {};
         if (!clubName) errors.clubName = "Please enter a name for your club.";
+        else if (clubName.length > 100) errors.clubName = "Please keep club name under 100 characters.";
         if (!location) errors.location = "Please enter your city and state.";
         if (!description) errors.description = "Please enter a description for your club.";
+        else if (description.length > 1000) errors.description = "Please keep description under 1,000 characters";
         setErrors(errors);
         if (Object.keys(errors).length > 0) return;
 

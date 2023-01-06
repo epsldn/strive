@@ -44,7 +44,6 @@ function ClubShowcase() {
 
     }
 
-    console.log(activities);
     async function leaveClub() {
         const response = await fetch(`/api/clubs/${clubId}/leave`);
 
@@ -99,7 +98,6 @@ function ClubShowcase() {
                             <div className={styles.mainInfoContainerRightContent}>
                                 <p className={styles.mainInfoContainerRightTitle}>{club.totalMembers} members</p>
                                 <ul className={styles.memberLinks}>
-                                    {console.log(club)}
                                     {Object.values(club.members).map(member => {
                                         return (
                                             <Link key={member.id} to={`/athletes/${member.id}`}>

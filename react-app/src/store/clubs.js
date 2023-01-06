@@ -65,7 +65,6 @@ export const updateClub = (club, clubId) => async dispatch => {
 
     if (response.ok) {
         club = await response.json();
-        console.log(club);
         dispatch(editClub(club));
     } else {
         const dbErrors = await response.json();

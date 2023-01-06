@@ -33,8 +33,6 @@ def create_activity():
     form["time"].data = datetime.strptime(
         time, '%H:%M').time() if time else datetime.now().time()
 
-    print(form.data)
-    print("\n", request.get_json())
     if form.validate_on_submit():
         del form["csrf_token"]
         activity = Activity(**form.data)
@@ -42,7 +40,6 @@ def create_activity():
         db.session.commit()
         return jsonify({"message": f"Success! Activity created with id {activity.id}", "activity": activity.to_dict()}), 200
     else:
-        print(form.errors)
         return {'errors': {k: v[0] for k, v in form.errors.items()}}, 400
 
 
