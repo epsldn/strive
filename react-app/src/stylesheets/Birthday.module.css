@@ -21,8 +21,8 @@
     align-items: center;
     position: absolute;
     color: var(--strive-auth-border-gray);
-    right: 1rem;
-    top: 1rem;
+    right: 2rem;
+    top: 2.4rem;
     font-size: 1.6rem;
     cursor: pointer;
     padding: 4px 6px;
@@ -67,6 +67,25 @@
     position: relative;
     border: 1px solid rgb(204, 204, 204);
     border-radius: .4rem;
+    height: 5rem;
+    font-size: 1.7rem;
+    line-height: 2.2rem;
+}
+
+.inputContainer:focus-within {
+    border-color: #66afe9;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+
+#nameContainer {
+    display: flex;
+    margin-bottom: 2rem;
+    gap: 1rem;
+}
+
+#nameContainer .inputContainer {
+    padding: .6rem;
+    width: 50%;
 }
 
 .dropdown {
@@ -130,6 +149,10 @@
     background-color: rgb(109, 109, 120);
 }
 
-#birthdayErrors {
+.birthdayErrors {
     color: var(--strive-form-error-red);
+}
+
+.nameErrorBorder {
+    border-color: red;
 }

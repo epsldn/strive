@@ -74,6 +74,9 @@ function Birthday(props) {
     const [dayPlaceholder, setDayPlaceholder] = useState("");
     const [yearPlaceholder, setYearPlaceholder] = useState("");
 
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+
     const [errors, setErrors] = useState({});
     const { email, password, setShowModal } = props;
     const dispatch = useDispatch();
@@ -196,8 +199,28 @@ function Birthday(props) {
             <h2>Before you sign up</h2>
             <div className={styles.formContainer}>
                 <form>
+                    
+                    <h3>Name</h3>
+                    {errors.name && <h3 className={styles.birthdayErrors}>{errors.name}</h3>}
+                    <div id={styles.nameContainer}>
+                        <input
+                            type="text"
+                            placeholder="First Name"
+                            onChange={event => setFirstName(event.target.value)}
+                            value={firstName}
+                            className={`${styles.inputContainer} ${errors.firstName ? styles.nameErrorBorder : ""}`}
+                        />
+                        <input
+                            type="text"
+                            placeholder="Last Name"
+                            onChange={event => setLastName(event.target.value)}
+                            value={lastName}
+                            className={`${styles.inputContainer} ${errors.firstName ? styles.nameErrorBorder : ""}`}
+                        />
+                    </div>
+
                     <h3>Birthday</h3>
-                    <h3 id={styles.birthdayErrors}>{errors.birthdate}</h3>
+                    {errors.birthdate && <h3 className={styles.birthdayErrors}>{errors.birthdate}</h3>}
                     <div className={styles.formContent}>
                         <div className={styles.inputContainer}
                             onClick={() => {
