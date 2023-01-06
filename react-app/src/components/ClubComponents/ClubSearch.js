@@ -89,6 +89,8 @@ function ClubSearch({ preLoadedResults }) {
         }
     }
 
+    
+
 
     useEffect(() => {
         fetch("/api/maps/city-search", {

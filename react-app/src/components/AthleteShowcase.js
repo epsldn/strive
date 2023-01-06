@@ -52,6 +52,8 @@ function AthleteShowcase() {
         }
     }
 
+    console.log(athlete)
+
     return (
         <div className={styles.outerContainer}>
             <MainNavBar setIsloaded={setIsLoaded} />

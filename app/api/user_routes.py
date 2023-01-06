@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify
 from flask_login import login_required
-from app.models import User, Club
+from app.models import User, Club, Activity
+from datetime import datetime
 
 user_routes = Blueprint('users', __name__)
 
@@ -14,24 +15,21 @@ def users():
     users = User.query.all()
     return {'users': [user.to_dict() for user in users]}
 
+
 @user_routes.route('/<int:athleteId>')
 @login_required
 def find_user(athleteId):
     athlete = User.query.get(athleteId)
-
-    print("\n")
-    print("\n")
-    print(athlete)
-    print("\n")
-    print("\n")
     if athlete is None:
         return {"error": "Athlete not found"}
 
-    activities = [activity.to_dict() for activity in athlete.activities]
+    activities = Activity.query.filter(Activity.user_id == athlete.id).filter(
+        Activity.date <= datetime.now()).order_by(Activity.date.desc(), Activity.time.desc()).all()
+        
     print("\n")
     print("\n")
     print(activities)
     print("\n")
     print("\n")
 
-    return jsonify({**athlete.to_dict(), "activities": [activity.to_dict() for activity in athlete.activities]}), 200
+    return jsonify({**athlete.to_dict(), "activities": [activity.to_dict() for activity in activities]}), 200
