@@ -8,6 +8,7 @@ import { deleteClub, updateClub } from "../../store/clubs";
 
 function EditClub() {
     const [errors, setErrors] = useState({});
+    const [submitted, setSubmitted] = useState(false);
     const [clubName, setClubName] = useState("");
     const [location, setLocation] = useState("");
     const [website, setWebsite] = useState("");
@@ -57,10 +58,13 @@ function EditClub() {
 
     async function handleSubmission(event) {
         event.preventDefault();
+        setSubmitted(true);
         let errors = {};
         if (!clubName) errors.clubName = "Please enter a name for your club.";
+        else if (clubName.length > 100) errors.clubName = "Please keep club name under 100 characters.";
         if (!location) errors.location = "Please enter your city and state.";
         if (!description) errors.description = "Please enter a description for your club.";
+        else if (description.length > 1000) errors.description = "Please keep description under 1,000 characters";
         setErrors(errors);
         if (Object.keys(errors).length > 0) return;
         const payload = {
@@ -159,6 +163,30 @@ function EditClub() {
             () => setCoordinates(null),
             { enableHighAccurary: true, timeout: 3000 });
     }, [path]);
+
+    useEffect(() => {
+        if (!submitted) return;
+        const errors = {};
+
+        if (!clubName) errors.clubName = "Please enter a name for your club.";
+        else if (clubName.length > 100) errors.clubName = "Please keep club name under 100 characters.";
+        else {
+            delete errors.clubName;
+        }
+
+        if (!location) errors.location = "Please enter your city and state.";
+        else {
+            delete errors.location;
+        }
+
+        if (!description) errors.description = "Please enter a description for your club.";
+        else if (description.length > 1000) errors.description = "Please keep description under 1,000 characters";
+        else {
+            delete errors.description;
+        }
+
+        setErrors(errors);
+    }, [clubName, location, description]);
 
     if (loaded && club?.owner_id === user?.id === false) {
         return <Redirect to="/" />;

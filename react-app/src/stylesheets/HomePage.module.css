@@ -181,6 +181,8 @@
 
 .clubTitle {
     position: absolute;
+    display: flex;
+    justify-content: center;
     left: 2.4rem;
     bottom: 110%;
     z-index: 5;
@@ -192,6 +194,7 @@
     font-size: 1.1rem;
     line-height: 1.8rem;
     width: max-content;
+    max-width: 400%;
     opacity: 0;
     animation: clubTitle 400ms ease-in-out forwards;
 }

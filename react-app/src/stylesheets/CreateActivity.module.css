@@ -414,3 +414,11 @@
     color: var(--strive-hyperlink-darkblue);
     text-decoration: underline;
 }
+
+.inputError>input , .inputError > textarea{
+    border-color: var(--strive-error-red)
+}
+
+.errorsTitle {
+    color: var(--strive-error-red)
+}

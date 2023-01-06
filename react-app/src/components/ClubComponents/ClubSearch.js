@@ -286,7 +286,6 @@ function ClubSearch({ preLoadedResults }) {
                     {hasSearched ?
                         (Array.isArray(results) ?
                             results.map((result, idx) => {
-                                console.log(result);
                                 return (
                                     <li key={result.id} className={`${styles.resultContainer} ${idx % 2 === 0 ? styles.white : styles.gray}`}>
                                         <div className={styles.resultContainerLeft}>

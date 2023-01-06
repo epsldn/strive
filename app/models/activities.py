@@ -23,9 +23,9 @@ class Activity(db.Model):
     sport = db.Column(db.String(100), nullable=False)
     date = db.Column(db.Date, default=date.today(), nullable=False)
     time = db.Column(db.Time, default=datetime.now().time(), nullable=False)
-    title = db.Column(db.String, nullable=False)
-    description = db.Column(db.String, nullable=False)
-    private_notes = db.Column(db.String, nullable=False)
+    title = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.String(1000), nullable=False)
+    private_notes = db.Column(db.String(1000), nullable=False)
     extertion = db.Column(db.Integer, nullable=False)
 
     user = db.relationship(

@@ -22,12 +22,12 @@ class Club(db.Model):
                              "users.id"),
                              ondelete="CASCADE"),
                          nullable=False)
-    club_name = db.Column(db.String(255), nullable=False)
+    club_name = db.Column(db.String(100), nullable=False)
     location = db.Column(db.String, nullable=False)
-    website = db.Column(db.String(100))
+    website = db.Column(db.String)
     sport = db.Column(db.String(100), nullable=False)
     type = db.Column(db.String(100), nullable=False)
-    description = db.Column(db.String, nullable=False)
+    description = db.Column(db.String(1000), nullable=False)
     club_image = db.Column(
         db.String, default="https://striveonrender.s3.us-west-2.amazonaws.com/clubDefault.png", nullable=False)
     club_banner = db.Column(
