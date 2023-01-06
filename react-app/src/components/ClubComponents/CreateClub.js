@@ -17,6 +17,7 @@ function CreateClub() {
     const [selected, setSelected] = useState(-1);
     const [showCities, setShowCities] = useState(true);
     const [cities, setCities] = useState([]);
+    const [submitted, setSubmitted] = useState(false);
 
 
     const path = useLocation().pathname;
@@ -32,7 +33,8 @@ function CreateClub() {
 
     async function handleSubmission(event) {
         event.preventDefault();
-        let errors = {};
+        setSubmitted(true);
+        const errors = {};
         if (!clubName) errors.clubName = "Please enter a name for your club.";
         else if (clubName.length > 100) errors.clubName = "Please keep club name under 100 characters.";
         if (!location) errors.location = "Please enter your city and state.";
@@ -122,6 +124,31 @@ function CreateClub() {
             () => setCoordinates(null),
             { enableHighAccurary: true, timeout: 3000 });
     }, [path]);
+
+
+    useEffect(() => {
+        if (!submitted) return;
+        const errors = {};
+
+        if (!clubName) errors.clubName = "Please enter a name for your club.";
+        else if (clubName.length > 100) errors.clubName = "Please keep club name under 100 characters.";
+        else {
+            delete errors.clubName;
+        }
+
+        if (!location) errors.location = "Please enter your city and state.";
+        else {
+            delete errors.location;
+        }
+
+        if (!description) errors.description = "Please enter a description for your club.";
+        else if (description.length > 1000) errors.description = "Please keep description under 1,000 characters";
+        else {
+            delete errors.description;
+        }
+
+        setErrors(errors);
+    }, [clubName, location, description]);
 
     return (
         <div className={styles.mainWrapper}>
