@@ -6,11 +6,11 @@ from datetime import date
 
 def seed_users():
     demo = User(
-        birthdate=date(1991, 3, 27), email='demo@aa.io', password='password')
+        first_name="Bobby", last_name="Mill", birthdate=date(1991, 3, 27), email='demo@aa.io', password='password')
     marnie = User(
-        birthdate=date(1998, 10, 12), email='marnie@aa.io', password='password')
+        first_name="Steve", last_name="Rogers", birthdate=date(1998, 10, 12), email='marnie@aa.io', password='password')
     bobbie = User(
-        birthdate=date(2002, 11, 30), email='bobbie@aa.io', password='password')
+        first_name="Peter", last_name="Parker",  birthdate=date(2002, 11, 30), email='bobbie@aa.io', password='password')
 
     db.session.add(demo)
     db.session.add(marnie)

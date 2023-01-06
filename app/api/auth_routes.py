@@ -66,6 +66,8 @@ def sign_up():
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         user = User(
+            first_name=form.data["first_name"],
+            last_name=form.data["last_name"],
             email=form.data['email'],
             password=form.data['password'],
             birthdate=form.data["birthdate"]
@@ -74,7 +76,7 @@ def sign_up():
         db.session.commit()
         login_user(user)
         return user.to_dict()
-    return {'errors': {k: v[0] for k, v in form.errors.items()}}, 401
+    return {'errors': {k: v[0] for k, v in form.errors.items()}}, 400
 
 
 @auth_routes.route('/unauthorized')
@@ -87,7 +89,7 @@ def unauthorized():
 
 @auth_routes.route("/check-email/<email>")
 def check_email(email):
-    user = User.query.filter(User.email.ilike(email)).first();
+    user = User.query.filter(User.email.ilike(email)).first()
     if (user):
         return jsonify({"email": "User with this email already exits"}), 401
     else:

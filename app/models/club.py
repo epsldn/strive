@@ -52,7 +52,7 @@ class Club(db.Model):
             "clubBanner": self.club_banner,
             "owner_id": self.owner_id,
             "id": self.id,
-            "members": {member.id: {"id": member.id, "profilePicture": member.profile_picture, "firstName": "First", "lastName": "Last"} for member in self.members},
+            "members": {member.id: member.activity_info() for member in self.members},
             "totalMembers": len(self.members)
         }
 

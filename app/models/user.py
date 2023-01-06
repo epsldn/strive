@@ -11,6 +11,8 @@ class User(db.Model, UserMixin):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
+    first_name = db.Column(db.String(40), nullable=False)
+    last_name = db.Column(db.String(40), nullable=False)
     email = db.Column(db.String(255), nullable=False, unique=True)
     birthdate = db.Column(db.Date, nullable=False)
     profile_picture = db.Column(
@@ -45,14 +47,15 @@ class User(db.Model, UserMixin):
             "owned_clubs": {club.get_id(): club.get_id() for club in self.owned_clubs},
             "total_activitites": len(self.activities),
             "last_activity": self.activities[-1].last_to_dict() if self.activities else None,
-            "firstName": "First",
-            "lastName": "Last",
+            "firstName": self.first_name,
+            "lastName": self.last_name,
             "profilePicture": self.profile_picture
         }
 
     def activity_info(self):
         return {
-            "firstName": "First",
-            "lastName": "Last",
-            "profilePicture": self.profile_picture
+            "firstName": self.first_name,
+            "lastName": self.last_name,
+            "profilePicture": self.profile_picture,
+            "id": self.id
         }
