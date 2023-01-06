@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: f632c3df53d0
+Revision ID: 31fe14fe962c
 Revises: 
-Create Date: 2023-01-06 15:20:20.371720
+Create Date: 2023-01-06 16:33:38.028347
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'f632c3df53d0'
+revision = '31fe14fe962c'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -41,9 +41,9 @@ def upgrade():
     sa.Column('sport', sa.String(length=100), nullable=False),
     sa.Column('date', sa.Date(), nullable=False),
     sa.Column('time', sa.Time(), nullable=False),
-    sa.Column('title', sa.String(), nullable=False),
-    sa.Column('description', sa.String(), nullable=False),
-    sa.Column('private_notes', sa.String(), nullable=False),
+    sa.Column('title', sa.String(length=100), nullable=False),
+    sa.Column('description', sa.String(length=1000), nullable=False),
+    sa.Column('private_notes', sa.String(length=1000), nullable=False),
     sa.Column('extertion', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
@@ -53,7 +53,7 @@ def upgrade():
     sa.Column('owner_id', sa.Integer(), nullable=False),
     sa.Column('club_name', sa.String(length=100), nullable=False),
     sa.Column('location', sa.String(), nullable=False),
-    sa.Column('website', sa.String(length=100), nullable=True),
+    sa.Column('website', sa.String(), nullable=True),
     sa.Column('sport', sa.String(length=100), nullable=False),
     sa.Column('type', sa.String(length=100), nullable=False),
     sa.Column('description', sa.String(length=1000), nullable=False),

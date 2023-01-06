@@ -19,8 +19,21 @@ function EditActivity() {
     const [privateNotes, setPrivateNotes] = useState("");
     const [sport, setSport] = useState("Run");
 
+
+    const [errors, setErrors] = useState({});
+    const [submitted, setSubmitted] = useState(false);
+
     function onSubmit(event) {
         event.preventDefault();
+        setSubmitted(true);
+        const errors = {};
+
+        if (!title) errors.title = "Please enter a title for your activity";
+        else if (title.length > 100) errors.title = "Please keep your title under 100 characters";
+        if (description.length > 1000) errors.description = "Please keep the description under 1,000 characters";
+        if (privateNotes.length > 1000) errors.privateNotes = "Please keep your private notes under 1,000 characters";
+        setErrors(errors);
+        if (Object.values(errors).length > 0) return;
 
         const payload = {
             "sport": sport,
@@ -50,6 +63,27 @@ function EditActivity() {
 
     }, [activity]);
 
+    useEffect(() => {
+        if (!submitted) return;
+        const errors = {};
+        if (!title) errors.title = "Please enter a title for your activity";
+        else if (title.length > 100) errors.title = "Please keep your title under 100 characters";
+        else {
+            delete errors.title;
+        }
+
+        if (description.length > 1000) errors.description = "Please keep the description under 1,000 characters";
+        else {
+            delete errors.description;
+        }
+
+        if (privateNotes.length > 1000) errors.privateNotes = "Please keep your private notes under 1,000 characters";
+        else {
+            delete errors.privateNotes;
+        }
+
+        setErrors(errors);
+    }, [title, description, privateNotes]);
 
     let date;
 
@@ -78,9 +112,9 @@ function EditActivity() {
             <div className={styles.mainContainer}>
                 <form id={styles.editActivityForm} onSubmit={onSubmit}>
                     <div className={styles.editActivityFormLeft}>
-                        <div className={styles.inputContainer}>
-                            <label>
-                                Title
+                        <div className={`${styles.inputContainer} ${errors.title ? styles.inputError : ""}`}>
+                            <label className={errors.title ? styles.errorsTitle : ""}>
+                                {errors.title ? errors.title : "Title"}
                             </label>
                             <input
                                 type="text"
@@ -88,9 +122,9 @@ function EditActivity() {
                                 onChange={(event) => setTitle(event.target.value)}
                             />
                         </div>
-                        <div className={styles.inputContainer}>
-                            <label>
-                                Description
+                        <div className={`${styles.inputContainer} ${errors.description ? styles.inputError : ""}`}>
+                            <label className={errors.description ? styles.errorsTitle : ""}>
+                                {errors.description ? errors.description : "Description"}
                             </label>
                             <textarea
                                 value={description}
@@ -174,9 +208,9 @@ function EditActivity() {
                                 <div id="eSliderColor" />
                             </div>
                         </div>
-                        <div className={styles.inputContainer}>
-                            <label>
-                                Private Notes
+                        <div className={`${styles.inputContainer} ${errors.privateNotes ? styles.inputError : ""}`}>
+                            <label className={errors.privateNotes ? styles.errorsTitle : ""}>
+                                {errors.privateNotes ? errors.privateNotes : "Private Notes"}
                             </label>
                             <textarea
                                 value={privateNotes}

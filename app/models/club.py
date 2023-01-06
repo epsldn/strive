@@ -24,7 +24,7 @@ class Club(db.Model):
                          nullable=False)
     club_name = db.Column(db.String(100), nullable=False)
     location = db.Column(db.String, nullable=False)
-    website = db.Column(db.String(100))
+    website = db.Column(db.String)
     sport = db.Column(db.String(100), nullable=False)
     type = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(1000), nullable=False)

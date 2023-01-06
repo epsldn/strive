@@ -31,16 +31,27 @@ function CreateActivity() {
     const [privateNotes, setPrivateNotes] = useState("");
     const [extertionLevel, setExtertionLevel] = useState(1);
 
+    const [errors, setErrors] = useState({});
+    const [submitted, setSubmitted] = useState(false);
+
     const distanceDropDownContainer = useRef(null);
     const elevationDropDownContainer = useRef(null);
     const sportDropDownContainer = useRef(null);
     const dispatch = useDispatch();
-    const user = useSelector(state => state.session.user);
 
     const history = useHistory();
 
     async function onSubmit(event) {
         event.preventDefault();
+        setSubmitted(true);
+        const errors = {};
+
+        if (!title) errors.title = "Please enter a title for your activity";
+        else if (title.length > 100) errors.title = "Please keep your title under 100 characters";
+        if (description.length > 1000) errors.description = "Please keep the description under 1,000 characters";
+        if (privateNotes.length > 1000) errors.privateNotes = "Please keep your private notes under 1,000 characters";
+        setErrors(errors);
+        if (Object.values(errors).length > 0) return;
 
         if (distanceType !== "miles") {
             if (distanceType === "kilometers") {
@@ -149,6 +160,29 @@ function CreateActivity() {
 
         return () => document.removeEventListener("click", onClick);
     }, [showSportOptions]);
+
+
+    useEffect(() => {
+        if (!submitted) return;
+        const errors = {};
+        if (!title) errors.title = "Please enter a title for your activity";
+        else if (title.length > 100) errors.title = "Please keep your title under 100 characters";
+        else {
+            delete errors.title;
+        }
+
+        if (description.length > 1000) errors.description = "Please keep the description under 1,000 characters";
+        else {
+            delete errors.description;
+        }
+
+        if (privateNotes.length > 1000) errors.privateNotes = "Please keep your private notes under 1,000 characters";
+        else {
+            delete errors.privateNotes;
+        }
+
+        setErrors(errors);
+    }, [title, description, privateNotes]);
 
     return (
         <div className={styles.outerContainer}>
@@ -334,14 +368,13 @@ function CreateActivity() {
 
                             <div className={styles.fullWidthSection}>
                                 <div className={styles.contentSection}>
-                                    <label>
-                                        Title
+                                    <label className={errors.title ? styles.errorsTitle : ""}>
+                                        {errors.title ? errors.title : "Title"}
                                     </label>
-                                    <div className={styles.sectionInnerContent}>
+                                    <div className={`${styles.sectionInnerContent} ${errors.title ? styles.inputError : ""}`}>
                                         <input
                                             type="text"
                                             value={title}
-                                            required
                                             onChange={(event) => setTitle(event.target.value)}
                                         />
                                     </div>
@@ -350,10 +383,10 @@ function CreateActivity() {
 
                             <div className={styles.fullWidthSection}>
                                 <div className={styles.contentSection}>
-                                    <label>
-                                        Description
+                                    <label className={errors.description ? styles.errorsTitle : ""}>
+                                        {errors.description ? errors.description : "Description"}
                                     </label>
-                                    <div className={styles.sectionInnerContent}>
+                                    <div className={`${styles.sectionInnerContent} ${errors.description ? styles.inputError : ""}`}>
                                         <textarea
                                             id={styles.description}
                                             value={description}
@@ -367,10 +400,10 @@ function CreateActivity() {
                         <div className={styles.section3}>
                             <div className={styles.fullWidthSection}>
                                 <div className={styles.contentSection}>
-                                    <label>
-                                        Private Notes
+                                    <label className={errors.privateNotes ? styles.errorsTitle : ""}>
+                                        {errors.privateNotes ? errors.privateNotes : "Private Notes"}
                                     </label>
-                                    <div className={styles.sectionInnerContent}>
+                                    <div className={`${styles.sectionInnerContent} ${errors.privateNotes ? styles.inputError : ""}`}>
                                         <textarea
                                             id={styles.description}
                                             value={privateNotes}
