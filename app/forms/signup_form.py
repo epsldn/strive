@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, DateField
-from wtforms.validators import DataRequired, ValidationError
+from wtforms.validators import DataRequired, ValidationError, Length
 from app.models import User
 import datetime
 
@@ -22,6 +22,8 @@ def date_check(form, field):
 
 
 class SignUpForm(FlaskForm):
+    first_name = StringField("First Name", validators=[DataRequired("First Name is required"), Length(max=40, message="First Name is too long")])
+    last_name = StringField("Last Name", validators=[DataRequired("Last Name is required"), Length(max=40, message="Last Name is too long")])
     email = StringField('email', validators=[
                         DataRequired("Email is required"), user_exists])
     password = StringField('password', validators=[

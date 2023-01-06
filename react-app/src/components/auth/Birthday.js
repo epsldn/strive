@@ -74,8 +74,8 @@ function Birthday(props) {
     const [dayPlaceholder, setDayPlaceholder] = useState("");
     const [yearPlaceholder, setYearPlaceholder] = useState("");
 
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
+    let [firstName, setFirstName] = useState("");
+    let [lastName, setLastName] = useState("");
 
     const [errors, setErrors] = useState({});
     const { email, password, setShowModal } = props;
@@ -92,7 +92,21 @@ function Birthday(props) {
     const onSignUp = async (e) => {
         e.preventDefault();
         const errors = {};
+
+        firstName = firstName.trim();
+        lastName = lastName.trim();
+
         if (!month || !day || !year) errors.birthdate = "Please enter your full birthdate.";
+        if (firstName.length < 1) errors.firstName = "First Name is required";
+        else if (firstName.length > 40) errors.firstName = "First Name is too long";
+        if (lastName.length < 1) errors.lastName = "Last Name is required";
+        else if (lastName.length > 40) errors.lastName = "Last Name is too long";
+
+        if (errors.firstName === "First Name is required" && errors.lastName === "Last Name is required") errors.name = "Both Names are required";
+        else if (errors.firstName === "First Name is too long" && errors.lastName === "Last Name is too long") errors.name = "Both Names are too long";
+        else if (errors.firstName || errors.lastName) errors.name = `${errors.firstName ? errors.firstName : ""} ${errors.firstName && errors.lastName ? "&" : ""} ${errors.lastName ? errors.lastName : ""}`.trim();
+
+
         setErrors(errors);
         if (Object.keys(errors).length > 0) return;
 
@@ -113,7 +127,7 @@ function Birthday(props) {
 
         const birthdate = `${year}-${monthNumber[month]}-${day}`;
 
-        const data = await dispatch(signUp(email, password, birthdate));
+        const data = await dispatch(signUp(firstName, lastName, email, password, birthdate));
         if (data) {
             setErrors(data);
         }
@@ -199,7 +213,7 @@ function Birthday(props) {
             <h2>Before you sign up</h2>
             <div className={styles.formContainer}>
                 <form>
-                    
+
                     <h3>Name</h3>
                     {errors.name && <h3 className={styles.birthdayErrors}>{errors.name}</h3>}
                     <div id={styles.nameContainer}>
@@ -215,7 +229,7 @@ function Birthday(props) {
                             placeholder="Last Name"
                             onChange={event => setLastName(event.target.value)}
                             value={lastName}
-                            className={`${styles.inputContainer} ${errors.firstName ? styles.nameErrorBorder : ""}`}
+                            className={`${styles.inputContainer} ${errors.lastName ? styles.nameErrorBorder : ""}`}
                         />
                     </div>
 
