@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import MainNavBar from "../MainNavBar";
 import styles from "../../stylesheets/ClubSearch.module.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import ClubImages from "../HomePage/ClubImages";
+import { authenticate } from "../../store/session";
+import { fetchClubs } from "../../store/clubs";
 
 function ClubSearch({ preLoadedResults }) {
     const user = useSelector(state => state.session.user);
@@ -30,6 +32,7 @@ function ClubSearch({ preLoadedResults }) {
     const [type, setType] = useState("all");
 
     const history = useHistory();
+    const dispatch = useDispatch();
 
     async function onSubmit(event) {
         event.preventDefault();
@@ -89,8 +92,27 @@ function ClubSearch({ preLoadedResults }) {
         }
     }
 
-    
+    async function handleLeaveClub(event, clubId) {
+        event.preventDefault();
+        event.stopPropagation();
+        const response = await fetch(`/api/clubs/${clubId}/leave`);
 
+        if (response.ok) {
+            await dispatch(authenticate());
+            await dispatch(fetchClubs());
+        }
+    }
+
+    async function handleJoinClub(event, clubId) {
+        event.preventDefault();
+        event.stopPropagation();
+        const response = await fetch(`/api/clubs/${clubId}/join`);
+
+        if (response.ok) {
+            await dispatch(authenticate());
+            await dispatch(fetchClubs());
+        }
+    }
 
     useEffect(() => {
         fetch("/api/maps/city-search", {
@@ -275,8 +297,8 @@ function ClubSearch({ preLoadedResults }) {
                                                 <p id={styles.clubTitle}>{result.clubName}</p>
                                                 <p id={styles.clubLocation}>{result.location}</p>
                                                 {result.id in user.joined_clubs ?
-                                                    <button class={styles.clubActionButton} id={styles.whiteButton}>Leave</button> :
-                                                    <button class={styles.clubActionButton} id={styles.orangeButton}>Join</button>
+                                                    <button class={styles.clubActionButton} id={styles.whiteButton} onClick={event => handleLeaveClub(event, result.id)}>Leave</button> :
+                                                    <button class={styles.clubActionButton} id={styles.orangeButton} onClick={event => handleJoinClub(event, result.id)}>Join</button>
                                                 }
                                             </div>
                                         </div>
