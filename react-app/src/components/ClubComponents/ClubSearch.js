@@ -114,6 +114,17 @@ function ClubSearch({ preLoadedResults }) {
         }
     }
 
+    async function handleDeleteClub(event, clubId) {
+        event.preventDefault();
+        event.stopPropagation();
+        const response = await fetch(`/api/clubs/${clubId}/join`);
+
+        if (response.ok) {
+            await dispatch(authenticate());
+            await dispatch(fetchClubs());
+        }
+    }
+
     useEffect(() => {
         fetch("/api/maps/city-search", {
             method: "POST",
@@ -293,10 +304,14 @@ function ClubSearch({ preLoadedResults }) {
                                                 <img src={result.clubImage} alt="Club Avatar" />
                                             </div>
                                             <div className={styles.resultContainerClubInfo}>
-                                                <p id={styles.clubTitle}>{result.clubName}</p>
+                                                <p id={styles.clubTitle} ><Link to={`/clubs/${result.id}`}>{result.clubName}</Link></p>
                                                 <p id={styles.clubLocation}>{result.location}</p>
+                                                {console.log(result)}
                                                 {result.id in user.joined_clubs ?
-                                                    <button class={styles.clubActionButton} id={styles.whiteButton} onClick={event => handleLeaveClub(event, result.id)}>Leave</button> :
+
+                                                    result.owner_id === user.id ?
+                                                        null :
+                                                        <button class={styles.clubActionButton} id={styles.whiteButton} onClick={event => handleLeaveClub(event, result.id)}>Leave</button> :
                                                     <button class={styles.clubActionButton} id={styles.orangeButton} onClick={event => handleJoinClub(event, result.id)}>Join</button>
                                                 }
                                             </div>
