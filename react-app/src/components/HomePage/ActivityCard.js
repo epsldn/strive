@@ -91,12 +91,12 @@ function ActivityCard({ activity }) {
                                 <p className={styles.statNumber}>{pace}/mi</p>
                             </div>
                         </div>}
-                        <div className={styles.activityBodyRightContent}>
+                        {Boolean(activity?.elevation) && <div className={styles.activityBodyRightContent}>
                             <div className={styles.statContainer}>
                                 <p className={styles.grayedOut}>Elevation</p>
                                 <p className={styles.statNumber}>{activity?.elevation} ft</p>
                             </div>
-                        </div>
+                        </div>}
                     </div>
                 </div>
             </div>

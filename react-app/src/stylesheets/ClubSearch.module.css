@@ -91,7 +91,8 @@
     width: 100%;
 }
 
-#search, .clubActionButton {
+#search,
+.clubActionButton {
     width: fit-content;
     height: fit-content;
     margin: 0;
@@ -102,7 +103,8 @@
     border: 1px solid var(--strive-border-lightgray)
 }
 
-#search:hover, .clubActionButton:hover {
+#search:hover,
+.clubActionButton:hover {
     background-color: #f7f7fa;
 }
 
@@ -202,8 +204,10 @@
     font-size: 1.2rem;
 }
 
-.clubActionButton{
+.clubActionButton {
     margin-top: 1rem;
+    width: 8rem;
+    transition: background-color .3s ease-in, border-color .3s ease, color .5s ease;
 }
 
 #orangeButton {
@@ -214,4 +218,10 @@
 #orangeButton:hover {
     background-color: #c94100;
     border-color: #bf3e00;
+}
+
+#redButton:hover {
+    color: white;
+    background-color: var(--strive-delete-red);
+    border-color: var(--strive-delete-hover)
 }
