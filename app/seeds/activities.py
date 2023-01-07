@@ -42,6 +42,8 @@ def seed_activities():
         elevation=1204,
         extertion=10,
         sport="Virtual Run",
+        date=date(2023, 1, 2),
+        time=time(18, 12, 20),
         title="Today I went out for a run",
         description="It was a nice run to be had, it was nice indeed. It was a run.",
         private_notes="I hope they see this and are impressed"

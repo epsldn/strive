@@ -14,8 +14,8 @@ class ActivityForm(FlaskForm):
         "Extertion level", [Optional(), NumberRange(min=1, max=10)])
     sport = StringField("Sport", [DataRequired(
         "Please enter a sport"), Length(min=1, max=100)])
-    date = DateField("Date", [Optional()])
-    time = TimeField("Time", [Optional()])
+    date = DateField("Date", [DataRequired("Must include date")])
+    time = TimeField("Time", [DataRequired("Must include time")])
     title = StringField("Title", [DataRequired(), Length(
         max=100, message=("Please keep your message under 100 characters"))])
     description = StringField("Description", [Optional(), Length(

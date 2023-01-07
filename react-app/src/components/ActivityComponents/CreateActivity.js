@@ -37,9 +37,12 @@ function CreateActivity() {
     const distanceDropDownContainer = useRef(null);
     const elevationDropDownContainer = useRef(null);
     const sportDropDownContainer = useRef(null);
-    const dispatch = useDispatch();
 
+    const dispatch = useDispatch();
     const history = useHistory();
+    const defaultTime = new Date().toTimeString().substring(0, 5);
+    const defaultDate = new Date().toLocaleDateString("en-uk").split("/").map(date => date.length < 2 ? "0" + date : date).reverse().join("-");
+
 
     async function onSubmit(event) {
         event.preventDefault();
@@ -78,8 +81,8 @@ function CreateActivity() {
             "seconds": +seconds,
             "elevation": +elevation,
             "sport": sportType,
-            "date": selectedDate,
-            "time": time,
+            "date": selectedDate || defaultDate,
+            "time": time || defaultTime,
             "title": title,
             "description": description,
             "private_notes": privateNotes,
@@ -353,14 +356,14 @@ function CreateActivity() {
                                     <input
                                         id={styles.date}
                                         type="date"
-                                        max={(new Date()).toISOString().substring(0, 10)}
+                                        max={defaultDate}
                                         value={selectedDate}
                                         onChange={(event) => setSelectedDate(event.target.value)}
                                     />
                                     <input
                                         type="time"
                                         value={time}
-                                        max={(new Date()).toTimeString().substring(0, 5)}
+                                        max={defaultTime}
                                         onChange={(event) => setTime(event.target.value)}
                                     />
                                 </div>
