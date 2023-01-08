@@ -23,6 +23,8 @@ function EditActivity() {
     const [errors, setErrors] = useState({});
     const [submitted, setSubmitted] = useState(false);
 
+    document.title= "Edit Activity | Strive"
+
     function onSubmit(event) {
         event.preventDefault();
         setSubmitted(true);

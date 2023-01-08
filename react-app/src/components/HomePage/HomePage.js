@@ -16,6 +16,7 @@ function HomePage() {
     const activities = useSelector(state => state.activities);
     const history = useHistory();
     const [isLoaded, setIsLoaded] = useState(false);
+    document.title = `Home | Strive`;
     return (
         <div className={styles.outerContainer}>
             <div id={styles.navBarContainer}>

@@ -18,6 +18,8 @@ function AthleteShowcase() {
 
     const profilePictureInput = useRef(null);
     const dispatch = useDispatch();
+    document.title = `${athlete?.firstName} ${athlete?.lastName} | Strive`;
+
 
     useEffect(() => {
         fetch(`/api/users/${athleteId}`)

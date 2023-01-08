@@ -42,7 +42,7 @@ function CreateActivity() {
     const history = useHistory();
     const defaultTime = new Date().toTimeString().substring(0, 5);
     const defaultDate = new Date().toLocaleDateString("en-uk").split("/").map(date => date.length < 2 ? "0" + date : date).reverse().join("-");
-
+    document.title= "Create Activity | Strive"
 
     async function onSubmit(event) {
         event.preventDefault();

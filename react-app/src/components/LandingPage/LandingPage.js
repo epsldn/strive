@@ -15,6 +15,7 @@ import { useSelector } from "react-redux";
 function LandingPage() {
     const user = useSelector(state => state.session.user);
     const history = useHistory();
+    document.title = `Welcome | Strive`;
 
     if (user) {
         return <Redirect to='/' />;
