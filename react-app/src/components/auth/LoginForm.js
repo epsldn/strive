@@ -48,6 +48,7 @@ const LoginForm = () => {
   const [backgroundImage] = useState(imagePicker());
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
+  document.title= "Log In | Strive"
 
   const onLogin = async (e) => {
     e.preventDefault();

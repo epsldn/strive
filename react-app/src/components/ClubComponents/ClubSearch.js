@@ -33,6 +33,8 @@ function ClubSearch({ preLoadedResults }) {
 
     const history = useHistory();
     const dispatch = useDispatch();
+    document.title = "Club Search | Strive";
+
 
     async function onSubmit(event) {
         event.preventDefault();

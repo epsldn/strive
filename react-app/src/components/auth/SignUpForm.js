@@ -22,6 +22,7 @@ const SignUpForm = () => {
   const [showModal, setShowModal] = useState(false);
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
+  document.title= "Join | Strive"
 
   const phase1Check = async (event) => {
     event.preventDefault();

@@ -35,7 +35,7 @@ function EditClub() {
     const locationContainer = useRef(null);
     const cityRef = useRef(null);
 
-    document.title = `${club?.clubName || "Edit Club"} | Strive Club`;
+    document.title = `Edit Club | Strive Club`;
 
     useEffect(() => {
         let club;
