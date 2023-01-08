@@ -14,7 +14,7 @@ function ActivityShowCase() {
     const activity = activities[activityId];
     const dispatch = useDispatch();
     const history = useHistory();
-    document.title = `${activity?.title} | Strive`;
+    document.title = `${activity? activity.title: "Activity"} | Strive`;
 
     function handleDeleteActivity(event) {
         event.stopPropagation();

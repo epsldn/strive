@@ -20,7 +20,7 @@ function ClubShowcase() {
 
     const history = useHistory();
     const dispatch = useDispatch();
-    document.title = `${club?.clubName} | Strive`;
+    document.title = `${club? club.clubName : "Club"} | Strive`;
 
     useEffect(() => {
         fetch(`/api/clubs/${clubId}/activities`)
