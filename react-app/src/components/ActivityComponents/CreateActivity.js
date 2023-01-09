@@ -212,6 +212,7 @@ function CreateActivity() {
                                         step={.01}
                                         value={distance}
                                         id={styles.distance}
+                                        min={0}
                                         onChange={(event) => setDistance(event.target.value)}
                                     />
                                     <div id={styles.dropDown} className={showDistanceOptions ? styles.dropDownActive : ""} onClick={() => setShowDistanceOptions(true)} ref={distanceDropDownContainer}>
@@ -280,6 +281,7 @@ function CreateActivity() {
                                         step={.01}
                                         value={elevation}
                                         max={29029}
+                                        min={-29029}
                                         onChange={(event) => setElevation(event.target.value)}
                                     />
                                     <div id={styles.dropDown} className={showElevationOptions ? styles.dropDownActive : ""} onClick={() => setShowElevationOptions(true)} ref={elevationDropDownContainer}>
