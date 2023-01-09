@@ -46,6 +46,7 @@ function AthleteShowcase() {
                 .then(response => response.json())
                 .then(athlete => setAthlete(athlete));
             const updatedAthlete = await res.json();
+            await dispatch(authenticate());
             setAthlete(updatedAthlete);
         }
         else {
@@ -67,7 +68,7 @@ function AthleteShowcase() {
                                 <input
                                     style={{ display: "none" }}
                                     type="file"
-                                    accept="image/*"
+                                    accept="image/png, image/jpg, image/jpeg"
                                     onChange={handleImageChange}
                                     id="profile-image-upload"
                                     ref={profilePictureInput}

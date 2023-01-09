@@ -15,13 +15,19 @@
     width: 100%;
     background-color: white;
 
-    grid-template-columns: 13% auto 24%;
+    /* grid-template-columns: 13% auto 24%; */
+    grid-template-columns: 10rem auto 24%;
+
 }
 
 #logo {
     font-weight: 900;
     font-size: 2.4rem;
     color: var(--strive-international-orange);
+}
+
+#logo>p {
+    width: fit-content;
 }
 
 .navBar .navlinks {
