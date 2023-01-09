@@ -85,7 +85,7 @@ function ActivityShowCase() {
 
                 <div className={styles.activityInfo}>
                     <div className={styles.activityHeader}>
-                        <h1><span id={styles.userName}><Link to={`/athletes/${activity?.user_id}`}>{`${"first".slice(0, 1).toUpperCase() + "first".slice(1).toLocaleLowerCase()} ${"last".slice(0, 1).toUpperCase() + "last".slice(1).toLocaleLowerCase()}`}</Link></span> - {activity?.sport}</h1>
+                        <h1><span id={styles.userName}><Link to={`/athletes/${activity?.user_id}`}>{`${activity?.user.firstName.slice(0, 1).toUpperCase() + activity?.user.firstName.slice(1).toLocaleLowerCase()} ${activity?.user.lastName.slice(0, 1).toUpperCase() + activity?.user.lastName.slice(1).toLocaleLowerCase()}`}</Link></span> - {activity?.sport}</h1>
                     </div>
                     <div className={styles.activityBody}>
                         <div className={styles.activityBodyLeft}>

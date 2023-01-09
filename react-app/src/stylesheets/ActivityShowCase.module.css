@@ -119,6 +119,7 @@
     padding: .2rem .9rem;
     background-color: var(--strive-background-fill);
     font-weight: 700;
+    color: black;
 }
 
 .missingAttribute:hover {
