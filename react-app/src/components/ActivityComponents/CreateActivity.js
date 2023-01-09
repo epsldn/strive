@@ -365,7 +365,7 @@ function CreateActivity() {
                                     <input
                                         type="time"
                                         value={time}
-                                        max={defaultTime}
+                                        max={selectedDate < defaultDate ? undefined : defaultTime}
                                         onChange={(event) => setTime(event.target.value)}
                                     />
                                 </div>
