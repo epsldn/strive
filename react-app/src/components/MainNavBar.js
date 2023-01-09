@@ -38,9 +38,9 @@ function MainNavBar(props) {
     return (
         <div className={styles.navbarContainer}>
             <div className={styles.navBar}>
-                <Link to="/" id={styles.logo}>
+                <p><Link to="/" id={styles.logo}>
                     STRIVE
-                </Link>
+                </Link></p>
                 <ul className={styles.navlinks}>
                     <Link to="/">
                         <li>

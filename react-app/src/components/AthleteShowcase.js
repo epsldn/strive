@@ -46,6 +46,7 @@ function AthleteShowcase() {
                 .then(response => response.json())
                 .then(athlete => setAthlete(athlete));
             const updatedAthlete = await res.json();
+            await dispatch(authenticate());
             setAthlete(updatedAthlete);
         }
         else {
