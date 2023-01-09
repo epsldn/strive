@@ -45,7 +45,7 @@ function CLubPictures(props) {
                             <input
                                 style={{ display: "none" }}
                                 type="file"
-                                accept="image/*"
+                                accept="image/png, image/jpg, image/jpeg"
                                 onChange={handleImageChange}
                                 multiple={false}
                                 id="club-banner-upload"
@@ -65,7 +65,7 @@ function CLubPictures(props) {
                         <input
                             style={{ display: "none" }}
                             type="file"
-                            accept="image/*"
+                            accept="image/png, image/jpg, image/jpeg"
                             onChange={handleImageChange}
                             id="club-image-upload"
                         />

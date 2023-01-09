@@ -68,7 +68,7 @@ function AthleteShowcase() {
                                 <input
                                     style={{ display: "none" }}
                                     type="file"
-                                    accept="image/*"
+                                    accept="image/png, image/jpg, image/jpeg"
                                     onChange={handleImageChange}
                                     id="profile-image-upload"
                                     ref={profilePictureInput}
