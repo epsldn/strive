@@ -308,7 +308,6 @@ function ClubSearch({ preLoadedResults }) {
                                             <div className={styles.resultContainerClubInfo}>
                                                 <p id={styles.clubTitle} ><Link to={`/clubs/${result.id}`}>{result.clubName}</Link></p>
                                                 <p id={styles.clubLocation}>{result.location}</p>
-                                                {console.log(result)}
                                                 {result.id in user.joined_clubs ?
 
                                                     result.owner_id === user.id ?
