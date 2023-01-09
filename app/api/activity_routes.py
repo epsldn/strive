@@ -30,9 +30,11 @@ def create_activity():
     form['csrf_token'].data = request.cookies['csrf_token']
     form["user_id"].data = current_user.id
     time = request.get_json()["time"]
+    date = request.get_json()["date"]
     form["time"].data = datetime.strptime(
         time, '%H:%M').time() if time else datetime.now().time()
-
+    if not form["date"].data:
+        form["date"].data = datetime.now()
     if form.validate_on_submit():
         del form["csrf_token"]
         activity = Activity(**form.data)
