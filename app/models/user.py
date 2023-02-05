@@ -3,11 +3,12 @@ from .club import club_members
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
+
 followers = db.Table("followers",
                      db.Column("follower_id", db.Integer,
-                               db.ForeignKey("user.id")),
+                               db.ForeignKey("users.id")),
                      db.Column("followed_id", db.Integer,
-                               db.ForeignKey("user.id"))
+                               db.ForeignKey("users.id"))
                      )
 
 
