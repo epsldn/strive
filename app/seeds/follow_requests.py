@@ -7,9 +7,10 @@ def seed_follow_requests():
     user2 = User.query.get(2)
     user3 = User.query.get(3)
 
-    [user1.requests.append(user) for user in [user1, user2, user3]]
+    [user1.requests.append(user) for user in [user2, user3]]
 
-    [db.session.add(user) for user in [user2, user3]]
+    [db.session.add(user) for user in [user1, user2, user3]]
+
     db.session.commit()
 
 
