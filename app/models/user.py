@@ -11,7 +11,7 @@ followers = db.Table("followers",
                                db.ForeignKey("users.id"))
                      )
 
-follow_requests = db.Table("follow_requets",
+follow_requests = db.Table("follow_requests",
                             db.Column("requested_id", db.Integer,
                                         db.ForeignKey("users.id")),
                             db.Column("requestor_id", db.Integer,
@@ -44,22 +44,21 @@ class User(db.Model, UserMixin):
     activities = db.relationship("Activity",
                                  back_populates="user")
 
+
+    requests = db.relationship(
+        "User",
+        secondary=follow_requests,
+        primaryjoin=(follow_requests.c.requested_id == id),
+        secondaryjoin=(follow_requests.c.requestor_id == id),
+        backref="follow_requests"
+    )
+
     followed = db.relationship(
         "User",
         secondary=followers,
         primaryjoin=(followers.c.follower_id == id),
         secondaryjoin=(followers.c.followed_id == id),
-        backref=db.backref("followers", lazy="dynamic"),
-        lazy="dynamic"
-    )
-
-    follow_requests = db.relationship(
-        "User",
-        secondary=follow_requests,
-        primaryjoin=(follow_requests.c.requested_id == id),
-        secondaryjoin=(follow_requests.c.requestor_id == id),
-        backref=db.backref("follow_requests", lazy="dynamic"),
-        lazy="dynamic"
+        backref="followers"
     )
 
     @property
