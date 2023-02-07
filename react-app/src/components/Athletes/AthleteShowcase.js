@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, Redirect, useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import MainNavBar from "./MainNavBar";
-import defaultProfile from "../assets/defaultProfile.png";
-import styles from "../stylesheets/AthleteShowcase.module.css";
-import ClubImages from "./HomePage/ClubImages";
-import ActivityCard from "./HomePage/ActivityCard";
-import { authenticate } from "../store/session";
+import MainNavBar from "../MainNavBar";
+import defaultProfile from "../../assets/defaultProfile.png";
+import styles from "../../stylesheets/AthleteShowcase.module.css";
+import ClubImages from "../HomePage/ClubImages";
+import ActivityCard from "../HomePage/ActivityCard";
+import { authenticate } from "../../store/session";
 
 function AthleteShowcase() {
     const { athleteId } = useParams();
@@ -83,6 +83,7 @@ function AthleteShowcase() {
                     }
                 </div>
                 <p id={styles.name}>{athlete.firstName} {athlete.lastName}</p>
+                {athleteId !== user.id && <button>Hello</button>}
                 <div className={styles.mainInfoContainer}>
                     <div className={styles.mainInfoContainerLeft}>
                         <ul id={styles.tabs}>
