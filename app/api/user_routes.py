@@ -16,7 +16,7 @@ def users():
     return {'users': [user.to_dict() for user in users]}
 
 
-@user_routes.route('/<int:ahtleteId>')
+@user_routes.route('/<int:ahtleteId>/follow')
 @login_required
 def follow_user(athleteId):
     pass
