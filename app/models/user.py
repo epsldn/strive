@@ -12,11 +12,12 @@ followers = db.Table("followers",
                      )
 
 follow_requests = db.Table("follow_requests",
-                            db.Column("requested_id", db.Integer,
-                                        db.ForeignKey("users.id")),
-                            db.Column("requestor_id", db.Integer,
-                                        db.ForeignKey("users.id"))
-                                        )
+                           db.Column("requested_id", db.Integer,
+                                     db.ForeignKey("users.id")),
+                           db.Column("requestor_id", db.Integer,
+                                     db.ForeignKey("users.id"))
+                           )
+
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -44,13 +45,20 @@ class User(db.Model, UserMixin):
     activities = db.relationship("Activity",
                                  back_populates="user")
 
-
     requests = db.relationship(
         "User",
         secondary=follow_requests,
         primaryjoin=(follow_requests.c.requested_id == id),
         secondaryjoin=(follow_requests.c.requestor_id == id),
         backref="follow_requests"
+    )
+
+    requests_sent = db.relationship(
+        "User",
+        secondary=follow_requests,
+        primaryjoin=(follow_requests.c.requestor_id == id),
+        secondaryjoin=(follow_requests.c.requested_id == id),
+        overlaps="follow_requests"
     )
 
     followed = db.relationship(
@@ -83,7 +91,7 @@ class User(db.Model, UserMixin):
             "last_activity": self.activities[-1].last_to_dict() if self.activities else None,
             "firstName": self.first_name,
             "lastName": self.last_name,
-            "profilePicture": self.profile_picture
+            "profilePicture": self.profile_picture,
         }
 
     def activity_info(self):

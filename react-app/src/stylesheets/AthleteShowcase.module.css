@@ -163,3 +163,22 @@
     border-radius: .4rem;
     background-color: white;
 }
+
+#requestToFollow {
+    background-color: var(--strive-international-orange);
+    color: white;
+    font-weight: 700;
+    padding: .6rem 1.6rem;
+    margin: 0;
+    font-size: 1.4rem;
+    min-height: fit-content;
+    height: fit-content;
+    width: 15rem;
+    height: 3.4rem;
+    margin-bottom: 2rem;
+}
+
+#requestToFollow:hover {
+    background-color: #e34a00;
+    border-color: #e34a00;
+}

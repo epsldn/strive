@@ -17,7 +17,7 @@ import CreateActivity from './components/ActivityComponents/CreateActivity';
 import EditActivity from './components/ActivityComponents/EditActivity';
 import HomePage from './components/HomePage/HomePage';
 import ClubShowcase from './components/ClubComponents/ClubShowcase';
-import AthleteShowcase from './components/AthleteShowcase';
+import AthleteShowcase from './components/Athletes/AthleteShowcase';
 import ClubSearch from './components/ClubComponents/ClubSearch';
 
 function App() {
