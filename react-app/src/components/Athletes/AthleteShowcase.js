@@ -83,7 +83,11 @@ function AthleteShowcase() {
                     }
                 </div>
                 <p id={styles.name}>{athlete.firstName} {athlete.lastName}</p>
-                {athleteId !== user.id && <button>Hello</button>}
+
+                {athleteId !== user.id &&
+                    <button id={styles.requestToFollow}>Request to follow </button>
+                }
+
                 <div className={styles.mainInfoContainer}>
                     <div className={styles.mainInfoContainerLeft}>
                         <ul id={styles.tabs}>
