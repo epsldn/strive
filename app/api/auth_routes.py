@@ -24,7 +24,7 @@ def authenticate():
     Authenticates a user.
     """
     if current_user.is_authenticated:
-        return current_user.to_dict()
+        return {**current_user.to_dict(), "followers": {follower.followed_by.activity_info()["id"]: follower.followed_by.activity_info() for follower in current_user.followed_by}}
     return {'errors': ['Unauthorized']}
 
 
@@ -41,7 +41,7 @@ def login():
         # Add the user to the session, we are logged in!
         user = User.query.filter(User.email.ilike(form.data['email'])).first()
         login_user(user)
-        return user.to_dict()
+        return {**user.to_dict(), "followers": {follower.followed_by.activity_info()["id"]: follower.followed_by.activity_info() for follower in user.followed_by}}
 
     if "email" in form.errors and form.errors["email"] == ["Invalid Credentials"] or "password" in form.errors and form.errors["password"] == ["Invalid Credentials"]:
         return {"errors": {"serverError": "Invalid Credentials"}}, 401
@@ -75,7 +75,7 @@ def sign_up():
         db.session.add(user)
         db.session.commit()
         login_user(user)
-        return user.to_dict()
+        return {**user.to_dict(), "followers": {follower.followed_by.activity_info()["id"]: follower.followed_by.activity_info() for follower in user.followed_by}}
     return {'errors': {k: v[0] for k, v in form.errors.items()}}, 400
 
 
