@@ -6,16 +6,24 @@ from flask_login import UserMixin
 
 followers = db.Table("followers",
                      db.Column("follower_id", db.Integer,
-                               db.ForeignKey("users.id")),
+                               db.ForeignKey(add_prefix_for_prod(
+                                   "users.id"),
+                                   ondelete="CASCADE")),
                      db.Column("followed_id", db.Integer,
-                               db.ForeignKey("users.id"))
+                               db.ForeignKey(add_prefix_for_prod(
+                                   "users.id"),
+                                   ondelete="CASCADE"))
                      )
 
 follow_requests = db.Table("follow_requests",
                            db.Column("requested_id", db.Integer,
-                                     db.ForeignKey("users.id")),
+                                     db.ForeignKey(add_prefix_for_prod(
+                                         "users.id"),
+                                         ondelete="CASCADE")),
                            db.Column("requestor_id", db.Integer,
-                                     db.ForeignKey("users.id"))
+                                     db.ForeignKey(add_prefix_for_prod(
+                                         "users.id"),
+                                         ondelete="CASCADE"))
                            )
 
 
