@@ -40,4 +40,4 @@ def find_user(athleteId):
     activities = Activity.query.filter(Activity.user_id == athlete.id).filter(
         Activity.date <= datetime.now()).order_by(Activity.date.desc(), Activity.time.desc()).all()
 
-    return jsonify({**athlete.to_dict(), "activities": [activity.to_dict() for activity in activities]}), 200
+    return jsonify({**athlete.to_dict(), "activities": [activity.to_dict() for activity in activities], "followers": {follower.id: follower.activity_info() for follower in athlete.followed_by}, "follows": {followed.id: followed.activity_info() for followed in athlete.followed}}), 200
