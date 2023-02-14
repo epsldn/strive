@@ -100,6 +100,8 @@ class User(db.Model, UserMixin):
             "firstName": self.first_name,
             "lastName": self.last_name,
             "profilePicture": self.profile_picture,
+            "requests": {request.id: request.activity_info() for request in self.requests},
+            "requests_sent": {request.id: request.activity_info() for request in self.requests_sent}
         }
 
     def activity_info(self):
