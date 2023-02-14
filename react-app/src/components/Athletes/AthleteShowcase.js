@@ -72,6 +72,25 @@ function AthleteShowcase() {
         }
     }
 
+    async function cancelRequest(event) {
+        event.stopPropagation();
+        event.preventDefault();
+
+
+        const response = await fetch(`/api/users/${athlete.id}/request-follow`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            dispatch(updateUser(data.user));
+        }
+
+    }
+
 
     return (
         <div className={styles.outerContainer}>
@@ -104,7 +123,8 @@ function AthleteShowcase() {
                 {athlete.id !== user.id &&
                     (athlete.id in user.requests_sent ?
                         <button id={styles.requestToFollow}
-                            onClick={sendRequest} onMouseOver={_ => setIsMouseOverFollowButton(true)}
+                            onClick={cancelRequest}
+                            onMouseOver={_ => setIsMouseOverFollowButton(true)}
                             onMouseLeave={_ => setIsMouseOverFollowButton(false)}>
                             {isMouseOverFollowButton ? "Cancel request" : "Request Sent"}
                         </button>
