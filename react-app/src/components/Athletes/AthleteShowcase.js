@@ -6,7 +6,7 @@ import defaultProfile from "../../assets/defaultProfile.png";
 import styles from "../../stylesheets/AthleteShowcase.module.css";
 import ClubImages from "../HomePage/ClubImages";
 import ActivityCard from "../HomePage/ActivityCard";
-import { authenticate } from "../../store/session";
+import { authenticate, updateUser } from "../../store/session";
 
 function AthleteShowcase() {
     const { athleteId } = useParams();
@@ -14,7 +14,6 @@ function AthleteShowcase() {
     const [athlete, setAthlete] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const activities = athlete?.activities || [];
-    const history = useHistory();
 
     const profilePictureInput = useRef(null);
     const dispatch = useDispatch();
@@ -55,7 +54,24 @@ function AthleteShowcase() {
         }
     }
 
+    async function sendRequest(event) {
+        event.stopPropagation();
+        event.preventDefault();
 
+        const response = await fetch(`/api/users/${athlete.id}/request-follow`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            dispatch(updateUser(data.user));
+        }
+
+        console.log(response);
+    }
     return (
         <div className={styles.outerContainer}>
             <MainNavBar setIsloaded={setIsLoaded} />
@@ -84,8 +100,8 @@ function AthleteShowcase() {
                 </div>
                 <p id={styles.name}>{athlete.firstName} {athlete.lastName}</p>
 
-                {athleteId !== user.id &&
-                    <button id={styles.requestToFollow}>Request to follow</button>
+                {athlete.id !== user.id &&
+                    <button id={styles.requestToFollow} onClick={sendRequest}>Request to follow</button>
                 }
 
                 <div className={styles.mainInfoContainer}>
