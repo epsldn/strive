@@ -15,12 +15,57 @@ function AthleteShowcase() {
     const [isLoaded, setIsLoaded] = useState(false);
     const [isMouseOverFollowButton, setIsMouseOverFollowButton] = useState(false);
     const [currentTab, setCurrentTab] = useState("recentActivity");
+    const [followingTab, setFollowingTab] = useState("followingMe");
     const activities = athlete?.activities || [];
 
     const profilePictureInput = useRef(null);
     const dispatch = useDispatch();
     document.title = `${athlete ? `${athlete?.firstName} ${athlete?.lastName}` : "Athlete"} | Strive`;
 
+    let content;
+
+    switch (currentTab) {
+        case "recentActivity": {
+            content = <ul className={styles.clubActivities}>
+                {activities.length > 0 ?
+                    activities.map(activity => {
+                        return (
+                            <li key={activity.id} className={styles.activityCard}><ActivityCard activity={activity} /></li>
+                        );
+                    }) : ["No Activities"].map(activity => {
+                        return (
+                            <li key={activity.id} className={styles.activityCard}><ActivityCard activity={activity} /></li>
+                        );
+                    })
+                }
+            </ul>;
+
+            break;
+        }
+
+        case "following": {
+            let tabName;
+            switch (followingTab) {
+                case "followingMe": {
+                    tabName = "Following me";
+                    break;
+                }
+
+                case "imFollowing": {
+                    tabName = "I'm Following";
+                    break;
+                }
+
+            }
+
+            content =
+                <button id={styles.tabName}>
+                    <p>{tabName} <i style={{ color: "#666", marginLeft: "7px" }} className="fa-solid fa-caret-down" /></p>
+                </button>;
+
+            break;
+        }
+    }
 
     useEffect(() => {
         fetch(`/api/users/${athleteId}`)
@@ -142,19 +187,9 @@ function AthleteShowcase() {
                             <li className={styles.tab} id={currentTab === "recentActivity" ? styles.activeTab : ""} onClick={_ => setCurrentTab("recentActivity")}>Recent Activity</li>
                             <li className={styles.tab} id={currentTab === "following" ? styles.activeTab : ""} onClick={_ => setCurrentTab("following")}>Following</li>
                         </ul>
-                        <ul className={styles.clubActivities}>
-                            {activities.length > 0 ?
-                                activities.map(activity => {
-                                    return (
-                                        <li key={activity.id} className={styles.activityCard}><ActivityCard activity={activity} /></li>
-                                    );
-                                }) : ["No Activities"].map(activity => {
-                                    return (
-                                        <li key={activity.id} className={styles.activityCard}><ActivityCard activity={activity} /></li>
-                                    );
-                                })
-                            }
-                        </ul>
+
+                        {content}
+
                     </div>
                     <div className={styles.mainInfoContainerRight}>
                         <div id={styles.clubSection}>

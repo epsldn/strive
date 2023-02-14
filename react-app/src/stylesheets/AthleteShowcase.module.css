@@ -142,6 +142,21 @@
     background-color: white;
 }
 
+#tabName {
+    width: fit-content;
+    min-height: none;
+    font-weight: normal;
+    height: fit-content;
+    position: relative;
+    padding: 7px 10px;
+    border: 1px solid var(--strive-border-lightgray);
+    margin-top: 16px;
+}
+/* 
+.fa-caret-down {
+    color: var(--strive-border-lightgray)
+} */
+
 #clubSection {
     display: flex;
     flex-direction: column;
