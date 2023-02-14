@@ -86,6 +86,7 @@
 }
 
 #tabs {
+    display: flex;
     border-bottom: 1px solid var(--strive-border-lightgray);
 }
 
@@ -95,10 +96,28 @@
     width: fit-content;
 }
 
+.tab:hover {
+    position: relative;
+    background-color: var(--strive-body-fill);
+    cursor: pointer;
+}
+
+.tab:hover::before {
+    content: "";
+    height: 2px;
+    width: calc(100% + 2px);
+    position: absolute;
+    z-index: 3;
+    bottom: 100%;
+    left: -1px;
+    background-color: var(--strive-body-fill);
+}
+
 #activeTab {
     position: relative;
     border-left: 1px solid var(--strive-border-lightgray);
     border-right: 1px solid var(--strive-border-lightgray);
+    background-color: white;
 }
 
 #activeTab::before {

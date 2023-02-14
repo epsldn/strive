@@ -14,6 +14,7 @@ function AthleteShowcase() {
     const [athlete, setAthlete] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [isMouseOverFollowButton, setIsMouseOverFollowButton] = useState(false);
+    const [currentTab, setCurrentTab] = useState("recentActivity");
     const activities = athlete?.activities || [];
 
     const profilePictureInput = useRef(null);
@@ -138,7 +139,8 @@ function AthleteShowcase() {
                 <div className={styles.mainInfoContainer}>
                     <div className={styles.mainInfoContainerLeft}>
                         <ul id={styles.tabs}>
-                            <li id={styles.activeTab}>Recent Activity</li>
+                            <li className={styles.tab} id={currentTab === "recentActivity" ? styles.activeTab : ""} onClick={_ => setCurrentTab("recentActivity")}>Recent Activity</li>
+                            <li className={styles.tab} id={currentTab === "following" ? styles.activeTab : ""} onClick={_ => setCurrentTab("following")}>Following</li>
                         </ul>
                         <ul className={styles.clubActivities}>
                             {activities.length > 0 ?
