@@ -13,6 +13,7 @@ function AthleteShowcase() {
     const user = useSelector(state => state.session.user);
     const [athlete, setAthlete] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
+    const [isMouseOverFollowButton, setIsMouseOverFollowButton] = useState(false);
     const activities = athlete?.activities || [];
 
     const profilePictureInput = useRef(null);
@@ -69,9 +70,9 @@ function AthleteShowcase() {
             const data = await response.json();
             dispatch(updateUser(data.user));
         }
-
-        console.log(response);
     }
+
+
     return (
         <div className={styles.outerContainer}>
             <MainNavBar setIsloaded={setIsLoaded} />
@@ -101,7 +102,17 @@ function AthleteShowcase() {
                 <p id={styles.name}>{athlete.firstName} {athlete.lastName}</p>
 
                 {athlete.id !== user.id &&
-                    <button id={styles.requestToFollow} onClick={sendRequest}>Request to follow</button>
+                    (athlete.id in user.requests_sent ?
+                        <button id={styles.requestToFollow}
+                            onClick={sendRequest} onMouseOver={_ => setIsMouseOverFollowButton(true)}
+                            onMouseLeave={_ => setIsMouseOverFollowButton(false)}>
+                            {isMouseOverFollowButton ? "Cancel request" : "Request Sent"}
+                        </button>
+                        :
+                        <button id={styles.requestToFollow}
+                            onClick={sendRequest}>
+                            Request to follow
+                        </button>)
                 }
 
                 <div className={styles.mainInfoContainer}>
