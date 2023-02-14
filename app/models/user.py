@@ -69,6 +69,14 @@ class User(db.Model, UserMixin):
         backref="followers"
     )
 
+    followed_by = db.relationship(
+        "User",
+        secondary=followers,
+        secondaryjoin=(followers.c.follower_id == id),
+        primaryjoin=(followers.c.followed_id == id),
+        overlaps="followers"
+    )
+
     @property
     def password(self):
         return self.hashed_password

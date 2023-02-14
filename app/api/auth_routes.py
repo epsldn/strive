@@ -24,7 +24,7 @@ def authenticate():
     Authenticates a user.
     """
     if current_user.is_authenticated:
-        return current_user.to_dict()
+        return {**current_user.to_dict(),  "followers": {follower.id: follower.activity_info() for follower in current_user.followed_by}, "follows": {followed.id: followed.activity_info() for followed in current_user.followed}}
     return {'errors': ['Unauthorized']}
 
 
@@ -41,14 +41,14 @@ def login():
         # Add the user to the session, we are logged in!
         user = User.query.filter(User.email.ilike(form.data['email'])).first()
         login_user(user)
-        return user.to_dict()
+        return {**user.to_dict(), "followers": {follower.id: follower.activity_info() for follower in user.followed_by}, "follows": {followed.id: followed.activity_info() for followed in user.followed}}
 
     if "email" in form.errors and form.errors["email"] == ["Invalid Credentials"] or "password" in form.errors and form.errors["password"] == ["Invalid Credentials"]:
         return {"errors": {"serverError": "Invalid Credentials"}}, 401
     return {'errors': {k: v[0] for k, v in form.errors.items()}}, 401
 
 
-@auth_routes.route('/logout')
+@ auth_routes.route('/logout')
 def logout():
     """
     Logs a user out
@@ -57,7 +57,7 @@ def logout():
     return {'message': 'User logged out'}
 
 
-@auth_routes.route('/signup', methods=['POST'])
+@ auth_routes.route('/signup', methods=['POST'])
 def sign_up():
     """
     Creates a new user and logs them in
@@ -75,11 +75,11 @@ def sign_up():
         db.session.add(user)
         db.session.commit()
         login_user(user)
-        return user.to_dict()
+        return {**user.to_dict(), "followers": {follower.id: follower.activity_info() for follower in user.followed_by}, "follows": {followed.id: followed.activity_info() for followed in user.followed}}
     return {'errors': {k: v[0] for k, v in form.errors.items()}}, 400
 
 
-@auth_routes.route('/unauthorized')
+@ auth_routes.route('/unauthorized')
 def unauthorized():
     """
     Returns unauthorized JSON when flask-login authentication fails
@@ -87,7 +87,7 @@ def unauthorized():
     return {'errors': ['Unauthorized']}, 401
 
 
-@auth_routes.route("/check-email/<email>")
+@ auth_routes.route("/check-email/<email>")
 def check_email(email):
     user = User.query.filter(User.email.ilike(email)).first()
     if (user):
