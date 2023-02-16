@@ -28,6 +28,7 @@ function AthleteShowcase() {
         event.stopPropagation();
         setFollowingTab(tabName);
         setShowFollowingTabs(false);
+        followingTabContainer.current.blur();
     }
 
     let content;

@@ -154,7 +154,7 @@
 }
 
 #tabName:hover,
-#tabName:focus-within,
+#tabName:focus,
 #followingTabsContainer>*:hover {
     background-color: var(--strive-body-fill);
 }
