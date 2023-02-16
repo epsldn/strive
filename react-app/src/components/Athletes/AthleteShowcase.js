@@ -16,6 +16,8 @@ function AthleteShowcase() {
     const [isMouseOverFollowButton, setIsMouseOverFollowButton] = useState(false);
     const [currentTab, setCurrentTab] = useState("recentActivity");
     const [followingTab, setFollowingTab] = useState("followingMe");
+    const [showFollowingTabs, setShowFollowingTabs] = useState(false);
+    const followingTabContainer = useRef(null);
     const activities = athlete?.activities || [];
 
     const profilePictureInput = useRef(null);
@@ -26,19 +28,20 @@ function AthleteShowcase() {
 
     switch (currentTab) {
         case "recentActivity": {
-            content = <ul className={styles.clubActivities}>
-                {activities.length > 0 ?
-                    activities.map(activity => {
-                        return (
-                            <li key={activity.id} className={styles.activityCard}><ActivityCard activity={activity} /></li>
-                        );
-                    }) : ["No Activities"].map(activity => {
-                        return (
-                            <li key={activity.id} className={styles.activityCard}><ActivityCard activity={activity} /></li>
-                        );
-                    })
-                }
-            </ul>;
+            content =
+                <ul className={styles.clubActivities}>
+                    {activities.length > 0 ?
+                        activities.map(activity => {
+                            return (
+                                <li key={activity.id} className={styles.activityCard}><ActivityCard activity={activity} /></li>
+                            );
+                        }) : ["No Activities"].map(activity => {
+                            return (
+                                <li key={activity.id} className={styles.activityCard}><ActivityCard activity={activity} /></li>
+                            );
+                        })
+                    }
+                </ul>;
 
             break;
         }
@@ -47,21 +50,27 @@ function AthleteShowcase() {
             let tabName;
             switch (followingTab) {
                 case "followingMe": {
-                    tabName = "Following me";
+                    tabName = athlete.id === user.id ? "Following Me" : `Follow ${athlete.firstName}`;
                     break;
                 }
 
                 case "imFollowing": {
-                    tabName = "I'm Following";
+                    tabName = athlete.id === user.id ? "I'm Following" : `${athlete.firstName} Is Following`;
                     break;
                 }
 
             }
 
             content =
-                <button id={styles.tabName}>
+                <button id={styles.tabName} onClick={_ => setShowFollowingTabs(true)} ref={followingTabContainer}>
                     <p>{tabName} <i style={{ color: "#666", marginLeft: "7px" }} className="fa-solid fa-caret-down" /></p>
-                </button>;
+                    {showFollowingTabs &&
+                        <ul id={styles.followingTabsContainer}>
+                            <li>{athlete.id === user.id ? "Following Me" : `Follow ${athlete.firstName}`}</li>
+                            <li>{athlete.id === user.id ? "I'm Following" : `${athlete.firstName} Is Following`}</li>
+                        </ul>
+                    }
+                </button >;
 
             break;
         }
@@ -72,6 +81,21 @@ function AthleteShowcase() {
             .then(response => response.json())
             .then(athlete => setAthlete(athlete));
     }, [athleteId]);
+
+    useEffect(() => {
+        if (!showFollowingTabs) return;
+
+
+        function onClick(e) {
+            if (followingTabContainer.current && followingTabContainer.current.contains(e.target) === false) {
+                setShowFollowingTabs(false);
+            }
+        }
+
+        document.addEventListener("click", onClick);
+        return () => document.removeEventListener("click", onClick);
+    }, [showFollowingTabs]);
+
 
     if (isLoaded && !athlete) {
         return <Redirect to="/" />;
