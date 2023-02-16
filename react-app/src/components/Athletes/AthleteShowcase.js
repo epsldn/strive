@@ -55,29 +55,45 @@ function AthleteShowcase() {
 
         case "following": {
             let tabName;
+            let followList;
             switch (followingTab) {
                 case "followedBy": {
                     tabName = athlete.id === user.id ? "Following Me" : `Follow ${athlete.firstName}`;
+                    followList = athlete.followers;
                     break;
                 }
 
                 case "following": {
                     tabName = athlete.id === user.id ? "I'm Following" : `${athlete.firstName} Is Following`;
+                    followList = athlete.follows;
                     break;
                 }
 
             }
 
             content =
-                <button id={styles.tabName} onClick={_ => setShowFollowingTabs(true)} ref={followingTabContainer}>
-                    <p>{tabName} <i style={{ color: "#666", marginLeft: "7px" }} className="fa-solid fa-caret-down" /></p>
-                    {showFollowingTabs &&
-                        <ul id={styles.followingTabsContainer}>
-                            <li onClick={event => changeFollowingTab(event, "followedBy")}>{athlete.id === user.id ? "Following Me" : `Follow ${athlete.firstName}`}</li>
-                            <li onClick={event => changeFollowingTab(event, "following")}>{athlete.id === user.id ? "I'm Following" : `${athlete.firstName} Is Following`}</li>
-                        </ul>
-                    }
-                </button >;
+                <div>
+                    <button id={styles.tabName} onClick={_ => setShowFollowingTabs(true)} ref={followingTabContainer}>
+                        <p>{tabName} <i style={{ color: "#666", marginLeft: "7px" }} className="fa-solid fa-caret-down" /></p>
+                        {showFollowingTabs &&
+                            <ul id={styles.followingTabsContainer}>
+                                <li onClick={event => changeFollowingTab(event, "followedBy")}>{athlete.id === user.id ? "Following Me" : `Follow ${athlete.firstName}`}</li>
+                                <li onClick={event => changeFollowingTab(event, "following")}>{athlete.id === user.id ? "I'm Following" : `${athlete.firstName} Is Following`}</li>
+                            </ul>
+                        }
+                    </button >
+
+                    <ul id={styles.followList}>
+                        {console.log(Object.values(followList))}
+                        {Object.values(followList).map((athlete, idx) => {
+                            return (
+                                <li>
+                                    {athlete.firstName}
+                                </li>
+                            );
+                        })}
+                    </ul>
+                </div>;
 
             break;
         }
