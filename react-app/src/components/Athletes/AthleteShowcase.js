@@ -15,7 +15,7 @@ function AthleteShowcase() {
     const [isLoaded, setIsLoaded] = useState(false);
     const [isMouseOverFollowButton, setIsMouseOverFollowButton] = useState(false);
     const [currentTab, setCurrentTab] = useState("recentActivity");
-    const [followingTab, setFollowingTab] = useState("followingMe");
+    const [followingTab, setFollowingTab] = useState("followedBy");
     const [showFollowingTabs, setShowFollowingTabs] = useState(false);
     const followingTabContainer = useRef(null);
     const activities = athlete?.activities || [];
@@ -23,6 +23,12 @@ function AthleteShowcase() {
     const profilePictureInput = useRef(null);
     const dispatch = useDispatch();
     document.title = `${athlete ? `${athlete?.firstName} ${athlete?.lastName}` : "Athlete"} | Strive`;
+
+    function changeFollowingTab(event, tabName) {
+        event.stopPropagation();
+        setFollowingTab(tabName);
+        setShowFollowingTabs(false);
+    }
 
     let content;
 
@@ -49,12 +55,12 @@ function AthleteShowcase() {
         case "following": {
             let tabName;
             switch (followingTab) {
-                case "followingMe": {
+                case "followedBy": {
                     tabName = athlete.id === user.id ? "Following Me" : `Follow ${athlete.firstName}`;
                     break;
                 }
 
-                case "imFollowing": {
+                case "following": {
                     tabName = athlete.id === user.id ? "I'm Following" : `${athlete.firstName} Is Following`;
                     break;
                 }
@@ -66,8 +72,8 @@ function AthleteShowcase() {
                     <p>{tabName} <i style={{ color: "#666", marginLeft: "7px" }} className="fa-solid fa-caret-down" /></p>
                     {showFollowingTabs &&
                         <ul id={styles.followingTabsContainer}>
-                            <li>{athlete.id === user.id ? "Following Me" : `Follow ${athlete.firstName}`}</li>
-                            <li>{athlete.id === user.id ? "I'm Following" : `${athlete.firstName} Is Following`}</li>
+                            <li onClick={event => changeFollowingTab(event, "followedBy")}>{athlete.id === user.id ? "Following Me" : `Follow ${athlete.firstName}`}</li>
+                            <li onClick={event => changeFollowingTab(event, "following")}>{athlete.id === user.id ? "I'm Following" : `${athlete.firstName} Is Following`}</li>
                         </ul>
                     }
                 </button >;
