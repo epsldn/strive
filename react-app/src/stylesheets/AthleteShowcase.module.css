@@ -86,6 +86,7 @@
 }
 
 #tabs {
+    display: flex;
     border-bottom: 1px solid var(--strive-border-lightgray);
 }
 
@@ -95,10 +96,28 @@
     width: fit-content;
 }
 
+.tab:hover {
+    position: relative;
+    background-color: var(--strive-body-fill);
+    cursor: pointer;
+}
+
+.tab:hover::before {
+    content: "";
+    height: 2px;
+    width: calc(100% + 2px);
+    position: absolute;
+    z-index: 3;
+    bottom: 100%;
+    left: -1px;
+    background-color: var(--strive-body-fill);
+}
+
 #activeTab {
     position: relative;
     border-left: 1px solid var(--strive-border-lightgray);
     border-right: 1px solid var(--strive-border-lightgray);
+    background-color: white;
 }
 
 #activeTab::before {
@@ -122,6 +141,48 @@
     left: 0;
     background-color: white;
 }
+
+#tabName {
+    width: fit-content;
+    min-height: none;
+    font-weight: normal;
+    height: fit-content;
+    position: relative;
+    padding: 7px 10px;
+    border: 1px solid var(--strive-border-lightgray);
+    margin-top: 16px;
+}
+
+#tabName:hover,
+#tabName:focus,
+#followingTabsContainer>*:hover {
+    background-color: var(--strive-body-fill);
+}
+
+#followingTabsContainer {
+    position: absolute;
+    border: 1px solid var(--strive-border-lightgray);
+    top: calc(100% - 1px);
+    left: -1px;
+    right: 0;
+    width: calc(100% + 2px);
+    background-color: white;
+    z-index: 2;
+    border-bottom: none;
+}
+
+#followingTabsContainer>* {
+    padding: 7px 10px;
+    border-bottom: 1px solid var(--strive-border-lightgray)
+}
+
+#followList{
+    
+}
+/*
+.fa-caret-down {
+    color: var(--strive-border-lightgray)
+} */
 
 #clubSection {
     display: flex;

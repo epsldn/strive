@@ -16,22 +16,38 @@ user_routes = Blueprint('users', __name__)
 #     return {'users': [user.to_dict() for user in users]}
 
 
-@user_routes.route('/<int:ahtleteId>/follow-request')
+@user_routes.route('/<int:ahtleteId>/request-follow', methods=["POST"])
 @login_required
-def follow_user(athleteId):
-    user = User.query.one_or_none(current_user.id)
-    follow_requested = User.query.one_or_none(athleteId)
+def send_follow_request(ahtleteId):
+    print(current_user.id)
+    user = User.query.get(current_user.id)
+    follow_requested = User.query.get(ahtleteId)
 
     if follow_requested:
-        follow_requested.requests.append(user)
+        user.requests_sent.append(follow_requested)
         db.session.commit()
-        return jsonify({"success": "Request to follow successfully sent"}), 201
+        return jsonify({"user": {**current_user.to_dict(),  "followers": {follower.id: follower.activity_info() for follower in current_user.followed_by}, "follows": {followed.id: followed.activity_info() for followed in current_user.followed}}, "success": "Request to follow successfully sent"}), 201
     else:
         return jsonify({"error": "Requested user not found"}), 404
 
 
-@user_routes.route('/<int:athleteId>')
+@user_routes.route('/<int:ahtleteId>/request-follow', methods=["DELETE"])
 @login_required
+def cancel_follow_request(ahtleteId):
+    print(current_user.id)
+    user = User.query.get(current_user.id)
+    follow_requested = User.query.get(ahtleteId)
+
+    if follow_requested:
+        user.requests_sent.remove(follow_requested)
+        db.session.commit()
+        return jsonify({"user": {**current_user.to_dict(),  "followers": {follower.id: follower.activity_info() for follower in current_user.followed_by}, "follows": {followed.id: followed.activity_info() for followed in current_user.followed}}, "success": "Request to follow successfully sent"}), 201
+    else:
+        return jsonify({"error": "Requested user not found"}), 404
+
+
+@ user_routes.route('/<int:athleteId>')
+@ login_required
 def find_user(athleteId):
     athlete = User.query.get(athleteId)
     if athlete is None:
@@ -40,4 +56,4 @@ def find_user(athleteId):
     activities = Activity.query.filter(Activity.user_id == athlete.id).filter(
         Activity.date <= datetime.now()).order_by(Activity.date.desc(), Activity.time.desc()).all()
 
-    return jsonify({**athlete.to_dict(), "activities": [activity.to_dict() for activity in activities]}), 200
+    return jsonify({**athlete.to_dict(), "activities": [activity.to_dict() for activity in activities], "followers": {follower.id: follower.activity_info() for follower in athlete.followed_by}, "follows": {followed.id: followed.activity_info() for followed in athlete.followed}}), 200

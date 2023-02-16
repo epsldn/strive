@@ -6,26 +6,119 @@ import defaultProfile from "../../assets/defaultProfile.png";
 import styles from "../../stylesheets/AthleteShowcase.module.css";
 import ClubImages from "../HomePage/ClubImages";
 import ActivityCard from "../HomePage/ActivityCard";
-import { authenticate } from "../../store/session";
+import { authenticate, updateUser } from "../../store/session";
 
 function AthleteShowcase() {
     const { athleteId } = useParams();
     const user = useSelector(state => state.session.user);
     const [athlete, setAthlete] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
+    const [isMouseOverFollowButton, setIsMouseOverFollowButton] = useState(false);
+    const [currentTab, setCurrentTab] = useState("recentActivity");
+    const [followingTab, setFollowingTab] = useState("followedBy");
+    const [showFollowingTabs, setShowFollowingTabs] = useState(false);
+    const followingTabContainer = useRef(null);
     const activities = athlete?.activities || [];
-    const history = useHistory();
 
     const profilePictureInput = useRef(null);
     const dispatch = useDispatch();
     document.title = `${athlete ? `${athlete?.firstName} ${athlete?.lastName}` : "Athlete"} | Strive`;
 
+    function changeFollowingTab(event, tabName) {
+        event.stopPropagation();
+        setFollowingTab(tabName);
+        setShowFollowingTabs(false);
+        followingTabContainer.current.blur();
+    }
+
+    let content;
+
+    switch (currentTab) {
+        case "recentActivity": {
+            content =
+                <ul className={styles.clubActivities}>
+                    {activities.length > 0 ?
+                        activities.map(activity => {
+                            return (
+                                <li key={activity.id} className={styles.activityCard}><ActivityCard activity={activity} /></li>
+                            );
+                        }) : ["No Activities"].map(activity => {
+                            return (
+                                <li key={activity.id} className={styles.activityCard}><ActivityCard activity={activity} /></li>
+                            );
+                        })
+                    }
+                </ul>;
+
+            break;
+        }
+
+        case "following": {
+            let tabName;
+            let followList;
+            switch (followingTab) {
+                case "followedBy": {
+                    tabName = athlete.id === user.id ? "Following Me" : `Follow ${athlete.firstName}`;
+                    followList = athlete.followers;
+                    break;
+                }
+
+                case "following": {
+                    tabName = athlete.id === user.id ? "I'm Following" : `${athlete.firstName} Is Following`;
+                    followList = athlete.follows;
+                    break;
+                }
+
+            }
+
+            content =
+                <div>
+                    <button id={styles.tabName} onClick={_ => setShowFollowingTabs(true)} ref={followingTabContainer}>
+                        <p>{tabName} <i style={{ color: "#666", marginLeft: "7px" }} className="fa-solid fa-caret-down" /></p>
+                        {showFollowingTabs &&
+                            <ul id={styles.followingTabsContainer}>
+                                <li onClick={event => changeFollowingTab(event, "followedBy")}>{athlete.id === user.id ? "Following Me" : `Follow ${athlete.firstName}`}</li>
+                                <li onClick={event => changeFollowingTab(event, "following")}>{athlete.id === user.id ? "I'm Following" : `${athlete.firstName} Is Following`}</li>
+                            </ul>
+                        }
+                    </button >
+
+                    <ul id={styles.followList}>
+                        {console.log(Object.values(followList))}
+                        {Object.values(followList).map((athlete, idx) => {
+                            return (
+                                <li>
+                                    {athlete.firstName}
+                                </li>
+                            );
+                        })}
+                    </ul>
+                </div>;
+
+            break;
+        }
+    }
 
     useEffect(() => {
         fetch(`/api/users/${athleteId}`)
             .then(response => response.json())
             .then(athlete => setAthlete(athlete));
     }, [athleteId]);
+
+    useEffect(() => {
+        if (!showFollowingTabs) return;
+
+
+        function onClick(e) {
+            if (followingTabContainer.current && followingTabContainer.current.contains(e.target) === false) {
+                setShowFollowingTabs(false);
+            }
+        }
+
+        document.addEventListener("click", onClick);
+        return () => document.removeEventListener("click", onClick);
+    }, [showFollowingTabs]);
+
 
     if (isLoaded && !athlete) {
         return <Redirect to="/" />;
@@ -53,6 +146,42 @@ function AthleteShowcase() {
             const errors = await res.json();
             console.log(errors);
         }
+    }
+
+    async function sendRequest(event) {
+        event.stopPropagation();
+        event.preventDefault();
+
+        const response = await fetch(`/api/users/${athlete.id}/request-follow`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            dispatch(updateUser(data.user));
+        }
+    }
+
+    async function cancelRequest(event) {
+        event.stopPropagation();
+        event.preventDefault();
+
+
+        const response = await fetch(`/api/users/${athlete.id}/request-follow`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            dispatch(updateUser(data.user));
+        }
+
     }
 
 
@@ -84,28 +213,30 @@ function AthleteShowcase() {
                 </div>
                 <p id={styles.name}>{athlete.firstName} {athlete.lastName}</p>
 
-                {athleteId !== user.id &&
-                    <button id={styles.requestToFollow}>Request to follow</button>
+                {athlete.id !== user.id &&
+                    (athlete.id in user.requests_sent ?
+                        <button id={styles.requestToFollow}
+                            onClick={cancelRequest}
+                            onMouseOver={_ => setIsMouseOverFollowButton(true)}
+                            onMouseLeave={_ => setIsMouseOverFollowButton(false)}>
+                            {isMouseOverFollowButton ? "Cancel request" : "Request Sent"}
+                        </button>
+                        :
+                        <button id={styles.requestToFollow}
+                            onClick={sendRequest}>
+                            Request to follow
+                        </button>)
                 }
 
                 <div className={styles.mainInfoContainer}>
                     <div className={styles.mainInfoContainerLeft}>
                         <ul id={styles.tabs}>
-                            <li id={styles.activeTab}>Recent Activity</li>
+                            <li className={styles.tab} id={currentTab === "recentActivity" ? styles.activeTab : ""} onClick={_ => setCurrentTab("recentActivity")}>Recent Activity</li>
+                            <li className={styles.tab} id={currentTab === "following" ? styles.activeTab : ""} onClick={_ => setCurrentTab("following")}>Following</li>
                         </ul>
-                        <ul className={styles.clubActivities}>
-                            {activities.length > 0 ?
-                                activities.map(activity => {
-                                    return (
-                                        <li key={activity.id} className={styles.activityCard}><ActivityCard activity={activity} /></li>
-                                    );
-                                }) : ["No Activities"].map(activity => {
-                                    return (
-                                        <li key={activity.id} className={styles.activityCard}><ActivityCard activity={activity} /></li>
-                                    );
-                                })
-                            }
-                        </ul>
+
+                        {content}
+
                     </div>
                     <div className={styles.mainInfoContainerRight}>
                         <div id={styles.clubSection}>

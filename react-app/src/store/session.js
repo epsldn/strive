@@ -1,6 +1,9 @@
 // constants
 const SET_USER = 'session/SET_USER';
 const REMOVE_USER = 'session/REMOVE_USER';
+const SEND_REQUEST = 'session/SEND_REQUEST';
+
+
 
 const setUser = (user) => ({
   type: SET_USER,
@@ -9,6 +12,11 @@ const setUser = (user) => ({
 
 const removeUser = () => ({
   type: REMOVE_USER,
+});
+
+const sendRequest = (athleteId) => ({
+  type: SEND_REQUEST,
+  payload: athleteId
 });
 
 const initialState = { user: null };
@@ -27,6 +35,10 @@ export const authenticate = () => async (dispatch) => {
 
     dispatch(setUser(data));
   }
+};
+
+export const updateUser = (user) => async (dispatch) => {
+  dispatch(setUser(user));
 };
 
 export const login = (email, password) => async (dispatch) => {
