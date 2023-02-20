@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, Redirect, useHistory, useParams } from "react-router-dom";
+import { Link, Redirect, useHistory, useLocation, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import MainNavBar from "../MainNavBar";
 import defaultProfile from "../../assets/defaultProfile.png";
@@ -11,12 +11,13 @@ import FollowingListItem from "./FollowingListItem";
 
 function AthleteShowcase() {
     const { athleteId } = useParams();
+    const location = useLocation();
     const user = useSelector(state => state.session.user);
     const [athlete, setAthlete] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [isMouseOverFollowButton, setIsMouseOverFollowButton] = useState(false);
-    const [currentTab, setCurrentTab] = useState("recentActivity");
-    const [followingTab, setFollowingTab] = useState("followedBy");
+    const [currentTab, setCurrentTab] = useState(location.state?.currentTab || "recentActivity");
+    const [followingTab, setFollowingTab] = useState(location.state?.followingTab || "followedBy");
     const [showFollowingTabs, setShowFollowingTabs] = useState(false);
     const followingTabContainer = useRef(null);
     const activities = athlete?.activities || [];
@@ -57,6 +58,8 @@ function AthleteShowcase() {
         case "following": {
             let tabName;
             let followList;
+
+            if (!athlete) break;
             switch (followingTab) {
                 case "followedBy": {
                     tabName = athlete.id === user.id ? "Following Me" : `Following ${athlete.firstName}`;
