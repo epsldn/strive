@@ -88,7 +88,7 @@ function AthleteShowcase() {
                         {console.log(Object.values(followList))}
                         {Object.values(followList).map((athlete, idx) => {
                             return (
-                                <FollowingListItem user={user} athlete={athlete} unfollowUser={unfollowUser} cancelRequest={cancelRequest} sendRequest={sendRequest} styles={styles} />
+                                <FollowingListItem user={user} athlete={athlete} unfollowUser={unfollowUser} cancelRequest={cancelRequest} sendRequest={sendRequest} styles={styles} acceptRequest={acceptRequest} />
                             );
                         })}
                     </ul>
@@ -199,6 +199,24 @@ function AthleteShowcase() {
         }
 
     }
+
+    async function acceptRequest(event, id = athlete.id) {
+        event.stopPropagation();
+        event.preventDefault();
+
+        const response = await fetch(`/api/users/${id}/accept-follow`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: {}
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            dispatch(updateUser(data.user));
+        }
+    };
 
 
     return (

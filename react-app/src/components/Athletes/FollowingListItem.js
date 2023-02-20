@@ -1,10 +1,13 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { updateUser } from "../../store/session";
 import styles from "../../stylesheets/AthleteShowcase.module.css";
 
-function FollowingListItem({ user, athlete, unfollowUser, cancelRequest, sendRequest }) {
+function FollowingListItem({ user, athlete, unfollowUser, cancelRequest, sendRequest, acceptRequest }) {
     const [isMouseOverFollowButton, setIsMouseOverFollowButton] = useState(false);
-    { console.log(athlete); }
+
+    const dispatch = useDispatch();
     return (
         <li className={styles.followListChild}>
             <div className={styles.followListChildLeft}>
@@ -18,7 +21,9 @@ function FollowingListItem({ user, athlete, unfollowUser, cancelRequest, sendReq
 
             <div className={styles.followListChildRight}>
                 {athlete.id !== user.id && athlete.id in user.requests &&
-                    <button id={styles.acceptRequest}>Accept</button>
+                    <button id={styles.acceptRequest} onClick={event => {
+                        acceptRequest(event, athlete.id);
+                    }}>Accept</button>
                 }
                 {athlete.id !== user.id ?
                     athlete.id in user.follows ?

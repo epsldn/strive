@@ -37,8 +37,8 @@ def accept_follow_request(ahtleteId):
     requestor = User.query.get(ahtleteId)
 
     if requestor:
-        user.requests_sent.remove(requestor)
-        user.followed_by.add(requestor)
+        user.followed_by.append(requestor)
+        user.requests.remove(requestor)
         db.session.commit()
         return jsonify({"user": {**current_user.to_dict(),  "followers": {follower.id: follower.activity_info() for follower in current_user.followed_by}, "follows": {followed.id: followed.activity_info() for followed in current_user.followed}}, "success": "Request to follow successfully sent"}), 201
     else:
