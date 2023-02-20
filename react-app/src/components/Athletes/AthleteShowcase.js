@@ -195,6 +195,20 @@ function AthleteShowcase() {
 
     }
 
+    async function unfollowUser(event) {
+        event.stopPropagation();
+        event.preventDefault();
+
+        const response = await fetch("");
+        
+
+        if (response.ok) {
+            const data = await response.json();
+            dispatch(updateUser(data.user));
+        }
+
+    }
+
 
     return (
         <div className={styles.outerContainer}>
