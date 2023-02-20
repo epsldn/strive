@@ -60,7 +60,7 @@ function AthleteShowcase() {
             switch (followingTab) {
                 case "followedBy": {
                     tabName = athlete.id === user.id ? "Following Me" : `Following ${athlete.firstName}`;
-                    followList = Object.values(user.requests).concat(Object.values(user.followers));
+                    followList = athleteId == user.id ? Object.values(athlete.requests).concat(Object.values(athlete.followers)) : Object.values(athlete.followers);
                     break;
                 }
 
