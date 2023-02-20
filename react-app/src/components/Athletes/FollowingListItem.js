@@ -17,6 +17,9 @@ function FollowingListItem({ user, athlete, unfollowUser, cancelRequest, sendReq
             </div>
 
             <div className={styles.followListChildRight}>
+                {athlete.id !== user.id && athlete.id in user.requests &&
+                    <button id={styles.acceptRequest}>Accept</button>
+                }
                 {athlete.id !== user.id ?
                     athlete.id in user.follows ?
                         <button id={styles.requestToFollow}

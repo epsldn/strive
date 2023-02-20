@@ -217,7 +217,8 @@
 }
 
 
-.followListChildRight #requestToFollow {
+.followListChildRight #requestToFollow,
+.followListChildRight #acceptRequest {
     margin-bottom: 0;
 }
 
@@ -267,7 +268,8 @@
     background-color: white;
 }
 
-#requestToFollow {
+#requestToFollow,
+#acceptRequest {
     background-color: var(--strive-international-orange);
     color: white;
     font-weight: 700;
@@ -281,6 +283,15 @@
     margin-bottom: 2rem
 }
 
+#acceptRequest {
+    color: black;
+    background-color: white;
+    border: 1px solid var(--strive-border-lightgray);
+}
+
+#acceptRequest:hover {
+    background-color: var(--strive-body-fill);
+}
 
 #requestToFollow:hover {
     background-color: #e34a00;
