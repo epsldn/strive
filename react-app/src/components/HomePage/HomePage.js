@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import TimeAgo from "javascript-time-ago";
 import ReactTimeAgo from "react-time-ago";
-import { useState } from "react";
+import { useContext, useRef, useState } from "react";
 import en from "javascript-time-ago/locale/en.json";
 import ActivityCard from "./ActivityCard";
 import ClubImages from "./ClubImages";
@@ -17,6 +17,8 @@ function HomePage() {
     const history = useHistory();
     const [isLoaded, setIsLoaded] = useState(false);
     const [activityTab, setActivityTab] = useState("Club Activity");
+    const [showActivityTab, setShowActivityTab] = useState(false);
+    const activityTabContainer = useRef(null);
     document.title = `Home | Strive`;
     return (
         <div className={styles.outerContainer}>
@@ -69,8 +71,22 @@ function HomePage() {
                 <div className={styles.mainMiddle}>
                     {isLoaded &&
                         <>
-                            <button id={styles.activityTab}>
+                            <button onClick={_ => setShowActivityTab(true)} onMouseLeave={event => { event.currentTarget.blur(); setShowActivityTab(false); }} id={styles.activityTab} ref={activityTabContainer}>
                                 {activityTab} <i style={{ paddingLeft: "8px" }} className="fa-solid fa-chevron-down" />
+                                {showActivityTab && <ul id={styles.activityTabs}>
+                                    <li onClick={event => {
+                                        event.stopPropagation();
+                                        setActivityTab("Following");
+                                        setShowActivityTab(false);
+                                        activityTabContainer.current.blur();
+                                    }}>Following</li>
+                                    <li onClick={event => {
+                                        event.stopPropagation();
+                                        setActivityTab("Club Activities");
+                                        setShowActivityTab(false);
+                                        activityTabContainer.current.blur();
+                                    }}>Club Activities</li>
+                                </ul>}
                             </button>
                             <ul id={styles.activityCards}>
                                 {activities.array.length > 0 ? activities.array.map(activity => {
