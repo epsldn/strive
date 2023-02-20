@@ -58,7 +58,7 @@ function AthleteShowcase() {
             let followList;
             switch (followingTab) {
                 case "followedBy": {
-                    tabName = athlete.id === user.id ? "Following Me" : `Follow ${athlete.firstName}`;
+                    tabName = athlete.id === user.id ? "Following Me" : `Following ${athlete.firstName}`;
                     followList = athlete.followers;
                     break;
                 }
@@ -77,7 +77,7 @@ function AthleteShowcase() {
                         <p>{tabName} <i style={{ color: "#666", marginLeft: "7px" }} className="fa-solid fa-caret-down" /></p>
                         {showFollowingTabs &&
                             <ul id={styles.followingTabsContainer}>
-                                <li onClick={event => changeFollowingTab(event, "followedBy")}>{athlete.id === user.id ? "Following Me" : `Follow ${athlete.firstName}`}</li>
+                                <li onClick={event => changeFollowingTab(event, "followedBy")}>{athlete.id === user.id ? "Following Me" : `Following ${athlete.firstName}`}</li>
                                 <li onClick={event => changeFollowingTab(event, "following")}>{athlete.id === user.id ? "I'm Following" : `${athlete.firstName} Is Following`}</li>
                             </ul>
                         }
@@ -87,8 +87,19 @@ function AthleteShowcase() {
                         {console.log(Object.values(followList))}
                         {Object.values(followList).map((athlete, idx) => {
                             return (
-                                <li>
-                                    {athlete.firstName}
+                                <li className={styles.followListChild}>
+                                    <div className={styles.followListChildLeft}>
+                                        <div className={styles.followListChildLeftImg}>
+                                            <img src={athlete.profilePicture} />
+                                        </div>
+                                        <div className={styles.followListChildName}>
+                                            <Link to={`/athletes/${athlete.id}`}><p>{athlete.firstName} {athlete.lastName}</p></Link>
+                                        </div>
+                                    </div>
+
+                                    <div styles={styles.followListChildRight}>
+
+                                    </div>
                                 </li>
                             );
                         })}
@@ -212,8 +223,13 @@ function AthleteShowcase() {
                     }
                 </div>
                 <p id={styles.name}>{athlete.firstName} {athlete.lastName}</p>
-
                 {athlete.id !== user.id &&
+                    athlete.id in user.follows ?
+                    <button id={styles.requestToFollow}
+                        onMouseOver={_ => setIsMouseOverFollowButton(true)}
+                        onMouseLeave={_ => setIsMouseOverFollowButton(false)}>
+                        {isMouseOverFollowButton ? "Unfollow" : "Following"}
+                    </button> :
                     (athlete.id in user.requests_sent ?
                         <button id={styles.requestToFollow}
                             onClick={cancelRequest}
