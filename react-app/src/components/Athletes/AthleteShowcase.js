@@ -199,8 +199,12 @@ function AthleteShowcase() {
         event.stopPropagation();
         event.preventDefault();
 
-        const response = await fetch("");
-        
+        const response = await fetch(`/api/users/${athlete.id}/unfollow`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        });
 
         if (response.ok) {
             const data = await response.json();
@@ -240,6 +244,7 @@ function AthleteShowcase() {
                 {athlete.id !== user.id &&
                     athlete.id in user.follows ?
                     <button id={styles.requestToFollow}
+                        onClick={unfollowUser}
                         onMouseOver={_ => setIsMouseOverFollowButton(true)}
                         onMouseLeave={_ => setIsMouseOverFollowButton(false)}>
                         {isMouseOverFollowButton ? "Unfollow" : "Following"}

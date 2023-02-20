@@ -30,14 +30,14 @@ def send_follow_request(ahtleteId):
         return jsonify({"error": "Requested user not found"}), 404
 
 
-@user_routes.route('/<int:ahtleteId>/unfollow', methods=["POST"])
+@user_routes.route('/<int:ahtleteId>/unfollow', methods=["DELETE"])
 @login_required
 def unfollow_user(ahtleteId):
     user = User.query.get(current_user.id)
     unfollowing = User.query.get(ahtleteId)
 
     if unfollowing:
-        user.requests_sent.remove(unfollowing)
+        user.followed.remove(unfollowing)
         db.session.commit()
         return jsonify({"user": {**current_user.to_dict(),  "followers": {follower.id: follower.activity_info() for follower in current_user.followed_by}, "follows": {followed.id: followed.activity_info() for followed in current_user.followed}}, "success": "Request to follow successfully sent"}), 201
     else:
