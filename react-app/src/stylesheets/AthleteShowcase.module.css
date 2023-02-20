@@ -216,6 +216,11 @@
     overflow: hidden;
 }
 
+
+.followListChildRight #requestToFollow {
+    margin-bottom: 0;
+}
+
 /*
 .fa-caret-down {
     color: var(--strive-border-lightgray)
@@ -273,8 +278,9 @@
     height: fit-content;
     width: 15rem;
     height: 3.4rem;
-    margin-bottom: 2rem;
+    margin-bottom: 2rem
 }
+
 
 #requestToFollow:hover {
     background-color: #e34a00;

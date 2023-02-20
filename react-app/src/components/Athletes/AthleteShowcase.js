@@ -7,6 +7,7 @@ import styles from "../../stylesheets/AthleteShowcase.module.css";
 import ClubImages from "../HomePage/ClubImages";
 import ActivityCard from "../HomePage/ActivityCard";
 import { authenticate, updateUser } from "../../store/session";
+import FollowingListItem from "./FollowingListItem";
 
 function AthleteShowcase() {
     const { athleteId } = useParams();
@@ -87,40 +88,7 @@ function AthleteShowcase() {
                         {console.log(Object.values(followList))}
                         {Object.values(followList).map((athlete, idx) => {
                             return (
-                                <li className={styles.followListChild}>
-                                    <div className={styles.followListChildLeft}>
-                                        <div className={styles.followListChildLeftImg}>
-                                            <img src={athlete.profilePicture} />
-                                        </div>
-                                        <div className={styles.followListChildName}>
-                                            <Link to={`/athletes/${athlete.id}`}><p>{athlete.firstName} {athlete.lastName}</p></Link>
-                                        </div>
-                                    </div>
-
-                                    <div styles={styles.followListChildRight}>
-                                        {athlete.id !== user.id ?
-                                            athlete.id in user.follows ?
-                                                <button id={styles.requestToFollow}
-                                                    onClick={unfollowUser}
-                                                    onMouseOver={_ => setIsMouseOverFollowButton(true)}
-                                                    onMouseLeave={_ => setIsMouseOverFollowButton(false)}>
-                                                    {isMouseOverFollowButton ? "Unfollow" : "Following"}
-                                                </button> :
-                                                (athlete.id in user.requests_sent ?
-                                                    <button id={styles.requestToFollow}
-                                                        onClick={cancelRequest}
-                                                        onMouseOver={_ => setIsMouseOverFollowButton(true)}
-                                                        onMouseLeave={_ => setIsMouseOverFollowButton(false)}>
-                                                        {isMouseOverFollowButton ? "Cancel request" : "Request Sent"}
-                                                    </button>
-                                                    :
-                                                    <button id={styles.requestToFollow}
-                                                        onClick={sendRequest}>
-                                                        Request to follow
-                                                    </button>) : null
-                                        }
-                                    </div>
-                                </li>
+                                <FollowingListItem user={user} athlete={athlete} unfollowUser={unfollowUser} cancelRequest={cancelRequest} sendRequest={sendRequest} styles={styles} />
                             );
                         })}
                     </ul>
