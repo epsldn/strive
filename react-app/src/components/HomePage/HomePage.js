@@ -16,6 +16,7 @@ function HomePage() {
     const activities = useSelector(state => state.activities);
     const history = useHistory();
     const [isLoaded, setIsLoaded] = useState(false);
+    const [activityTab, setActivityTab] = useState("Club Activity");
     document.title = `Home | Strive`;
     return (
         <div className={styles.outerContainer}>
@@ -67,19 +68,24 @@ function HomePage() {
                 </div>
                 <div className={styles.mainMiddle}>
                     {isLoaded &&
-                        <ul id={styles.activityCards}>
-                            {activities.array.length > 0 ? activities.array.map(activity => {
-                                return (
-                                    <li key={activity.id} className={styles.activityCard}><ActivityCard activity={activity} /></li>
-                                );
-                            }) :
-                                ["No Activities"].map(activity => {
+                        <>
+                            <button id={styles.activityTab}>
+                                {activityTab} <i style={{ paddingLeft: "8px" }} className="fa-solid fa-chevron-down" />
+                            </button>
+                            <ul id={styles.activityCards}>
+                                {activities.array.length > 0 ? activities.array.map(activity => {
                                     return (
                                         <li key={activity.id} className={styles.activityCard}><ActivityCard activity={activity} /></li>
                                     );
-                                })
-                            }
-                        </ul>
+                                }) :
+                                    ["No Activities"].map(activity => {
+                                        return (
+                                            <li key={activity.id} className={styles.activityCard}><ActivityCard activity={activity} /></li>
+                                        );
+                                    })
+                                }
+                            </ul>
+                        </>
                     }
                 </div>
                 <div className={styles.mainSides} id={styles.rightSide}>

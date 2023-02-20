@@ -6,8 +6,7 @@ import styles from "../../stylesheets/AthleteShowcase.module.css";
 function FollowingListItem({ user, athlete, unfollowUser, cancelRequest, sendRequest, acceptRequest }) {
     const [isMouseOverFollowButton, setIsMouseOverFollowButton] = useState(false);
     const { athleteId } = useParams();
-
-    const dispatch = useDispatch();
+    
     return (
         <li className={styles.followListChild}>
             <div className={styles.followListChildLeft}>
