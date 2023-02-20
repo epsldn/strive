@@ -19,12 +19,40 @@ user_routes = Blueprint('users', __name__)
 @user_routes.route('/<int:ahtleteId>/request-follow', methods=["POST"])
 @login_required
 def send_follow_request(ahtleteId):
-    print(current_user.id)
     user = User.query.get(current_user.id)
     follow_requested = User.query.get(ahtleteId)
 
     if follow_requested:
         user.requests_sent.append(follow_requested)
+        db.session.commit()
+        return jsonify({"user": {**current_user.to_dict(),  "followers": {follower.id: follower.activity_info() for follower in current_user.followed_by}, "follows": {followed.id: followed.activity_info() for followed in current_user.followed}}, "success": "Request to follow successfully sent"}), 201
+    else:
+        return jsonify({"error": "Requested user not found"}), 404
+
+
+@user_routes.route('/<int:ahtleteId>/accept-follow', methods=["POST"])
+@login_required
+def accept_follow_request(ahtleteId):
+    user = User.query.get(current_user.id)
+    requestor = User.query.get(ahtleteId)
+
+    if requestor:
+        user.followed_by.append(requestor)
+        user.requests.remove(requestor)
+        db.session.commit()
+        return jsonify({"user": {**current_user.to_dict(),  "followers": {follower.id: follower.activity_info() for follower in current_user.followed_by}, "follows": {followed.id: followed.activity_info() for followed in current_user.followed}}, "success": "Request to follow successfully sent"}), 201
+    else:
+        return jsonify({"error": "Requested user not found"}), 404
+
+
+@user_routes.route('/<int:ahtleteId>/unfollow', methods=["DELETE"])
+@login_required
+def unfollow_user(ahtleteId):
+    user = User.query.get(current_user.id)
+    unfollowing = User.query.get(ahtleteId)
+
+    if unfollowing:
+        user.followed.remove(unfollowing)
         db.session.commit()
         return jsonify({"user": {**current_user.to_dict(),  "followers": {follower.id: follower.activity_info() for follower in current_user.followed_by}, "follows": {followed.id: followed.activity_info() for followed in current_user.followed}}, "success": "Request to follow successfully sent"}), 201
     else:

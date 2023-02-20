@@ -176,9 +176,52 @@
     border-bottom: 1px solid var(--strive-border-lightgray)
 }
 
-#followList{
-    
+#followList {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    gap: 1px;
+    background-color: var(--strive-border-lightgray);
 }
+
+.followListChild {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    background-color: white;
+}
+
+.followListChildLeft,
+.followListChildRight {
+    display: flex;
+    column-gap: 16px;
+    font-size: 16px;
+}
+
+.followListChildLeft {
+    color: var(--strive-hyperlink-blue)
+}
+
+.followListChildName:hover {
+    text-decoration: underline;
+    color: var(--strive-hyperlink-darkblue);
+    cursor: pointer;
+}
+
+
+.followListChildLeftImg {
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    overflow: hidden;
+}
+
+
+.followListChildRight #requestToFollow,
+.followListChildRight #acceptRequest {
+    margin-bottom: 0;
+}
+
 /*
 .fa-caret-down {
     color: var(--strive-border-lightgray)
@@ -225,7 +268,8 @@
     background-color: white;
 }
 
-#requestToFollow {
+#requestToFollow,
+#acceptRequest {
     background-color: var(--strive-international-orange);
     color: white;
     font-weight: 700;
@@ -236,7 +280,17 @@
     height: fit-content;
     width: 15rem;
     height: 3.4rem;
-    margin-bottom: 2rem;
+    margin-bottom: 2rem
+}
+
+#acceptRequest {
+    color: black;
+    background-color: white;
+    border: 1px solid var(--strive-border-lightgray);
+}
+
+#acceptRequest:hover {
+    background-color: var(--strive-body-fill);
 }
 
 #requestToFollow:hover {
