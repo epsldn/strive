@@ -23,6 +23,21 @@ def get_activities():
     return jsonify(activites)
 
 
+@activity_routes.route("/following-activities")
+@login_required
+def get_following_activities():
+    athletes = set([])
+
+    [athletes.add(athlete) for athlete in current_user.followed]
+
+    activites = Activity.query.filter(Activity.user_id.in_(
+        [athlete.id for athlete in athletes])).filter(Activity.date <= datetime.now()).order_by(Activity.date.desc(), Activity.time.desc()).all()
+
+    activites = [activity.to_dict() for activity in activites]
+
+    return jsonify(activites)
+
+
 @activity_routes.route("/", methods=["POST"])
 @login_required
 def create_activity():
