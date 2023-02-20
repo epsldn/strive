@@ -30,10 +30,26 @@ function HomePage() {
                     <div id={styles.profileInformation}>
                         <Link to={`/athletes/${user.id}`} id={styles.userName}>{user?.firstName}{" "}{user?.lastName}</Link>
                         <div id={styles.profileInformationStats}>
-                            <div className={styles.statContainer}>
-                                <p>Activities</p>
-                                <p>{user?.total_activitites}</p>
-                            </div>
+                            <Link to={`/athletes/${user.id}`} currentTab="following" followingTab="following">
+                                <div className={styles.statContainer}>
+                                    <p>Following</p>
+                                    <p>{Object.values(user?.follows).length}</p>
+                                </div>
+                            </Link>
+
+                            <Link to={`/athletes/${user.id}`} currentTab="following" followingTab="following">
+                                <div className={styles.statContainer}>
+                                    <p>Followers</p>
+                                    <p>{Object.values(user?.followers).length}</p>
+                                </div>
+                            </Link>
+
+                            <Link to={`/athletes/${user.id}`} currentTab="following" followingTab="following">
+                                <div className={styles.statContainer}>
+                                    <p>Activities</p>
+                                    <p>{user?.total_activitites}</p>
+                                </div>
+                            </Link>
                         </div>
                     </div>
                     {user?.last_activity && <div id={styles.latestActivity}>

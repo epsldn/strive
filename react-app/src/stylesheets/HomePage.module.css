@@ -98,6 +98,20 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 0 16px;
+}
+
+.statContainer> :nth-child(2):hover {
+    cursor: pointer;
+    color: var(--strive-hyperlink-darkblue);
+}
+
+#profileInformationStats> :first-child {
+    border-right: 1px solid var(--strive-border-lightgray);
+}
+
+#profileInformationStats> :last-child {
+    border-left: 1px solid var(--strive-border-lightgray)
 }
 
 .statContainer :first-child {
