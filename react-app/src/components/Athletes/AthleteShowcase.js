@@ -98,7 +98,27 @@ function AthleteShowcase() {
                                     </div>
 
                                     <div styles={styles.followListChildRight}>
-
+                                        {athlete.id !== user.id ?
+                                            athlete.id in user.follows ?
+                                                <button id={styles.requestToFollow}
+                                                    onClick={unfollowUser}
+                                                    onMouseOver={_ => setIsMouseOverFollowButton(true)}
+                                                    onMouseLeave={_ => setIsMouseOverFollowButton(false)}>
+                                                    {isMouseOverFollowButton ? "Unfollow" : "Following"}
+                                                </button> :
+                                                (athlete.id in user.requests_sent ?
+                                                    <button id={styles.requestToFollow}
+                                                        onClick={cancelRequest}
+                                                        onMouseOver={_ => setIsMouseOverFollowButton(true)}
+                                                        onMouseLeave={_ => setIsMouseOverFollowButton(false)}>
+                                                        {isMouseOverFollowButton ? "Cancel request" : "Request Sent"}
+                                                    </button>
+                                                    :
+                                                    <button id={styles.requestToFollow}
+                                                        onClick={sendRequest}>
+                                                        Request to follow
+                                                    </button>) : null
+                                        }
                                     </div>
                                 </li>
                             );
@@ -146,12 +166,11 @@ function AthleteShowcase() {
         });
 
         if (res.ok) {
-            fetch(`/api/users/${athleteId}`)
-                .then(response => response.json())
-                .then(athlete => setAthlete(athlete));
-            const updatedAthlete = await res.json();
-            await dispatch(authenticate());
-            setAthlete(updatedAthlete);
+            const data = await res.json();
+            setIsLoaded(false);
+            dispatch(updateUser(data.user));
+            setAthlete(data.user);
+            setIsLoaded(true);
         }
         else {
             const errors = await res.json();
@@ -159,11 +178,11 @@ function AthleteShowcase() {
         }
     }
 
-    async function sendRequest(event) {
+    async function sendRequest(event, id = athlete.id) {
         event.stopPropagation();
         event.preventDefault();
 
-        const response = await fetch(`/api/users/${athlete.id}/request-follow`, {
+        const response = await fetch(`/api/users/${id}/request-follow`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -176,12 +195,12 @@ function AthleteShowcase() {
         }
     }
 
-    async function cancelRequest(event) {
+    async function cancelRequest(event, id = athlete.id) {
         event.stopPropagation();
         event.preventDefault();
 
 
-        const response = await fetch(`/api/users/${athlete.id}/request-follow`, {
+        const response = await fetch(`/api/users/${id}/request-follow`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
@@ -195,11 +214,11 @@ function AthleteShowcase() {
 
     }
 
-    async function unfollowUser(event) {
+    async function unfollowUser(event, id = athlete.id) {
         event.stopPropagation();
         event.preventDefault();
 
-        const response = await fetch(`/api/users/${athlete.id}/unfollow`, {
+        const response = await fetch(`/api/users/${id}/unfollow`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
@@ -241,26 +260,26 @@ function AthleteShowcase() {
                     }
                 </div>
                 <p id={styles.name}>{athlete.firstName} {athlete.lastName}</p>
-                {athlete.id !== user.id &&
+                {athlete.id !== user.id ?
                     athlete.id in user.follows ?
-                    <button id={styles.requestToFollow}
-                        onClick={unfollowUser}
-                        onMouseOver={_ => setIsMouseOverFollowButton(true)}
-                        onMouseLeave={_ => setIsMouseOverFollowButton(false)}>
-                        {isMouseOverFollowButton ? "Unfollow" : "Following"}
-                    </button> :
-                    (athlete.id in user.requests_sent ?
                         <button id={styles.requestToFollow}
-                            onClick={cancelRequest}
+                            onClick={unfollowUser}
                             onMouseOver={_ => setIsMouseOverFollowButton(true)}
                             onMouseLeave={_ => setIsMouseOverFollowButton(false)}>
-                            {isMouseOverFollowButton ? "Cancel request" : "Request Sent"}
-                        </button>
-                        :
-                        <button id={styles.requestToFollow}
-                            onClick={sendRequest}>
-                            Request to follow
-                        </button>)
+                            {isMouseOverFollowButton ? "Unfollow" : "Following"}
+                        </button> :
+                        (athlete.id in user.requests_sent ?
+                            <button id={styles.requestToFollow}
+                                onClick={cancelRequest}
+                                onMouseOver={_ => setIsMouseOverFollowButton(true)}
+                                onMouseLeave={_ => setIsMouseOverFollowButton(false)}>
+                                {isMouseOverFollowButton ? "Cancel request" : "Request Sent"}
+                            </button>
+                            :
+                            <button id={styles.requestToFollow}
+                                onClick={sendRequest}>
+                                Request to follow
+                            </button>) : null
                 }
 
                 <div className={styles.mainInfoContainer}>

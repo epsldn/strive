@@ -31,7 +31,7 @@ def user_profile():
 
     db.session.commit()
 
-    return jsonify(user.to_dict()), 200
+    return jsonify({"user": {**current_user.to_dict(),  "followers": {follower.id: follower.activity_info() for follower in current_user.followed_by}, "follows": {followed.id: followed.activity_info() for followed in current_user.followed}}, "success": "Request to follow successfully sent"}), 201
 
 
 @image_routes.route("/club-images/", methods=["POST"])
