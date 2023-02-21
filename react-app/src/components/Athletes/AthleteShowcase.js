@@ -88,7 +88,6 @@ function AthleteShowcase() {
                     </button >
 
                     <ul id={styles.followList}>
-                        {console.log(Object.values(followList))}
                         {Object.values(followList).map((athlete, idx) => {
                             return (
                                 <FollowingListItem user={user} athlete={athlete} unfollowUser={unfollowUser} cancelRequest={cancelRequest} sendRequest={sendRequest} styles={styles} acceptRequest={acceptRequest} />

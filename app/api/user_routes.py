@@ -62,7 +62,6 @@ def unfollow_user(ahtleteId):
 @user_routes.route('/<int:ahtleteId>/request-follow', methods=["DELETE"])
 @login_required
 def cancel_follow_request(ahtleteId):
-    print(current_user.id)
     user = User.query.get(current_user.id)
     follow_requested = User.query.get(ahtleteId)
 
