@@ -43,6 +43,16 @@ export const fetchActivities = () => async dispatch => {
     }
 };
 
+export const fetchFollowActivities = () => async dispatch => {
+    const response = await fetch("/api/activities//following-activities");
+    const data = await response.json();
+    if (response.ok) {
+        dispatch(setActivitiesStore(data));
+    } else {
+        return data;
+    }
+};
+
 export const createActivity = (activity) => async dispatch => {
     const response = await fetch("/api/activities/", {
         method: "POST",

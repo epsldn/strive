@@ -1,14 +1,15 @@
 import MainNavBar from "../MainNavBar";
 import defaultProfile from "../../assets/defaultProfile.png";
 import styles from "../../stylesheets/HomePage.module.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import TimeAgo from "javascript-time-ago";
 import ReactTimeAgo from "react-time-ago";
-import { useState } from "react";
+import { useContext, useRef, useState } from "react";
 import en from "javascript-time-ago/locale/en.json";
 import ActivityCard from "./ActivityCard";
 import ClubImages from "./ClubImages";
+import { fetchActivities, fetchFollowActivities } from "../../store/activities";
 TimeAgo.addDefaultLocale(en);
 
 function HomePage() {
@@ -16,6 +17,11 @@ function HomePage() {
     const activities = useSelector(state => state.activities);
     const history = useHistory();
     const [isLoaded, setIsLoaded] = useState(false);
+    const [activityTab, setActivityTab] = useState("Club Activity");
+    const [showActivityTab, setShowActivityTab] = useState(false);
+    const activityTabContainer = useRef(null);
+    const dispatch = useDispatch();
+
     document.title = `Home | Strive`;
     return (
         <div className={styles.outerContainer}>
@@ -30,10 +36,26 @@ function HomePage() {
                     <div id={styles.profileInformation}>
                         <Link to={`/athletes/${user.id}`} id={styles.userName}>{user?.firstName}{" "}{user?.lastName}</Link>
                         <div id={styles.profileInformationStats}>
-                            <div className={styles.statContainer}>
-                                <p>Activities</p>
-                                <p>{user?.total_activitites}</p>
-                            </div>
+                            <Link to={{ pathname: `/athletes/${user.id}`, state: { currentTab: "following", followingTab: "following" } }} currentTab="following" followingTab="following">
+                                <div className={styles.statContainer}>
+                                    <p>Following</p>
+                                    <p>{Object.values(user?.follows).length}</p>
+                                </div>
+                            </Link>
+
+                            <Link to={{ pathname: `/athletes/${user.id}`, state: { currentTab: "following", followingTab: "followedBy" } }} currentTab="following" followingTab="following">
+                                <div className={styles.statContainer}>
+                                    <p>Followers</p>
+                                    <p>{Object.values(user?.followers).length}</p>
+                                </div>
+                            </Link>
+
+                            <Link to={{ pathname: `/athletes/${user.id}` }} currentTab="following" followingTab="following">
+                                <div className={styles.statContainer}>
+                                    <p>Activities</p>
+                                    <p>{user?.total_activitites}</p>
+                                </div>
+                            </Link>
                         </div>
                     </div>
                     {user?.last_activity && <div id={styles.latestActivity}>
@@ -51,19 +73,40 @@ function HomePage() {
                 </div>
                 <div className={styles.mainMiddle}>
                     {isLoaded &&
-                        <ul id={styles.activityCards}>
-                            {activities.array.length > 0 ? activities.array.map(activity => {
-                                return (
-                                    <li key={activity.id} className={styles.activityCard}><ActivityCard activity={activity} /></li>
-                                );
-                            }) :
-                                ["No Activities"].map(activity => {
+                        <>
+                            <button onClick={_ => setShowActivityTab(true)} onMouseLeave={event => { event.currentTarget.blur(); setShowActivityTab(false); }} id={styles.activityTab} ref={activityTabContainer}>
+                                {activityTab} <i style={{ paddingLeft: "8px" }} className="fa-solid fa-chevron-down" />
+                                {showActivityTab && <ul id={styles.activityTabs}>
+                                    <li onClick={event => {
+                                        event.stopPropagation();
+                                        setActivityTab("Following");
+                                        setShowActivityTab(false);
+                                        dispatch(fetchFollowActivities());
+                                        activityTabContainer.current.blur();
+                                    }}>Following</li>
+                                    <li onClick={event => {
+                                        event.stopPropagation();
+                                        setActivityTab("Club Activities");
+                                        setShowActivityTab(false);
+                                        dispatch(fetchActivities());
+                                        activityTabContainer.current.blur();
+                                    }}>Club Activities</li>
+                                </ul>}
+                            </button>
+                            <ul id={styles.activityCards}>
+                                {activities.array.length > 0 ? activities.array.map(activity => {
                                     return (
                                         <li key={activity.id} className={styles.activityCard}><ActivityCard activity={activity} /></li>
                                     );
-                                })
-                            }
-                        </ul>
+                                }) :
+                                    ["No Activities"].map(activity => {
+                                        return (
+                                            <li key={activity.id} className={styles.activityCard}><ActivityCard activity={activity} /></li>
+                                        );
+                                    })
+                                }
+                            </ul>
+                        </>
                     }
                 </div>
                 <div className={styles.mainSides} id={styles.rightSide}>
