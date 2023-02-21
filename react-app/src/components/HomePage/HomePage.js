@@ -1,7 +1,7 @@
 import MainNavBar from "../MainNavBar";
 import defaultProfile from "../../assets/defaultProfile.png";
 import styles from "../../stylesheets/HomePage.module.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import TimeAgo from "javascript-time-ago";
 import ReactTimeAgo from "react-time-ago";
@@ -9,6 +9,7 @@ import { useContext, useRef, useState } from "react";
 import en from "javascript-time-ago/locale/en.json";
 import ActivityCard from "./ActivityCard";
 import ClubImages from "./ClubImages";
+import { fetchActivities, fetchFollowActivities } from "../../store/activities";
 TimeAgo.addDefaultLocale(en);
 
 function HomePage() {
@@ -19,6 +20,8 @@ function HomePage() {
     const [activityTab, setActivityTab] = useState("Club Activity");
     const [showActivityTab, setShowActivityTab] = useState(false);
     const activityTabContainer = useRef(null);
+    const dispatch = useDispatch();
+
     document.title = `Home | Strive`;
     return (
         <div className={styles.outerContainer}>
@@ -78,12 +81,14 @@ function HomePage() {
                                         event.stopPropagation();
                                         setActivityTab("Following");
                                         setShowActivityTab(false);
+                                        dispatch(fetchFollowActivities());
                                         activityTabContainer.current.blur();
                                     }}>Following</li>
                                     <li onClick={event => {
                                         event.stopPropagation();
                                         setActivityTab("Club Activities");
                                         setShowActivityTab(false);
+                                        dispatch(fetchActivities());
                                         activityTabContainer.current.blur();
                                     }}>Club Activities</li>
                                 </ul>}
